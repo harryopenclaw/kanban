@@ -109,6 +109,7 @@ export default function Column({
                 key={cardId}
                 id={cardId}
                 title={card.title}
+                subtitle={card.subtitle || null}
                 color={card.color || null}
                 dueDate={card.dueDate || null}
                 onDelete={onDeleteCard}

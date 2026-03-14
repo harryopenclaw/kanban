@@ -46,6 +46,7 @@ function formatDate(dueDate) {
 export default function Card({
   id,
   title,
+  subtitle,
   color,
   dueDate,
   onDelete,
@@ -145,7 +146,12 @@ export default function Card({
           className="w-full bg-gray-600 text-gray-100 text-sm rounded px-1 py-0.5 outline-none ring-1 ring-blue-500"
         />
       ) : (
-        <span className="text-sm text-gray-100 break-words pr-6">{title}</span>
+        <div className="pr-6">
+          <span className="text-sm text-gray-100 break-words">{title}</span>
+          {subtitle && (
+            <p className="text-xs text-gray-400 mt-0.5 break-words">{subtitle}</p>
+          )}
+        </div>
       )}
 
       {/* ⋯ menu button */}
