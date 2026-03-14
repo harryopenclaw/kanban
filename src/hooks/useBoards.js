@@ -1,9 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 
-const STORAGE_KEY = "kanban-boards";
-const OLD_STORAGE_KEY = "kanban-board";
+const STORAGE_KEY = "properbarber-boards";
 
-const KNOWN_SLUGS = { "board-1": "immediac", "board-2": "properbarber" };
+const KNOWN_SLUGS = { "board-1": "properbarber" };
 
 function generateSlug(name) {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
@@ -28,28 +27,6 @@ function boardIdFromHash(boards) {
 }
 
 const defaultBoard1Cards = {
-  "card-1":  { id: "card-1",  title: "ERP + Scheduler" },
-  "card-2":  { id: "card-2",  title: "AI Brand" },
-  "card-3":  { id: "card-3",  title: "Content Strategy — The Culture" },
-  "card-4":  { id: "card-4",  title: "SRED Application" },
-  "card-5":  { id: "card-5",  title: "MBI" },
-  "card-6":  { id: "card-6",  title: "BCP" },
-  "card-7":  { id: "card-7",  title: "Enterprise Architecture (EA)" },
-  "card-8":  { id: "card-8",  title: "Dist — GTM Channel" },
-  "card-9":  { id: "card-9",  title: "Top Client Outreach" },
-  "card-10": { id: "card-10", title: "immediac — Sales Funnel" },
-  "card-11": { id: "card-11", title: "iGnight Game Day (12/4)" },
-  "card-12": { id: "card-12", title: "TFP$ — S/E & O/W/P" },
-};
-
-const defaultBoard1Columns = [
-  { id: "col-1", title: "Companies", cardIds: ["card-4", "card-5", "card-6", "card-7", "card-12"] },
-  { id: "col-2", title: "In Progress", cardIds: ["card-1", "card-2", "card-8"] },
-  { id: "col-3", title: "Review", cardIds: ["card-9", "card-10", "card-3"] },
-  { id: "col-4", title: "Done", cardIds: ["card-11"] },
-];
-
-const defaultBoard2Cards = {
   "pb-200": {
     "id": "pb-200",
     "title": "Kabi Thana",
@@ -392,7 +369,7 @@ const defaultBoard2Cards = {
   }
 };
 
-const defaultBoard2Columns = [
+const defaultBoard1Columns = [
   {
     "id": "col-b2-1",
     "title": "Did Not Finish Sign Up",
@@ -489,8 +466,7 @@ const defaultBoard2Columns = [
 
 function buildDefaultState() {
   const boards = [
-    { id: "board-1", name: "immediac CEO Massive Action Plan", slug: "immediac" },
-    { id: "board-2", name: "ProperBarber GTM Client Engagement", slug: "properbarber" },
+    { id: "board-1", name: "Proper Barber", slug: "properbarber" },
   ];
   const activeBoardId = boardIdFromHash(boards) || "board-1";
   return {
@@ -498,7 +474,6 @@ function buildDefaultState() {
     activeBoardId,
     data: {
       "board-1": { columns: defaultBoard1Columns, cards: defaultBoard1Cards },
-      "board-2": { columns: defaultBoard2Columns, cards: defaultBoard2Cards },
     },
   };
 }
@@ -513,30 +488,6 @@ function loadState() {
         const hashId = boardIdFromHash(parsed.boards);
         if (hashId) parsed.activeBoardId = hashId;
         return parsed;
-      }
-    }
-  } catch {}
-
-  // Migration: check for old single-board data
-  try {
-    const oldRaw = localStorage.getItem(OLD_STORAGE_KEY);
-    if (oldRaw) {
-      const oldData = JSON.parse(oldRaw);
-      if (oldData.columns && oldData.cards) {
-        const migBoards = [
-          { id: "board-1", name: "immediac CEO Massive Action Plan", slug: "immediac" },
-          { id: "board-2", name: "ProperBarber GTM Client Engagement", slug: "properbarber" },
-        ];
-        const state = {
-          boards: migBoards,
-          activeBoardId: boardIdFromHash(migBoards) || "board-1",
-          data: {
-            "board-1": { columns: oldData.columns, cards: oldData.cards },
-            "board-2": { columns: defaultBoard2Columns, cards: defaultBoard2Cards },
-          },
-        };
-        localStorage.removeItem(OLD_STORAGE_KEY);
-        return state;
       }
     }
   } catch {}
