@@ -28,323 +28,323 @@ const defaultBoard1Columns = [
 const defaultBoard2Cards = {
   "pb-200": {
     "id": "pb-200",
-    "title": "Michael Mailman",
-    "subtitle": "mmailman@allumiqs.com"
+    "title": "Kabi Thana",
+    "subtitle": "📅 Mar 6 · Booked same day"
   },
   "pb-201": {
     "id": "pb-201",
-    "title": "Michael Mailman",
-    "subtitle": "m.mailman@bluecharm.io"
+    "title": "Mark B",
+    "subtitle": "📅 Jan 31 · Booked same day"
   },
   "pb-202": {
     "id": "pb-202",
-    "title": "Filippe Garcia Heringer",
-    "subtitle": "fgheringer@gmail.com"
+    "title": "Shawn Hirtle",
+    "subtitle": "📅 Feb 17 · Booked same day"
   },
   "pb-203": {
     "id": "pb-203",
-    "title": "Ashoke Mohanraj",
-    "subtitle": "ashokemohanraj@hotmail.com"
+    "title": "Mike Roberts",
+    "subtitle": "📅 Jan 20 · Booked same day"
   },
   "pb-204": {
     "id": "pb-204",
-    "title": "Jennifer",
-    "subtitle": "jenn.backman@gmail.com"
+    "title": "Rick Balys",
+    "subtitle": "📅 Jan 29 · Booked same day"
   },
   "pb-205": {
     "id": "pb-205",
-    "title": "Mike Coldwell",
-    "subtitle": "michael.coldwell@dal.ca"
+    "title": "Jason Doucet",
+    "subtitle": "📅 Jan 24 · Booked same day"
   },
   "pb-206": {
     "id": "pb-206",
-    "title": "Aaron Trask",
-    "subtitle": "aaronstrask1973@gmail.com"
+    "title": "Evan",
+    "subtitle": "📅 Feb 19 · Booked same day"
   },
   "pb-207": {
     "id": "pb-207",
-    "title": "Travis McDonough",
-    "subtitle": "travis.mcdonough@wellnify.ai"
+    "title": "Alper",
+    "subtitle": "📅 Jan 20 · Booked same day"
   },
   "pb-208": {
     "id": "pb-208",
-    "title": "Paul Ryan",
-    "subtitle": "pryan2112@gmail.com"
+    "title": "Dr. Neil  Smith",
+    "subtitle": "📅 Feb 13 · Booked same day"
   },
   "pb-209": {
     "id": "pb-209",
-    "title": "David Regan",
-    "subtitle": "david.regan@insead.edu"
+    "title": "Dan Weir",
+    "subtitle": "📅 Feb 19 · Booked same day"
   },
   "pb-210": {
     "id": "pb-210",
-    "title": "Manny",
-    "subtitle": "mankeert.dhillon@gmail.com"
+    "title": "Michael D. Mailman",
+    "subtitle": "📅 Jan 16 · Booked same day"
   },
   "pb-211": {
     "id": "pb-211",
-    "title": "Peter zablocki",
-    "subtitle": "peterzablocki@hotmail.com"
+    "title": "Mark Hewitt",
+    "subtitle": "📅 Feb 21 · Booked 1d after signup"
   },
   "pb-212": {
     "id": "pb-212",
     "title": "Andrew Foote",
-    "subtitle": "andrewfoote10@hotmail.com"
+    "subtitle": "📅 Mar 7 · Booked 1d after signup"
   },
   "pb-213": {
     "id": "pb-213",
-    "title": "Hamed Hanafi",
-    "subtitle": "hamed.hanafi@gmail.com"
+    "title": "Mark Gascoigne",
+    "subtitle": "📅 Jan 16 · Booked 1d after signup"
   },
   "pb-214": {
     "id": "pb-214",
-    "title": "Lane Braidwood",
-    "subtitle": "lanebraidwood15@gmail.com"
+    "title": "Evan",
+    "subtitle": "📅 Jan 31 · Booked 1d after signup"
   },
   "pb-215": {
     "id": "pb-215",
-    "title": "Kabi Thana",
-    "subtitle": "kabithana@gmail.com"
+    "title": "Mike Evans",
+    "subtitle": "📅 Mar 5 · Booked 1d after signup"
   },
   "pb-216": {
     "id": "pb-216",
-    "title": "Mike Evans",
-    "subtitle": "mikeevans98@hotmail.com"
+    "title": "Filippe Garcia Heringer",
+    "subtitle": "📅 Mar 13 · Booked 1d after signup"
   },
   "pb-217": {
     "id": "pb-217",
-    "title": "Derek Gentile",
-    "subtitle": "gentilederek11@hotmail.com"
+    "title": "Mike Coldwell",
+    "subtitle": "📅 Mar 20 · Booked 10d after signup"
   },
   "pb-218": {
     "id": "pb-218",
-    "title": "Derek  Martin",
-    "subtitle": "derek.martin@hfxwanderersfc.ca"
+    "title": "Ashoke Mohanraj",
+    "subtitle": "📅 Mar 24 · Booked 12d after signup"
   },
   "pb-219": {
     "id": "pb-219",
-    "title": "Fred Wien",
-    "subtitle": "frederic.wien@dal.ca"
+    "title": "Aaron Trask",
+    "subtitle": "📅 Mar 28 · Booked 19d after signup"
   },
   "pb-220": {
     "id": "pb-220",
-    "title": "Paul Banks",
-    "subtitle": "pbanks2101@gmail.com"
+    "title": "Alwaleed  Alshahir",
+    "subtitle": "📅 Feb 7 · Booked 2d after signup"
   },
   "pb-221": {
     "id": "pb-221",
-    "title": "Mark Hewitt",
-    "subtitle": "mhewitt@dal.ca"
+    "title": "Caleb",
+    "subtitle": "📅 Jan 24 · Booked 2d after signup"
   },
   "pb-222": {
     "id": "pb-222",
-    "title": "Dan Weir",
-    "subtitle": "danhgweir@gmail.com"
+    "title": "Jed",
+    "subtitle": "📅 Feb 12 · Booked 2d after signup"
   },
   "pb-223": {
     "id": "pb-223",
-    "title": "Evan",
-    "subtitle": "evanrose12@gmail.com"
+    "title": "Derek Gentile",
+    "subtitle": "📅 Mar 3 · Booked 20d after signup"
   },
   "pb-224": {
     "id": "pb-224",
-    "title": "Shawn Hirtle",
-    "subtitle": "hirtleshawn@gmail.com"
+    "title": "Tim Gillis",
+    "subtitle": "📅 Mar 5 · Booked 20d after signup"
   },
   "pb-225": {
     "id": "pb-225",
-    "title": "Peter Hickey",
-    "subtitle": "peterghickey@gmail.com"
+    "title": "Saadat",
+    "subtitle": "📅 Feb 20 · Booked 22d after signup"
   },
   "pb-226": {
     "id": "pb-226",
-    "title": "Tim Gillis",
-    "subtitle": "tcgillis@yahoo.ca"
+    "title": "Dr. Greg Patey",
+    "subtitle": "📅 Feb 19 · Booked 24d after signup"
   },
   "pb-227": {
     "id": "pb-227",
-    "title": "Dr. Neil  Smith",
-    "subtitle": "neilsmithmd@gmail.com"
+    "title": "Paul Banks",
+    "subtitle": "📅 Mar 17 · Booked 24d after signup"
   },
   "pb-228": {
     "id": "pb-228",
-    "title": "Neil Smith",
-    "subtitle": "neilsmithdr@gmail.com"
+    "title": "Paul Ryan",
+    "subtitle": "📅 Apr 2 · Booked 24d after signup"
   },
   "pb-229": {
     "id": "pb-229",
-    "title": "Shahin",
-    "subtitle": "shahin@tabrizi.com"
+    "title": "Tommy",
+    "subtitle": "📅 Mar 6 · Booked 28d after signup"
   },
   "pb-230": {
     "id": "pb-230",
-    "title": "Bruce G Keys",
-    "subtitle": "bkeys@eastlink.ca"
+    "title": "Peter Hickey",
+    "subtitle": "📅 Feb 17 · Booked 3d after signup"
   },
   "pb-231": {
     "id": "pb-231",
-    "title": "Derek Gentile",
-    "subtitle": "gentilederek11@hotmail.com"
+    "title": "Nathan Kroll",
+    "subtitle": "📅 Jan 23 · Booked 3d after signup"
   },
   "pb-232": {
     "id": "pb-232",
-    "title": "sid",
-    "subtitle": "siddharthbalachander@gmail.com"
+    "title": "Derek  Martin",
+    "subtitle": "📅 Mar 3 · Booked 3d after signup"
   },
   "pb-233": {
     "id": "pb-233",
-    "title": "Jed",
-    "subtitle": "jdouglas@currentstudios.ca"
+    "title": "Patrick Kervin",
+    "subtitle": "📅 Jan 23 · Booked 3d after signup"
   },
   "pb-234": {
     "id": "pb-234",
-    "title": "Karan",
-    "subtitle": "karanwariach45@gmail.com"
+    "title": "Hamed Hanafi",
+    "subtitle": "📅 Mar 10 · Booked 4d after signup"
   },
   "pb-235": {
     "id": "pb-235",
-    "title": "Peter Wong",
-    "subtitle": "pm@wongs.net.au"
+    "title": "Lane Braidwood",
+    "subtitle": "📅 Mar 10 · Booked 4d after signup"
   },
   "pb-236": {
     "id": "pb-236",
-    "title": "Tommy",
-    "subtitle": "Tommysmail@gmx.com"
+    "title": "David Regan",
+    "subtitle": "📅 Mar 13 · Booked 4d after signup"
   },
   "pb-237": {
     "id": "pb-237",
-    "title": "Bruce Lusby",
-    "subtitle": "bruce.lusby@premieremortgage.ca"
+    "title": "Brian Brewer",
+    "subtitle": "📅 Jan 24 · Booked 5d after signup"
   },
   "pb-238": {
     "id": "pb-238",
-    "title": "Alwaleed  Alshahir",
-    "subtitle": "alshahiralwaleed@gmail.com"
+    "title": "Bruce Lusby",
+    "subtitle": "📅 Feb 11 · Booked 5d after signup"
   },
   "pb-239": {
     "id": "pb-239",
-    "title": "Brittany R Hall",
-    "subtitle": "brittrachelhall@gmail.com"
+    "title": "Peter Wong",
+    "subtitle": "📅 Feb 12 · Booked 6d after signup"
   },
   "pb-240": {
     "id": "pb-240",
-    "title": "Mark B",
-    "subtitle": "mark4.barry4@gmail.com"
+    "title": "Shahin",
+    "subtitle": "📅 Feb 19 · Booked 7d after signup"
   },
   "pb-241": {
     "id": "pb-241",
-    "title": "Evan",
-    "subtitle": "ehalliday87@gmail.com"
+    "title": "Jacob LeBlanc",
+    "subtitle": "📅 Jan 28 · Booked 7d after signup"
   },
   "pb-242": {
     "id": "pb-242",
-    "title": "Jennifer",
-    "subtitle": "jennifer@properbarber.club"
+    "title": "Gregory Dunn",
+    "subtitle": "📅 Jan 29 · Booked 8d after signup"
   },
   "pb-243": {
     "id": "pb-243",
-    "title": "Rick Balys",
-    "subtitle": "rbalys@gmail.com"
+    "title": "James Farquhar",
+    "subtitle": "📅 Jan 30 · Booked 8d after signup"
   },
   "pb-244": {
     "id": "pb-244",
-    "title": "Saadat",
-    "subtitle": "saadat.qadri@gmail.com"
+    "title": "Colin Dillon",
+    "subtitle": "📅 Feb 3 · Booked 8d after signup"
   },
   "pb-245": {
     "id": "pb-245",
-    "title": "Colin Dillon",
-    "subtitle": "colin@dillonre.ca"
+    "title": "Neil Smith",
+    "subtitle": "No appointment yet"
   },
   "pb-246": {
     "id": "pb-246",
-    "title": "Dr. Greg Patey",
-    "subtitle": "glpatey@gmail.com"
+    "title": "Michael Mailman",
+    "subtitle": "No appointment yet"
   },
   "pb-247": {
     "id": "pb-247",
-    "title": "Jason Doucet",
-    "subtitle": "jdoucet1383@gmail.com"
+    "title": "Noah Dow",
+    "subtitle": "No appointment yet"
   },
   "pb-248": {
     "id": "pb-248",
-    "title": "Caleb",
-    "subtitle": "cl679294@dal.ca"
+    "title": "Manny",
+    "subtitle": "No appointment yet"
   },
   "pb-249": {
     "id": "pb-249",
-    "title": "James Farquhar",
-    "subtitle": "farquhar.james001@icloud.com"
+    "title": "Adam",
+    "subtitle": "No appointment yet"
   },
   "pb-250": {
     "id": "pb-250",
-    "title": "Jacob LeBlanc",
-    "subtitle": "jacob.leblanc@dal.ca"
+    "title": "sid",
+    "subtitle": "No appointment yet"
   },
   "pb-251": {
     "id": "pb-251",
-    "title": "Gregory Dunn",
-    "subtitle": "gdunn.cgd@gmail.com"
+    "title": "Jennifer",
+    "subtitle": "No appointment yet"
   },
   "pb-252": {
     "id": "pb-252",
-    "title": "Noah Dow",
-    "subtitle": "Noahdow1234@gmail.com"
+    "title": "Brittany R Hall",
+    "subtitle": "No appointment yet"
   },
   "pb-253": {
     "id": "pb-253",
     "title": "James",
-    "subtitle": "mckeejw13@gmail.com"
+    "subtitle": "No appointment yet"
   },
   "pb-254": {
     "id": "pb-254",
-    "title": "Patrick Kervin",
-    "subtitle": "pkervin@currentstudios.ca"
+    "title": "Nadeem Jan",
+    "subtitle": "No appointment yet"
   },
   "pb-255": {
     "id": "pb-255",
-    "title": "Adam",
-    "subtitle": "adamrostis@gmail.com"
+    "title": "Derek Gentile",
+    "subtitle": "No appointment yet"
   },
   "pb-256": {
     "id": "pb-256",
-    "title": "Mike Roberts",
-    "subtitle": "mroberts1705@gmail.com"
+    "title": "Karan",
+    "subtitle": "No appointment yet"
   },
   "pb-257": {
     "id": "pb-257",
-    "title": "Nathan Kroll",
-    "subtitle": "nkroll@currentstudios.ca"
+    "title": "Peter zablocki",
+    "subtitle": "No appointment yet"
   },
   "pb-258": {
     "id": "pb-258",
-    "title": "Alper",
-    "subtitle": "alperyuce98@gmail.com"
+    "title": "Michael Mailman",
+    "subtitle": "No appointment yet"
   },
   "pb-259": {
     "id": "pb-259",
-    "title": "Brian Brewer",
-    "subtitle": "bjbrewer@gmail.com"
+    "title": "Jennifer",
+    "subtitle": "No appointment yet"
   },
   "pb-260": {
     "id": "pb-260",
-    "title": "Nadeem Jan",
-    "subtitle": "abbas_nad@hotmail.com"
+    "title": "Fred Wien",
+    "subtitle": "No appointment yet"
   },
   "pb-261": {
     "id": "pb-261",
-    "title": "Michael D. Mailman",
-    "subtitle": "mdm@michaeldmailman.com"
+    "title": "Baljeet Singh",
+    "subtitle": "No appointment yet"
   },
   "pb-262": {
     "id": "pb-262",
-    "title": "Mark Gascoigne",
-    "subtitle": "mark@trampolinebranding.com"
+    "title": "Bruce G Keys",
+    "subtitle": "No appointment yet"
   },
   "pb-263": {
     "id": "pb-263",
-    "title": "Baljeet Singh",
-    "subtitle": "baljeet808singh@gmail.com"
+    "title": "Travis McDonough",
+    "subtitle": "No appointment yet"
   }
 };
 
@@ -353,88 +353,88 @@ const defaultBoard2Columns = [
     "id": "col-b2-1",
     "title": "Did Not Finish Sign Up",
     "cardIds": [
-      "pb-210",
-      "pb-217",
-      "pb-232",
-      "pb-234",
-      "pb-239",
-      "pb-242",
+      "pb-247",
+      "pb-248",
+      "pb-249",
+      "pb-250",
+      "pb-251",
       "pb-252",
       "pb-253",
-      "pb-260"
+      "pb-254",
+      "pb-255",
+      "pb-256"
     ]
   },
   {
     "id": "col-b2-2",
     "title": "Signed Up · No Appointment",
     "cardIds": [
-      "pb-200",
-      "pb-201",
-      "pb-202",
-      "pb-203",
-      "pb-204",
-      "pb-205",
-      "pb-206",
-      "pb-207",
-      "pb-208",
-      "pb-209",
-      "pb-211",
-      "pb-212",
-      "pb-213",
-      "pb-214",
-      "pb-215",
-      "pb-216",
-      "pb-218",
-      "pb-219"
+      "pb-245",
+      "pb-246",
+      "pb-257",
+      "pb-258",
+      "pb-259",
+      "pb-260",
+      "pb-261",
+      "pb-262",
+      "pb-263"
     ]
   },
   {
     "id": "col-b2-3",
     "title": "First Appointment Completed",
     "cardIds": [
+      "pb-200",
+      "pb-201",
+      "pb-202",
+      "pb-204",
+      "pb-206",
+      "pb-208",
+      "pb-209",
+      "pb-211",
+      "pb-212",
+      "pb-214",
+      "pb-215",
+      "pb-216",
+      "pb-217",
+      "pb-218",
+      "pb-219",
       "pb-220",
-      "pb-221",
       "pb-222",
       "pb-223",
       "pb-224",
       "pb-225",
-      "pb-226",
       "pb-227",
       "pb-228",
       "pb-229",
       "pb-230",
-      "pb-231",
-      "pb-233",
+      "pb-232",
+      "pb-234",
       "pb-235",
       "pb-236",
-      "pb-237",
       "pb-238",
-      "pb-240",
-      "pb-241",
-      "pb-243",
-      "pb-244"
+      "pb-239",
+      "pb-240"
     ]
   },
   {
     "id": "col-b2-4",
     "title": "Member for a Month",
     "cardIds": [
-      "pb-245",
-      "pb-246",
-      "pb-247",
-      "pb-248",
-      "pb-249",
-      "pb-250",
-      "pb-251",
-      "pb-254",
-      "pb-255",
-      "pb-256",
-      "pb-257",
-      "pb-258",
-      "pb-259",
-      "pb-261",
-      "pb-262",
-      "pb-263"
+      "pb-203",
+      "pb-205",
+      "pb-207",
+      "pb-210",
+      "pb-213",
+      "pb-221",
+      "pb-226",
+      "pb-231",
+      "pb-233",
+      "pb-237",
+      "pb-241",
+      "pb-242",
+      "pb-243",
+      "pb-244"
     ]
   }
 ];
@@ -476,7 +476,7 @@ function loadState() {
           activeBoardId: "board-1",
           data: {
             "board-1": { columns: oldData.columns, cards: oldData.cards },
-            "board-2": { columns: defaultBoard2Columns, cards: {} },
+            "board-2": { columns: defaultBoard2Columns, cards: defaultBoard2Cards },
           },
         };
         localStorage.removeItem(OLD_STORAGE_KEY);
