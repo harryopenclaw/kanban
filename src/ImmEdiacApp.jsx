@@ -8,7 +8,7 @@ import {
   closestCorners,
 } from "@dnd-kit/core";
 import Column from "./components/Column";
-import { useProperBarberBoard } from "./hooks/useProperBarberBoard";
+import { useImmEdiacBoard } from "./hooks/useImmEdiacBoard";
 
 const DRAG_COLOR_CLASSES = {
   red: "border-l-[3px] border-red-500 bg-red-900/40",
@@ -20,7 +20,7 @@ const DRAG_COLOR_CLASSES = {
   pink: "border-l-[3px] border-pink-500 bg-pink-900/40",
 };
 
-export default function App() {
+export default function ImmEdiacApp() {
   const {
     columns,
     cards,
@@ -33,7 +33,7 @@ export default function App() {
     deleteColumn,
     updateColumnTitle,
     moveCard,
-  } = useProperBarberBoard();
+  } = useImmEdiacBoard();
 
   const [activeId, setActiveId] = useState(null);
   const [addingColumn, setAddingColumn] = useState(false);
@@ -124,7 +124,7 @@ export default function App() {
     <div className="min-h-screen bg-gray-900 flex flex-col">
       <header className="px-6 py-4 border-b border-gray-800">
         <h1 className="text-lg font-bold text-gray-100 tracking-tight">
-          ProperBarber GTM Client Engagement
+          immediac CEO Massive Action Plan
         </h1>
       </header>
 
