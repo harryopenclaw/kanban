@@ -1,0 +1,74 @@
+Email,DisplayName,PhoneNumber,ExternalSignIn,StripeCustomerId,CreatedAt,SmsNotificationsEnabled,PreferencesJson,Status
+mmailman@allumiqs.com,Michael Mailman,9024495101,,cus_U8VLF6MFkvXucD,2026-03-12 18:52:10.6377154,false,"{""hairstyleType"":""Classic"",""barberTraits"":""Quick \u0026 Efficient""}",Active
+m.mailman@bluecharm.io,Michael Mailman,9024495101,,cus_U8VH0sRLkm3I7c,2026-03-12 18:48:13.3832323,false,"{""hairstyleType"":""Classic"",""barberTraits"":""Quick \u0026 Efficient""}",Active
+fgheringer@gmail.com,Filippe Garcia Heringer,2268997622,,cus_U8R41ugGsy9u4Z,2026-03-12 14:27:00.2154447,false,"{""hairstyleType"":""Decide later"",""barberTraits"":""Detailed \u0026 Conversational""}",Active
+ashokemohanraj@hotmail.com,Ashoke Mohanraj,6475273079,,cus_U8PWsgl9ao3vlM,2026-03-12 12:51:25.3754780,true,"{""hairstyleType"":""Decide later"",""barberTraits"":""Detailed \u0026 Conversational""}",Active
+jenn.backman@gmail.com,Jennifer,9028800888,,cus_U7h4JGJTVpnUhR,2026-03-10 14:55:08.0503618,false,"{""hairstyleType"":""Classic"",""barberTraits"":""Quick \u0026 Efficient""}",Active
+michael.coldwell@dal.ca,Mike Coldwell,9028096943,,cus_U7d2xWy0DC5NLy,2026-03-10 10:45:05.4716027,true,"{""barberTraits"":""Quick \u0026 Efficient"",""hairstyleType"":""Fade""}",Active
+aaronstrask1973@gmail.com,Aaron Trask,902-789-3142 ,,cus_U7R49Ellz9u54G,2026-03-09 22:22:56.5114163,true,"{""hairstyleType"":""Combo"",""barberTraits"":""Quick \u0026 Efficient""}",Active
+travis.mcdonough@wellnify.ai,Travis McDonough,9022095173,,cus_U7LVR3tHWBFTV8,2026-03-09 16:37:41.3412737,false,"{""hairstyleType"":""Fade"",""barberTraits"":""Quick \u0026 Efficient""}",Active
+pryan2112@gmail.com,Paul Ryan,9024403598,,cus_U7KmuuuBmGLXKh,2026-03-09 15:52:55.9137220,true,"{""notes"":"""",""hairstyleType"":""Classic"",""barberTraits"":""Decide later""}",Active
+david.regan@insead.edu,David Regan,9024481416,,cus_U7IEKV1xucR36K,2026-03-09 13:14:50.0273741,false,"{""hairstyleType"":""Classic"",""barberTraits"":""Quick \u0026 Efficient""}",Active
+mankeert.dhillon@gmail.com,Manny ,"",,,2026-03-07 16:03:05.1216064,false,"{""preferredHairstyle"":""Combo"",""preferredBarberTraits"":""Detailed \u0026 Conversational""}",Active
+peterzablocki@hotmail.com,Peter zablocki,9022295086,,cus_U6Mq9gDzCKTlDY,2026-03-07 01:57:23.1378893,false,"{""hairstyleType"":""Classic"",""barberTraits"":""Detailed \u0026 Conversational""}",Active
+andrewfoote10@hotmail.com,Andrew Foote,9024566388,,cus_U6FGoJsR1C1AgZ,2026-03-06 18:06:43.0739823,true,"{""barberTraits"":""Detailed \u0026 Conversational"",""hairstyleType"":""Fade""}",Active
+hamed.hanafi@gmail.com,Hamed Hanafi,9024032443,,cus_U6ECXKP1ChamYL,2026-03-06 17:00:41.1642506,true,"{""hairstyleType"":""Fade"",""barberTraits"":""Quick \u0026 Efficient""}",Active
+lanebraidwood15@gmail.com,Lane Braidwood,9024402691,,cus_U6AaU0FZZGd17r,2026-03-06 13:17:17.2150001,true,"{""hairstyleType"":""Combo"",""barberTraits"":""Detailed \u0026 Conversational""}",Active
+kabithana@gmail.com,Kabi Thana ,9028178934,,cus_U61Bmx1PS9R1IF,2026-03-06 03:33:34.2894775,false,"{""hairstyleType"":""Combo"",""barberTraits"":""Detailed \u0026 Conversational""}",Active
+mikeevans98@hotmail.com,Mike Evans,9024480099,,cus_U5YGGLz2MOoX69,2026-03-04 21:41:00.9646416,false,"{""hairstyleType"":""Decide later"",""barberTraits"":""Detailed \u0026 Conversational""}",Active
+gentilederek11@hotmail.com,Derek Gentile,,Apple,,2026-03-03 17:52:45.5432667,false,,Active
+derek.martin@hfxwanderersfc.ca,Derek  Martin,9024410187,,cus_U44fmxBfMs9a8Z,2026-02-28 23:01:47.3471669,true,"{""hairstyleType"":""Classic"",""barberTraits"":""Quick \u0026 Efficient""}",Active
+frederic.wien@dal.ca,Fred Wien,,,cus_U3zXEhI6XL5ulR,2026-02-28 17:43:58.0327924,false,"{""hairstyleType"":""Classic"",""barberTraits"":""Decide later""}",Active
+pbanks2101@gmail.com,Paul Banks,,,cus_U1MNQ3VD0Qka0L,2026-02-21 17:07:38.5377790,false,"{""hairstyleType"":""Classic"",""barberTraits"":""Detailed \u0026 Conversational""}",Active
+mhewitt@dal.ca,Mark Hewitt,7097490381,,cus_U15E5LpcoLZMjb,2026-02-20 23:24:48.1664421,true,"{""hairstyleType"":""Classic"",""barberTraits"":""Quick \u0026 Efficient""}",Active
+danhgweir@gmail.com,Dan Weir,,,cus_U0b0VLIywc7SBT,2026-02-19 16:11:02.9560976,false,"{""hairstyleType"":""Classic"",""barberTraits"":""Quick \u0026 Efficient""}",Active
+evanrose12@gmail.com,Evan ,6479847118,Apple,cus_U0W4aenPcSHPRX,2026-02-19 11:02:11.8196041,true,"{""barberTraits"":""Detailed \u0026 Conversational"",""notes"":"""",""hairstyleType"":""Classic""}",Active
+hirtleshawn@gmail.com,Shawn Hirtle,9024492721,,cus_Tzqh6a9YcKjFyZ,2026-02-17 16:20:14.3389035,true,"{""hairstyleType"":""Beard trim"",""barberTraits"":""Detailed \u0026 Conversational""}",Active
+peterghickey@gmail.com,Peter Hickey,,,cus_TyoGvidNmvx50I,2026-02-14 21:44:58.7471851,false,"{""hairstyleType"":""Fade"",""barberTraits"":""Decide later""}",Active
+tcgillis@yahoo.ca,Tim Gillis,,,cus_TyNjiEVlHGRsLn,2026-02-13 18:20:16.4129753,false,"{""hairstyleType"":""Classic"",""barberTraits"":""Detailed \u0026 Conversational""}",Active
+neilsmithmd@gmail.com,Dr. Neil  Smith,9028178624,,cus_TyLRgtdOo5XcXO,2026-02-13 15:57:45.3754565,true,"{""barberTraits"":""Decide later"",""hairstyleType"":""Classic""}",Active
+neilsmithdr@gmail.com,Neil Smith,,,cus_TyLIEWFlfqiRa9,2026-02-13 15:48:39.0995373,false,"{""hairstyleType"":""Classic"",""barberTraits"":""Decide later""}",Active
+shahin@tabrizi.com,Shahin,,,cus_Txk40NnoUBRVMz,2026-02-12 01:12:05.8582304,false,"{""notes"":"""",""barberTraits"":""Decide later"",""hairstyleType"":""Fade""}",Active
+rq4wg5krns@privaterelay.appleid.com,bruce keys,,Apple,cus_TxdN0ESxCiBcIb,2026-02-11 18:25:53.3345425,false,"{""hairstyleType"":""Classic"",""notes"":"""",""barberTraits"":""Quick \u0026 Efficient""}",Active
+bkeys@eastlink.ca,Bruce G Keys,,,cus_TxdJNke9nxWv6Y,2026-02-11 18:21:41.9738589,false,"{""hairstyleType"":""Classic"",""barberTraits"":""Quick \u0026 Efficient""}",Active
+gentilederek11@hotmail.com,Derek Gentile,9023713491,,cus_U4SfWTGhQgu7bo,2026-02-11 18:07:20.5183651,true,"{""hairstyleType"":""Classic"",""notes"":"""",""barberTraits"":""Decide later""}",Active
+siddharthbalachander@gmail.com,sid ,,,,2026-02-11 17:31:16.6389762,false,"{""notes"":"""",""barberTraits"":""Detailed \u0026 Conversational"",""hairstyleType"":""Beard trim""}",Active
+jdouglas@currentstudios.ca,Jed,,,cus_TxEl3Gy1nhKpfe,2026-02-10 16:59:54.9269093,false,"{""hairstyleType"":""Fade"",""barberTraits"":""Quick \u0026 Efficient""}",Active
+karanwariach45@gmail.com,Karan,,,,2026-02-07 04:01:01.9928668,false,"{""notes"":"""",""barberTraits"":""Decide later"",""hairstyleType"":""Decide later""}",Active
+pm@wongs.net.au,Peter Wong,9029431622,,cus_TvomeP2Qr0HROL,2026-02-06 22:03:34.1079408,true,"{""notes"":"""",""barberTraits"":""Quick \u0026 Efficient"",""hairstyleType"":""Classic""}",Active
+Tommysmail@gmx.com,Tommy ,,,cus_TvoHHXPPCzvIXA,2026-02-06 21:31:49.5552359,true,"{""hairstyleType"":""Classic"",""barberTraits"":""Decide later"",""notes"":""""}",Active
+bruce.lusby@premieremortgage.ca,Bruce Lusby,,,cus_Tvmjm016bpAhSE,2026-02-06 19:58:06.9777280,true,"{""barberTraits"":""Quick \u0026 Efficient"",""hairstyleType"":""Combo""}",Active
+alshahiralwaleed@gmail.com,Alwaleed  Alshahir,7823219110,,cus_TvON4fMBfu8C5x,2026-02-05 18:48:24.5389971,true,"{""barberTraits"":""Detailed \u0026 Conversational"",""hairstyleType"":""Classic""}",Active
+brittrachelhall@gmail.com,Brittany R Hall,,Apple,,2026-02-05 14:04:41.7448609,false,"{""hairstyleType"":""Fade"",""barberTraits"":""Decide later"",""notes"":""""}",Active
+mark4.barry4@gmail.com,Mark B,,,cus_TtTOgfLNvuXei6,2026-01-31 15:50:44.1739486,false,"{""barberTraits"":""Quick \u0026 Efficient"",""hairstyleType"":""Classic"",""notes"":""""}",Active
+ehalliday87@gmail.com,Evan,"",,cus_TtCBgksv2urKS1,2026-01-30 22:02:42.6060409,false,"{""preferredHairstyle"":""Fade"",""preferredBarberTraits"":""Decide later""}",Active
+jennifer@properbarber.club,Jennifer ,,,,2026-01-30 11:05:37.2568080,false,"{""notes"":"""",""hairstyleType"":""Decide later"",""barberTraits"":""Decide later""}",Active
+rbalys@gmail.com,Rick Balys,9022238032,,cus_Tsm9orMWJEzqa1,2026-01-29 19:09:33.4418744,true,"{""hairstyleType"":""Fade"",""barberTraits"":""Detailed \u0026 Conversational""}",Active
+saadat.qadri@gmail.com,Saadat,,,cus_Tslj2nu9aSpDDo,2026-01-29 18:43:04.9399364,false,"{""notes"":"""",""hairstyleType"":""Fade"",""barberTraits"":""Detailed \u0026 Conversational""}",Active
+colin@dillonre.ca,Colin Dillon,9024414506,,cus_TrZq5YzlIUqJbS,2026-01-26 14:21:18.9715111,true,"{""notes"":""Usually looking for a Fade and a beard trim and lineup with a straight razor shave if I have time. "",""barberTraits"":""Detailed \u0026 Conversational"",""hairstyleType"":""Combo""}",Active
+glpatey@gmail.com,Dr. Greg Patey,,,cus_TrZhcW4w7dZe2L,2026-01-26 14:14:11.2818352,false,"{""hairstyleType"":""Classic"",""barberTraits"":""Detailed \u0026 Conversational""}",Active
+jdoucet1383@gmail.com,Jason Doucet,,,cus_TqqAQH56KesFwo,2026-01-24 15:09:43.9843503,false,"{""barberTraits"":""Decide later"",""notes"":"""",""hairstyleType"":""Classic""}",Active
+cl679294@dal.ca,Caleb ,,,cus_Tq85XD2ryOdk9K,2026-01-22 17:20:47.0726316,false,"{""notes"":"""",""hairstyleType"":""Classic"",""barberTraits"":""Quick \u0026 Efficient""}",Active
+bjj2gp6zbp@privaterelay.appleid.com, ,,Apple,,2026-01-22 12:57:55.3449067,false,,Active
+farquhar.james001@icloud.com,James Farquhar,,,cus_TptgWYvPDQuwa6,2026-01-22 02:45:22.4149495,false,"{""hairstyleType"":""Combo"",""barberTraits"":""Detailed \u0026 Conversational""}",Active
+jacob.leblanc@dal.ca,Jacob LeBlanc,9025795980,,cus_Tpq9HaJz6L4U5S,2026-01-21 22:28:45.5884424,true,"{""notes"":""Former client of Jessica"",""barberTraits"":""Detailed \u0026 Conversational"",""hairstyleType"":""Fade""}",Active
+gdunn.cgd@gmail.com,Gregory Dunn,9024789271,,cus_TphnjREaVdI2sM,2026-01-21 14:23:29.2101202,true,"{""notes"":"""",""barberTraits"":""Decide later"",""hairstyleType"":""Fade""}",Active
+Noahdow1234@gmail.com,Noah Dow,,,,2026-01-21 00:47:55.7442480,false,"{""hairstyleType"":""Combo"",""notes"":"""",""barberTraits"":""Quick \u0026 Efficient""}",Active
+mckeejw13@gmail.com,James,,,,2026-01-20 20:17:12.0754785,false,"{""barberTraits"":""Detailed \u0026 Conversational"",""notes"":"""",""hairstyleType"":""Classic""}",Active
+pkervin@currentstudios.ca,Patrick Kervin,9027894674,,cus_TpPV0K3De4MRqN,2026-01-20 19:33:41.1187524,true,"{""hairstyleType"":""Combo"",""barberTraits"":""Decide later"",""notes"":""""}",Active
+adamrostis@gmail.com,Adam,,,cus_TpNVhLoO6wn6P4,2026-01-20 17:29:45.3526043,false,"{""hairstyleType"":""Classic"",""notes"":"""",""barberTraits"":""Quick \u0026 Efficient""}",Active
+mroberts1705@gmail.com,Mike Roberts,9024831705,,cus_TpLJktrBm3rDgU,2026-01-20 15:12:43.6964506,true,"{""hairstyleType"":""Classic"",""notes"":"""",""barberTraits"":""Decide later""}",Active
+nkroll@currentstudios.ca,Nathan Kroll,9028306249,,cus_TpJLfzDiaL4reD,2026-01-20 13:12:11.3993123,true,"{""hairstyleType"":""Combo"",""notes"":""I always will want my head shaved, beard trimmed "",""barberTraits"":""Detailed \u0026 Conversational""}",Active
+alperyuce98@gmail.com,Alper,,,cus_TpIIBaVGmlrGEN,2026-01-20 12:06:19.9008918,false,"{""barberTraits"":""Detailed \u0026 Conversational"",""hairstyleType"":""Classic"",""notes"":""""}",Active
+bjbrewer@gmail.com,Brian Brewer,9023299416,,cus_Tp5OhSAR18BewS,2026-01-19 22:45:26.8165732,true,"{""preferredHairstyle"":""Decide later"",""preferredBarberTraits"":""Decide later""}",Active
+y49zkp7x2w@privaterelay.appleid.com,Cailean Jan,,Apple,,2026-01-17 12:08:35.5795446,false,"{""hairstyleType"":""Classic"",""notes"":""Checking out the app for my husband :)"",""barberTraits"":""Decide later""}",Active
+abbas_nad@hotmail.com,Nadeem Jan,,Apple,,2026-01-17 12:08:26.1068798,false,"{""notes"":"""",""hairstyleType"":""Decide later"",""barberTraits"":""Detailed \u0026 Conversational""}",Active
+ahuszar+customer2@immediac.com,Alex Customer2,9024717029,,cus_TnuGObzpPvIUZC,2026-01-16 19:12:19.5628525,false,"{""barberTraits"":""Decide later"",""hairstyleType"":""Decide later"",""notes"":""""}",Active
+ahuszar+customer1@immediac.com,Alex Customer1,9024898954,,cus_TnuDmAM9i30Hii,2026-01-16 19:09:20.6061319,false,"{""barberTraits"":""Decide later"",""hairstyleType"":""Decide later"",""notes"":""""}",Active
+jessica+customer@properbarber.club,"",,,,2026-01-16 19:07:36.4057422,false,,Active
+mdm@michaeldmailman.com, Michael D. Mailman,9024495101,Apple,cus_TnqsHYzY6bePaC,2026-01-16 15:41:03.7498358,true,"{""hairstyleType"":""Combo"",""barberTraits"":""Quick \u0026 Efficient"",""notes"":""""}",Active
+mark@trampolinebranding.com,Mark Gascoigne,9024888741,,cus_TnWxZabKsxcFCf,2026-01-15 19:08:05.0230263,true,"{""hairstyleType"":""Classic"",""barberTraits"":""Quick \u0026 Efficient""}",Active
+jleahy@immediac.com,John Leahy,9028302033,,cus_Tn32gnNeCll09p,2026-01-14 12:13:20.2584301,true,{},Active
+bsingh@immediac.com,John Doe,"",Google,cus_TkXAMOvNJh2xE3,2026-01-07 19:08:12.7189753,false,"{""preferredHairstyle"":""Fade"",""preferredBarberTraits"":""Quick \u0026 Efficient""}",Active
+baljeet808singh@gmail.com,Baljeet Singh,"",Google,cus_TkShwaxFaVW5lw,2026-01-07 14:31:24.9804129,false,"{""preferredHairstyle"":""Fade"",""preferredBarberTraits"":""Detailed \u0026 Conversational""}",Active
+ahuszar+appletester@immediac.com,Apple Tester,,,cus_T2jVgJkxKJS7wL,2025-09-12 20:57:26.9154224,false,"{""hairstyleType"":""Fade"",""notes"":""Apple review test account"",""barberTraits"":""Quick \u0026 Efficient""}",Active

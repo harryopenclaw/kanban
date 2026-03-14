@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import {
   DndContext,
   DragOverlay,
@@ -8,7 +8,7 @@ import {
   closestCorners,
 } from "@dnd-kit/core";
 import Column from "./components/Column";
-import { useKanban } from "./hooks/useKanban";
+import { useBoards } from "./hooks/useBoards";
 
 const DRAG_COLOR_CLASSES = {
   red: "border-l-[3px] border-red-500 bg-red-900/40",
@@ -22,8 +22,14 @@ const DRAG_COLOR_CLASSES = {
 
 export default function App() {
   const {
+    boards,
+    activeBoardId,
     columns,
     cards,
+    switchBoard,
+    createBoard,
+    renameBoard,
+    deleteBoard,
     addCard,
     deleteCard,
     updateCardTitle,
@@ -33,11 +39,16 @@ export default function App() {
     deleteColumn,
     updateColumnTitle,
     moveCard,
-  } = useKanban();
+  } = useBoards();
 
   const [activeId, setActiveId] = useState(null);
   const [addingColumn, setAddingColumn] = useState(false);
   const [newColumnTitle, setNewColumnTitle] = useState("");
+  const [editingBoardName, setEditingBoardName] = useState(false);
+  const [boardNameValue, setBoardNameValue] = useState("");
+  const boardNameInputRef = useRef(null);
+
+  const activeBoard = boards.find((b) => b.id === activeBoardId);
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } })
@@ -59,7 +70,6 @@ export default function App() {
       const activeCol = findColumnByCardId(active.id);
       if (!activeCol) return;
 
-      // Check if over a card or a column
       let overCol = findColumnByCardId(over.id);
       let overIndex;
 
@@ -119,14 +129,106 @@ export default function App() {
     setAddingColumn(false);
   }
 
+  function handleBoardNameSave() {
+    const trimmed = boardNameValue.trim();
+    if (trimmed && trimmed !== activeBoard?.name) {
+      renameBoard(activeBoardId, trimmed);
+    }
+    setEditingBoardName(false);
+  }
+
+  function handleCreateBoard() {
+    const name = prompt("New board name:");
+    if (name?.trim()) {
+      createBoard(name.trim());
+    }
+  }
+
+  function handleDeleteBoard(id) {
+    if (boards.length <= 1) return;
+    const board = boards.find((b) => b.id === id);
+    if (confirm(`Delete "${board?.name}"? This cannot be undone.`)) {
+      deleteBoard(id);
+    }
+  }
+
+  useEffect(() => {
+    if (editingBoardName && boardNameInputRef.current) {
+      boardNameInputRef.current.focus();
+      boardNameInputRef.current.select();
+    }
+  }, [editingBoardName]);
+
   const activeCard = activeId ? cards[activeId] : null;
 
   return (
     <div className="min-h-screen bg-gray-900 flex flex-col">
-      <header className="flex items-center justify-between px-6 py-4 border-b border-gray-800">
-        <h1 className="text-lg font-bold text-gray-100 tracking-tight">
-          immediac CEO Massive Action Plan
-        </h1>
+      <header className="px-6 py-4 border-b border-gray-800">
+        {/* Board tabs */}
+        <div className="flex items-center gap-2 mb-3 overflow-x-auto">
+          {boards.map((board) => (
+            <button
+              key={board.id}
+              onClick={() => switchBoard(board.id)}
+              className={`relative group flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-full whitespace-nowrap transition-colors ${
+                board.id === activeBoardId
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-800 text-gray-400 hover:text-gray-200 hover:bg-gray-700"
+              }`}
+            >
+              {board.name}
+              {boards.length > 1 && (
+                <span
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeleteBoard(board.id);
+                  }}
+                  className={`ml-1 text-[10px] leading-none rounded-full w-4 h-4 flex items-center justify-center transition-colors ${
+                    board.id === activeBoardId
+                      ? "text-blue-200 hover:text-white hover:bg-blue-500"
+                      : "text-gray-600 hover:text-red-400 hover:bg-gray-600 opacity-0 group-hover:opacity-100"
+                  }`}
+                >
+                  ✕
+                </span>
+              )}
+            </button>
+          ))}
+          <button
+            onClick={handleCreateBoard}
+            className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-300 px-3 py-1.5 rounded-full hover:bg-gray-800 transition-colors whitespace-nowrap"
+          >
+            <span className="text-lg leading-none">+</span> New Board
+          </button>
+        </div>
+
+        {/* Active board name */}
+        <div className="flex items-center gap-3">
+          {editingBoardName ? (
+            <input
+              ref={boardNameInputRef}
+              value={boardNameValue}
+              onChange={(e) => setBoardNameValue(e.target.value)}
+              onBlur={handleBoardNameSave}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") handleBoardNameSave();
+                if (e.key === "Escape") setEditingBoardName(false);
+              }}
+              className="text-lg font-bold bg-gray-800 text-gray-100 rounded px-2 py-0.5 outline-none ring-1 ring-blue-500 max-w-md"
+            />
+          ) : (
+            <h1
+              className="text-lg font-bold text-gray-100 tracking-tight cursor-pointer hover:text-white"
+              onDoubleClick={() => {
+                setBoardNameValue(activeBoard?.name || "");
+                setEditingBoardName(true);
+              }}
+              title="Double-click to rename"
+            >
+              {activeBoard?.name}
+            </h1>
+          )}
+        </div>
       </header>
 
       <div className="flex-1 overflow-x-auto p-6">
