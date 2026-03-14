@@ -55,9 +55,9 @@ export default function Card({
 }) {
   const [editing, setEditing] = useState(false);
   const [editValue, setEditValue] = useState(title);
-  const [showDateInput, setShowDateInput] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const inputRef = useRef(null);
-  const dateInputRef = useRef(null);
+  const menuRef = useRef(null);
 
   const {
     attributes,
@@ -82,10 +82,15 @@ export default function Card({
   }, [editing]);
 
   useEffect(() => {
-    if (showDateInput && dateInputRef.current) {
-      dateInputRef.current.focus();
+    if (!isMenuOpen) return;
+    function handleClickOutside(e) {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setIsMenuOpen(false);
+      }
     }
-  }, [showDateInput]);
+    document.addEventListener("pointerdown", handleClickOutside);
+    return () => document.removeEventListener("pointerdown", handleClickOutside);
+  }, [isMenuOpen]);
 
   function commitEdit() {
     const trimmed = editValue.trim();
@@ -117,7 +122,7 @@ export default function Card({
         setEditing(true);
         setEditValue(title);
       }}
-      className={`group relative rounded-lg bg-gray-700 px-3 py-2 shadow-sm cursor-grab active:cursor-grabbing hover:bg-gray-600 transition-colors ${
+      className={`relative rounded-lg bg-gray-700 px-3 py-2 shadow-sm cursor-grab active:cursor-grabbing hover:bg-gray-600 transition-colors ${
         isDragging ? "z-50 shadow-lg" : ""
       } ${color ? `border-l-[3px] ${colorClasses.border} ${colorClasses.bg}` : ""}`}
     >
@@ -140,126 +145,93 @@ export default function Card({
           className="w-full bg-gray-600 text-gray-100 text-sm rounded px-1 py-0.5 outline-none ring-1 ring-blue-500"
         />
       ) : (
-        <span className="text-sm text-gray-100 break-words pr-5">{title}</span>
+        <span className="text-sm text-gray-100 break-words pr-6">{title}</span>
       )}
 
-      {/* Delete button */}
+      {/* ⋯ menu button */}
       <button
         onClick={(e) => {
           e.stopPropagation();
-          onDelete(id);
+          setIsMenuOpen((prev) => !prev);
         }}
         onPointerDown={(e) => e.stopPropagation()}
-        className="absolute top-1.5 right-1.5 opacity-0 group-hover:opacity-100 text-gray-400 hover:text-red-400 transition-opacity text-xs leading-none p-0.5"
+        className="absolute top-1 right-1 min-w-[32px] min-h-[32px] flex items-center justify-center text-gray-500 hover:text-gray-300 transition-colors text-base leading-none rounded"
       >
-        ✕
+        ⋯
       </button>
 
-      {/* Color picker row (visible on hover) */}
-      <div className="flex items-center gap-1 mt-1.5 opacity-0 group-hover:opacity-100 transition-opacity h-0 group-hover:h-auto overflow-hidden">
-        {COLOR_OPTIONS.map((c) => (
-          <button
-            key={c.name}
-            onClick={(e) => {
-              e.stopPropagation();
-              onUpdateColor(id, c.name);
-            }}
-            onPointerDown={(e) => e.stopPropagation()}
-            className={`w-4 h-4 rounded-full ${COLOR_DOT[c.name]} hover:scale-125 transition-transform ${
-              color === c.name ? "ring-2 ring-white ring-offset-1 ring-offset-gray-700" : ""
-            }`}
-            title={c.name}
-          />
-        ))}
-        {color && (
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              onUpdateColor(id, null);
-            }}
-            onPointerDown={(e) => e.stopPropagation()}
-            className="w-4 h-4 rounded-full border border-gray-500 hover:border-gray-300 transition-colors flex items-center justify-center text-gray-500 hover:text-gray-300"
-            title="Clear color"
-          >
-            <span className="text-[8px] leading-none">✕</span>
-          </button>
-        )}
-      </div>
-
-      {/* Due date section */}
-      {(dueDate || showDateInput) && (
-        <div className="flex items-center gap-1 mt-1.5">
-          {showDateInput ? (
-            <div
-              className="flex items-center gap-1"
-              onClick={(e) => e.stopPropagation()}
+      {/* Menu popover */}
+      {isMenuOpen && (
+        <div
+          ref={menuRef}
+          onClick={(e) => e.stopPropagation()}
+          onPointerDown={(e) => e.stopPropagation()}
+          className="absolute top-8 right-1 z-50 bg-gray-700 border border-gray-600 rounded-lg shadow-lg p-3 min-w-[200px]"
+        >
+          {/* Color picker */}
+          <div className="flex items-center gap-1.5 mb-3">
+            {COLOR_OPTIONS.map((c) => (
+              <button
+                key={c.name}
+                onClick={() => onUpdateColor(id, c.name)}
+                onPointerDown={(e) => e.stopPropagation()}
+                className={`w-5 h-5 rounded-full ${COLOR_DOT[c.name]} hover:scale-125 transition-transform ${
+                  color === c.name ? "ring-2 ring-white ring-offset-1 ring-offset-gray-700" : ""
+                }`}
+                title={c.name}
+              />
+            ))}
+            <button
+              onClick={() => onUpdateColor(id, null)}
               onPointerDown={(e) => e.stopPropagation()}
+              className="w-5 h-5 rounded-full border border-gray-500 hover:border-gray-300 transition-colors flex items-center justify-center text-gray-500 hover:text-gray-300"
+              title="Clear color"
             >
+              <span className="text-[9px] leading-none">✕</span>
+            </button>
+          </div>
+
+          {/* Due date */}
+          <div className="mb-3">
+            <label className="text-[10px] text-gray-400 uppercase tracking-wider mb-1 block">Due date</label>
+            <div className="flex items-center gap-1.5">
               <input
-                ref={dateInputRef}
                 type="date"
                 value={dueDate || ""}
-                onChange={(e) => {
-                  onUpdateDueDate(id, e.target.value || null);
-                  setShowDateInput(false);
-                }}
-                onBlur={() => setShowDateInput(false)}
-                onKeyDown={(e) => {
-                  if (e.key === "Escape") setShowDateInput(false);
-                }}
-                className="bg-gray-600 text-gray-200 text-xs rounded px-1.5 py-0.5 outline-none ring-1 ring-gray-500 focus:ring-blue-500 [color-scheme:dark]"
+                onChange={(e) => onUpdateDueDate(id, e.target.value || null)}
+                onPointerDown={(e) => e.stopPropagation()}
+                className="bg-gray-600 text-gray-200 text-xs rounded px-1.5 py-1 outline-none ring-1 ring-gray-500 focus:ring-blue-500 [color-scheme:dark] flex-1"
               />
-            </div>
-          ) : (
-            dueDate && (
-              <div className="flex items-center gap-1">
+              {dueDate && (
                 <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setShowDateInput(true);
-                  }}
+                  onClick={() => onUpdateDueDate(id, null)}
                   onPointerDown={(e) => e.stopPropagation()}
-                  className={`flex items-center gap-1 text-xs ${dueDateColorClass} hover:opacity-80 transition-opacity`}
-                >
-                  <svg
-                    className="w-3 h-3"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <rect x="3" y="4" width="18" height="18" rx="2" />
-                    <path d="M16 2v4M8 2v4M3 10h18" />
-                  </svg>
-                  {formatDate(dueDate)}
-                </button>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onUpdateDueDate(id, null);
-                  }}
-                  onPointerDown={(e) => e.stopPropagation()}
-                  className={`text-[10px] ${dueDateColorClass} hover:text-red-400 transition-colors leading-none`}
+                  className="text-xs text-gray-400 hover:text-red-400 transition-colors px-1"
                 >
                   ✕
                 </button>
-              </div>
-            )
-          )}
+              )}
+            </div>
+          </div>
+
+          {/* Delete */}
+          <button
+            onClick={() => {
+              onDelete(id);
+              setIsMenuOpen(false);
+            }}
+            onPointerDown={(e) => e.stopPropagation()}
+            className="w-full text-left text-sm text-red-400 hover:text-red-300 hover:bg-gray-600 rounded px-2 py-1.5 transition-colors"
+          >
+            Delete
+          </button>
         </div>
       )}
 
-      {/* Add due date trigger (shown on hover when no date) */}
-      {!dueDate && !showDateInput && (
-        <div className="opacity-0 group-hover:opacity-100 transition-opacity mt-1">
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              setShowDateInput(true);
-            }}
-            onPointerDown={(e) => e.stopPropagation()}
-            className="flex items-center gap-1 text-[10px] text-gray-500 hover:text-gray-300 transition-colors"
-          >
+      {/* Due date badge (always visible when set) */}
+      {dueDate && (
+        <div className="flex items-center gap-1 mt-1.5">
+          <span className={`flex items-center gap-1 text-xs ${dueDateColorClass}`}>
             <svg
               className="w-3 h-3"
               fill="none"
@@ -270,8 +242,8 @@ export default function Card({
               <rect x="3" y="4" width="18" height="18" rx="2" />
               <path d="M16 2v4M8 2v4M3 10h18" />
             </svg>
-            Add date
-          </button>
+            {formatDate(dueDate)}
+          </span>
         </div>
       )}
     </div>
