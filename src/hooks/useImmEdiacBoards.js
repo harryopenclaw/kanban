@@ -116,6 +116,10 @@ const defaultBoard2Cards = {
   "ws-28": { id: "ws-28", title: "Stripe", subtitle: "ProperBarber payments" },
   "ws-29": { id: "ws-29", title: ".NET / SQL", subtitle: "Future backend for Kanban" },
   "ws-30": { id: "ws-30", title: "Azure Static Web Apps", subtitle: "Future hosting upgrade" },
+  // Project Backlog
+  "ws-backlog-1": { id: "ws-backlog-1", title: "Rock The Rankings", subtitle: "SEO / content strategy initiative" },
+  "ws-backlog-2": { id: "ws-backlog-2", title: "Stop The Scroll", subtitle: "Social media hook / content initiative" },
+
   // Decisions & Notes
   "ws-31": { id: "ws-31", title: "One repo, two pages", subtitle: "kanban repo: /immediac/ and /proper/ as MPA pages" },
   "ws-32": { id: "ws-32", title: "dnd-kit over SortableJS", subtitle: "Chosen for React compatibility and shadcn future migration" },
@@ -133,7 +137,7 @@ const defaultBoard2Columns = [
   },
   { id: "ws-col-2", title: "Harold's Custom Skills", cardIds: ["ws-21","ws-22"] },
   { id: "ws-col-3", title: "Active Projects", cardIds: ["ws-23","ws-24"] },
-  { id: "ws-col-4", title: "Project Backlog", cardIds: [] },
+  { id: "ws-col-4", title: "Project Backlog", cardIds: ["ws-backlog-1", "ws-backlog-2"] },
   { id: "ws-col-5", title: "Integrations & APIs", cardIds: ["ws-25","ws-26","ws-27","ws-28","ws-29","ws-30"] },
   { id: "ws-col-6", title: "Decisions & Notes", cardIds: ["ws-31","ws-32","ws-33","ws-34"] },
 ];
