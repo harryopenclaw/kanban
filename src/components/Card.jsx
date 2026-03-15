@@ -28,31 +28,18 @@ function getColorClasses(color) {
   return opt || { bg: "", border: "" };
 }
 
-function getDueDateStatus(dueDate) {
-  if (!dueDate) return null;
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const due = new Date(dueDate + "T00:00:00");
-  if (due < today) return "overdue";
-  if (due.getTime() === today.getTime()) return "today";
-  return "future";
-}
-
-function formatDate(dueDate) {
-  const d = new Date(dueDate + "T00:00:00");
-  return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
-}
-
 export default function Card({
   id,
   title,
   subtitle,
   color,
-  dueDate,
+  email,
+  signupDate,
+  appointmentCount,
+  bookingNote,
   onDelete,
   onUpdateTitle,
   onUpdateColor,
-  onUpdateDueDate,
 }) {
   const [editing, setEditing] = useState(false);
   const [editValue, setEditValue] = useState(title);
@@ -104,14 +91,6 @@ export default function Card({
   }
 
   const colorClasses = getColorClasses(color);
-  const dueDateStatus = getDueDateStatus(dueDate);
-
-  const dueDateColorClass =
-    dueDateStatus === "overdue"
-      ? "text-red-400"
-      : dueDateStatus === "today"
-      ? "text-amber-400"
-      : "text-gray-400";
 
   return (
     <div
@@ -150,6 +129,26 @@ export default function Card({
           <span className="text-sm text-gray-100 break-words">{title}</span>
           {subtitle && (
             <p className="text-xs text-gray-400 mt-0.5 break-words">{subtitle}</p>
+          )}
+        </div>
+      )}
+
+      {/* Client info fields */}
+      {(email || signupDate || appointmentCount != null || bookingNote) && (
+        <div className="mt-1 space-y-0.5">
+          {email && (
+            <p className="text-xs text-gray-400 break-words">✉ {email}</p>
+          )}
+          {signupDate && (
+            <p className="text-xs text-gray-400">Joined: {signupDate}</p>
+          )}
+          {appointmentCount != null && (
+            <p className="text-xs text-gray-400">
+              {appointmentCount} {appointmentCount === 1 ? "appt" : "appts"}
+            </p>
+          )}
+          {bookingNote && (
+            <p className="text-xs text-gray-400 italic break-words">{bookingNote}</p>
           )}
         </div>
       )}
@@ -197,29 +196,6 @@ export default function Card({
             </button>
           </div>
 
-          {/* Due date */}
-          <div className="mb-3">
-            <label className="text-[10px] text-gray-400 uppercase tracking-wider mb-1 block">Due date</label>
-            <div className="flex items-center gap-1.5">
-              <input
-                type="date"
-                value={dueDate || ""}
-                onChange={(e) => onUpdateDueDate(id, e.target.value || null)}
-                onPointerDown={(e) => e.stopPropagation()}
-                className="bg-gray-600 text-gray-200 text-xs rounded px-1.5 py-1 outline-none ring-1 ring-gray-500 focus:ring-blue-500 [color-scheme:dark] flex-1"
-              />
-              {dueDate && (
-                <button
-                  onClick={() => onUpdateDueDate(id, null)}
-                  onPointerDown={(e) => e.stopPropagation()}
-                  className="text-xs text-gray-400 hover:text-red-400 transition-colors px-1"
-                >
-                  ✕
-                </button>
-              )}
-            </div>
-          </div>
-
           {/* Delete */}
           <button
             onClick={() => {
@@ -231,25 +207,6 @@ export default function Card({
           >
             Delete
           </button>
-        </div>
-      )}
-
-      {/* Due date badge (always visible when set) */}
-      {dueDate && (
-        <div className="flex items-center gap-1 mt-1.5">
-          <span className={`flex items-center gap-1 text-xs ${dueDateColorClass}`}>
-            <svg
-              className="w-3 h-3"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <rect x="3" y="4" width="18" height="18" rx="2" />
-              <path d="M16 2v4M8 2v4M3 10h18" />
-            </svg>
-            {formatDate(dueDate)}
-          </span>
         </div>
       )}
     </div>

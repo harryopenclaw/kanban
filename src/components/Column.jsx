@@ -13,7 +13,6 @@ export default function Column({
   onDeleteCard,
   onUpdateCardTitle,
   onUpdateCardColor,
-  onUpdateCardDueDate,
   onDeleteColumn,
   onUpdateColumnTitle,
 }) {
@@ -111,11 +110,13 @@ export default function Column({
                 title={card.title}
                 subtitle={card.subtitle || null}
                 color={card.color || null}
-                dueDate={card.dueDate || null}
+                email={card.email || null}
+                signupDate={card.signupDate || null}
+                appointmentCount={card.appointmentCount != null ? card.appointmentCount : null}
+                bookingNote={card.bookingNote || null}
                 onDelete={onDeleteCard}
                 onUpdateTitle={onUpdateCardTitle}
                 onUpdateColor={onUpdateCardColor}
-                onUpdateDueDate={onUpdateCardDueDate}
               />
             );
           })}

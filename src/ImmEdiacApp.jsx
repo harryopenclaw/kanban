@@ -34,7 +34,6 @@ export default function ImmEdiacApp() {
     deleteCard,
     updateCardTitle,
     updateCardColor,
-    updateCardDueDate,
     addColumn,
     deleteColumn,
     updateColumnTitle,
@@ -249,7 +248,6 @@ export default function ImmEdiacApp() {
                 onDeleteCard={deleteCard}
                 onUpdateCardTitle={updateCardTitle}
                 onUpdateCardColor={updateCardColor}
-                onUpdateCardDueDate={updateCardDueDate}
                 onDeleteColumn={deleteColumn}
                 onUpdateColumnTitle={updateColumnTitle}
               />
