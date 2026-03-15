@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 
 const STORAGE_KEY = "immediac-boards";
+const SCHEMA_VERSION = 2;
 
 const KNOWN_SLUGS = { "board-1": "immediac", "board-2": "worksheet" };
 
@@ -163,6 +164,68 @@ function buildDefaultState() {
   };
 }
 
+// ── Schema migrations ──
+// Migrations are additive only — they ADD new columns/cards, never remove or
+// overwrite existing user data. Each migration is idempotent (safe to re-run).
+
+function migrateV1toV2(state) {
+  const boardId = "board-2";
+  const board = state.data[boardId];
+  if (!board) return state;
+
+  const alreadyExists = board.columns.some(
+    (col) => col.title === "Security & Maintenance"
+  );
+  if (alreadyExists) return { ...state, _version: 2 };
+
+  const ts = Date.now();
+  const colId = `ws-col-mig-${ts}`;
+  const card1Id = `ws-sec-mig-${ts}-1`;
+  const card2Id = `ws-sec-mig-${ts}-2`;
+
+  const newCards = {
+    ...board.cards,
+    [card1Id]: {
+      id: card1Id,
+      title: "Daily: OpenClaw Vulnerability Check",
+      subtitle: "Check for updates, CVEs, and security advisories",
+    },
+    [card2Id]: {
+      id: card2Id,
+      title: "Daily: Browser Injection Audit",
+      subtitle:
+        "Review URLs/content passed to browser tool for injection vectors",
+    },
+  };
+
+  const newColumns = [
+    ...board.columns,
+    { id: colId, title: "Security & Maintenance", cardIds: [card1Id, card2Id] },
+  ];
+
+  return {
+    ...state,
+    _version: 2,
+    data: {
+      ...state.data,
+      [boardId]: { ...board, columns: newColumns, cards: newCards },
+    },
+  };
+}
+
+function runMigrations(state) {
+  const version = state._version || 1;
+  let s = { ...state };
+
+  if (version < 2) {
+    s = migrateV1toV2(s);
+  }
+  // future: if (version < 3) { s = migrateV2toV3(s); }
+
+  s._version = SCHEMA_VERSION;
+  return s;
+}
+
 function loadState() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -172,7 +235,7 @@ function loadState() {
         parsed.boards = ensureSlugs(parsed.boards);
         const hashId = boardIdFromHash(parsed.boards);
         if (hashId) parsed.activeBoardId = hashId;
-        return parsed;
+        return runMigrations(parsed);
       }
     }
   } catch {}
@@ -181,7 +244,7 @@ function loadState() {
 }
 
 function saveState(state) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...state, _version: SCHEMA_VERSION }));
 }
 
 let nextId = Date.now();
