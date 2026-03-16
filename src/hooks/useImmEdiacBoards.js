@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 
 const STORAGE_KEY = "immediac-boards";
-const SCHEMA_VERSION = 2;
+const SCHEMA_VERSION = 3;
 
 const KNOWN_SLUGS = { "board-1": "immediac", "board-2": "worksheet" };
 
@@ -40,6 +40,12 @@ const defaultBoard1Cards = {
   "card-9":  { id: "card-9",  title: "Top Client Outreach" },
   "card-10": { id: "card-10", title: "immediac — Sales Funnel" },
   "card-11": { id: "card-11", title: "iGnight Game Day (12/4)" },
+
+  // Today's todos — Mar 16
+  "today-1": { id: "today-1", title: "New Service Sell Sheet", subtitle: "Define service + format (PDF, web, deck?)" },
+  "today-2": { id: "today-2", title: "30-sec LinkedIn Video Script", subtitle: "Topic + audience TBD" },
+  "today-3": { id: "today-3", title: "Sales Funnel Tools — .NET Dev Plan", subtitle: "Architecture + roadmap for .NET/SQL backend" },
+  "today-4": { id: "today-4", title: "Finish the SRED", subtitle: "SR&ED tax credit application" },
   "card-12": { id: "card-12", title: "TFP$ — S/E & O/W/P" },
   "tool-1":  { id: "tool-1",  title: "Claude Code", subtitle: "AI coding agent · v2.1.76" },
   "tool-2":  { id: "tool-2",  title: "apple-notes", subtitle: "Manage Apple Notes via memo CLI" },
@@ -70,15 +76,7 @@ const defaultBoard1Columns = [
   { id: "col-2", title: "In Progress", cardIds: ["card-1", "card-2", "card-8"] },
   { id: "col-3", title: "Review",      cardIds: ["card-9", "card-10", "card-3"] },
   { id: "col-4", title: "Done",        cardIds: ["card-11"] },
-  {
-    id: "col-5", title: "Harold's Tools",
-    cardIds: [
-      "tool-1",
-      "tool-2","tool-3","tool-4","tool-5","tool-6","tool-7","tool-8","tool-9","tool-10",
-      "tool-11","tool-12","tool-13","tool-14","tool-15","tool-16","tool-17","tool-18","tool-19","tool-20",
-      "tool-21","tool-22",
-    ]
-  },
+  { id: "col-6", title: "Today — Mar 16", cardIds: ["today-1", "today-2", "today-3", "today-4"] },
 ];
 
 // ── Board 2: Harry & John Worksheet ──
@@ -213,6 +211,46 @@ function migrateV1toV2(state) {
   };
 }
 
+function migrateV2toV3(state) {
+  const boardId = "board-1";
+  const board = state.data[boardId];
+  if (!board) return state;
+
+  const alreadyExists = board.columns.some(
+    (col) => col.title === "Today — Mar 16"
+  );
+  if (alreadyExists) return { ...state, _version: 3 };
+
+  const ts = Date.now();
+  const colId = `col-today-${ts}`;
+  const c1 = `today-mig-${ts}-1`;
+  const c2 = `today-mig-${ts}-2`;
+  const c3 = `today-mig-${ts}-3`;
+  const c4 = `today-mig-${ts}-4`;
+
+  const newCards = {
+    ...board.cards,
+    [c1]: { id: c1, title: "New Service Sell Sheet", subtitle: "Define service + format (PDF, web, deck?)" },
+    [c2]: { id: c2, title: "30-sec LinkedIn Video Script", subtitle: "Topic + audience TBD" },
+    [c3]: { id: c3, title: "Sales Funnel Tools — .NET Dev Plan", subtitle: "Architecture + roadmap for .NET/SQL backend" },
+    [c4]: { id: c4, title: "Finish the SRED", subtitle: "SR&ED tax credit application" },
+  };
+
+  const newColumns = [
+    ...board.columns,
+    { id: colId, title: "Today — Mar 16", cardIds: [c1, c2, c3, c4] },
+  ];
+
+  return {
+    ...state,
+    _version: 3,
+    data: {
+      ...state.data,
+      [boardId]: { ...board, columns: newColumns, cards: newCards },
+    },
+  };
+}
+
 function runMigrations(state) {
   const version = state._version || 1;
   let s = { ...state };
@@ -220,7 +258,9 @@ function runMigrations(state) {
   if (version < 2) {
     s = migrateV1toV2(s);
   }
-  // future: if (version < 3) { s = migrateV2toV3(s); }
+  if (version < 3) {
+    s = migrateV2toV3(s);
+  }
 
   s._version = SCHEMA_VERSION;
   return s;
