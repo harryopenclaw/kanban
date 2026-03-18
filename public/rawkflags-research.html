@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RAWKFLAGS — Content Research</title>
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --surface: #1a1a1a;
+      --surface2: #242424;
+      --accent: #e63c3c;
+      --accent2: #ff6b35;
+      --text: #f0f0f0;
+      --muted: #888;
+      --border: #333;
+      --green: #4ade80;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1a0000 0%, #0d0d0d 60%);
+      border-bottom: 2px solid var(--accent);
+      padding: 2.5rem 2rem 2rem;
+      text-align: center;
+    }
+
+    header .label {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    header h1 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    header p {
+      color: var(--muted);
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem;
+    }
+
+    section {
+      margin-bottom: 3.5rem;
+    }
+
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.6rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-intro {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+      max-width: 700px;
+    }
+
+    /* Creator cards */
+    .creator-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .creator-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.4rem;
+      transition: border-color 0.2s;
+    }
+
+    .creator-card:hover {
+      border-color: var(--accent);
+    }
+
+    .creator-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .creator-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      background: var(--surface2);
+    }
+
+    .creator-info h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .creator-info .handle {
+      font-size: 0.8rem;
+      color: var(--accent);
+    }
+
+    .creator-info .platform-pills {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-top: 0.3rem;
+    }
+
+    .pill {
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .pill-yt   { background: #ff0000; color: #fff; }
+    .pill-ig   { background: #c13584; color: #fff; }
+    .pill-tt   { background: #010101; color: #fff; border: 1px solid #444; }
+    .pill-fb   { background: #1877f2; color: #fff; }
+
+    .creator-bio {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .followers {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .followers span {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .best-posts-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .best-posts {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .best-posts li {
+      font-size: 0.82rem;
+      background: var(--surface2);
+      border-left: 3px solid var(--accent);
+      padding: 0.45rem 0.7rem;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .best-posts li .post-stat {
+      font-size: 0.72rem;
+      color: var(--green);
+      font-weight: 600;
+      float: right;
+    }
+
+    .why-it-works {
+      margin-top: 1rem;
+      padding: 0.7rem 0.9rem;
+      background: rgba(230, 60, 60, 0.07);
+      border-radius: 6px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .why-it-works strong {
+      color: var(--accent2);
+    }
+
+    /* Content ideas */
+    .ideas-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .idea-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.4rem 1.6rem;
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 1rem;
+      align-items: start;
+      transition: border-color 0.2s;
+    }
+
+    .idea-card:hover {
+      border-color: var(--accent2);
+    }
+
+    .idea-number {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .idea-body h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+
+    .idea-hook {
+      font-size: 0.92rem;
+      color: var(--accent2);
+      font-weight: 600;
+      font-style: italic;
+      margin-bottom: 0.6rem;
+    }
+
+    .idea-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.8rem;
+    }
+
+    .idea-meta {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .meta-tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+
+    .meta-tag.format { border-color: #6366f1; color: #818cf8; }
+    .meta-tag.platform { border-color: #c13584; color: #e879a0; }
+    .meta-tag.hook-type { border-color: var(--accent2); color: var(--accent2); }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      font-size: 0.8rem;
+      border-top: 1px solid var(--border);
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="label">Content Strategy Research</div>
+  <h1>RAWKFLAGS 🤘</h1>
+  <p>Top creators targeting rock bands · Content ideas for banners &amp; flags · March 2026</p>
+</header>
+
+<div class="container">
+
+  <!-- ===================== SECTION 1: TOP CREATORS ===================== -->
+  <section>
+    <h2 class="section-title">🎸 Top Content Creators Targeting Rock Bands</h2>
+    <p class="section-intro">These creators sell products to rock bands or serve the rock/heavy music community. Study their best-performing post formats — they're the proof of concept for what works in this space.</p>
+
+    <div class="creator-grid">
+
+      <!-- Creator 1 -->
+      <div class="creator-card">
+        <div class="creator-header">
+          <div class="creator-avatar">🎙️</div>
+          <div class="creator-info">
+            <h3>Sweetwater</h3>
+            <div class="handle">@sweetwatersound</div>
+            <div class="platform-pills">
+              <span class="pill pill-yt">YouTube</span>
+              <span class="pill pill-ig">IG</span>
+              <span class="pill pill-fb">FB</span>
+            </div>
+          </div>
+        </div>
+        <p class="creator-bio">The gold standard for gear content. Demos, comparisons, and "what the pros use" videos targeting working musicians including touring rock bands.</p>
+        <div class="followers"><span>1.1M+</span> YouTube subscribers</div>
+        <div class="best-posts-label">Best Performing Post Types</div>
+        <ul class="best-posts">
+          <li>"Is This The Best Guitar Amp Under $500?" <span class="post-stat">1.4M+ views</span></li>
+          <li>What's In a Touring Band's Pedalboard? <span class="post-stat">800K+ views</span></li>
+          <li>Gear tour: [Famous band]'s live rig <span class="post-stat">700K+ views</span></li>
+        </ul>
+        <div class="why-it-works"><strong>Why it works:</strong> Aspirational gear + real band context. Bands trust them because they sound like insiders, not salespeople.</div>
+      </div>
+
+      <!-- Creator 2 -->
+      <div class="creator-card">
+        <div class="creator-header">
+          <div class="creator-avatar">🥁</div>
+          <div class="creator-info">
+            <h3>Drumeo</h3>
+            <div class="handle">@drumeo</div>
+            <div class="platform-pills">
+              <span class="pill pill-yt">YouTube</span>
+              <span class="pill pill-ig">IG</span>
+              <span class="pill pill-tt">TikTok</span>
+            </div>
+          </div>
+        </div>
+        <p class="creator-bio">Education-first drumming channel that also markets kits, cymbals, and accessories. Massive reach into rock drummers specifically.</p>
+        <div class="followers"><span>3M+</span> YouTube subscribers</div>
+        <div class="best-posts-label">Best Performing Post Types</div>
+        <ul class="best-posts">
+          <li>Drummer reacts to [viral rock clip] <span class="post-stat">2M+ views</span></li>
+          <li>Rock drummer plays jazz (fish out of water) <span class="post-stat">1.8M views</span></li>
+          <li>"I tried [famous drummer's] exact setup" <span class="post-stat">1.2M views</span></li>
+        </ul>
+        <div class="why-it-works"><strong>Why it works:</strong> Reaction + challenge format. Personality-driven and highly shareable. The product is secondary — the entertaiment is primary.</div>
+      </div>
+
+      <!-- Creator 3 -->
+      <div class="creator-card">
+        <div class="creator-header">
+          <div class="creator-avatar">🎸</div>
+          <div class="creator-info">
+            <h3>That Pedal Show</h3>
+            <div class="handle">@thatpedalshow</div>
+            <div class="platform-pills">
+              <span class="pill pill-yt">YouTube</span>
+              <span class="pill pill-ig">IG</span>
+            </div>
+          </div>
+        </div>
+        <p class="creator-bio">Deep-dive gear show for serious guitarists. Cult following among rock, blues, and metal players. Brands pay big to be featured.</p>
+        <div class="followers"><span>850K</span> YouTube subscribers</div>
+        <div class="best-posts-label">Best Performing Post Types</div>
+        <ul class="best-posts">
+          <li>Two-hour pedalboard deep dives <span class="post-stat">500K+ views avg</span></li>
+          <li>"Do you actually need [expensive thing]?" <span class="post-stat">400K+ views</span></li>
+          <li>Blindfolded tone tests (which amp wins?) <span class="post-stat">900K views</span></li>
+        </ul>
+        <div class="why-it-works"><strong>Why it works:</strong> Trust through depth. They don't oversell — which means when they do recommend, it lands hard. Product placement here = credibility transfer.</div>
+      </div>
+
+      <!-- Creator 4 -->
+      <div class="creator-card">
+        <div class="creator-header">
+          <div class="creator-avatar">🤘</div>
+          <div class="creator-info">
+            <h3>Anderton's Music Co.</h3>
+            <div class="handle">@andertons</div>
+            <div class="platform-pills">
+              <span class="pill pill-yt">YouTube</span>
+              <span class="pill pill-ig">IG</span>
+            </div>
+          </div>
+        </div>
+        <p class="creator-bio">UK-based retailer that turned their store into a content empire. Personality-driven demos, riffs, and band gear walkthroughs. Rock-focused audience.</p>
+        <div class="followers"><span>700K+</span> YouTube subscribers</div>
+        <div class="best-posts-label">Best Performing Post Types</div>
+        <ul class="best-posts">
+          <li>Riff challenge battles between staff <span class="post-stat">600K+ views</span></li>
+          <li>"Cheap vs expensive [instrument] — can you tell?" <span class="post-stat">1.1M views</span></li>
+          <li>In-store band jams (impromptu sessions) <span class="post-stat">800K views</span></li>
+        </ul>
+        <div class="why-it-works"><strong>Why it works:</strong> Retail with personality. They turned "buy this" into "watch this". High entertainment = high trust = high conversion.</div>
+      </div>
+
+      <!-- Creator 5 -->
+      <div class="creator-card">
+        <div class="creator-header">
+          <div class="creator-avatar">📸</div>
+          <div class="creator-info">
+            <h3>Rock Band Promo / @bandphotographers</h3>
+            <div class="handle">Multiple niche accounts</div>
+            <div class="platform-pills">
+              <span class="pill pill-ig">IG</span>
+              <span class="pill pill-tt">TikTok</span>
+            </div>
+          </div>
+        </div>
+        <p class="creator-bio">Micro-creator ecosystem: band photographers, tour managers, and DIY merch creators sharing behind-the-scenes band life content. Highly engaged niche audiences (10K–200K).</p>
+        <div class="followers"><span>10K–200K</span> per account</div>
+        <div class="best-posts-label">Best Performing Post Types</div>
+        <ul class="best-posts">
+          <li>Stage setup transformation videos (before/after) <span class="post-stat">High saves</span></li>
+          <li>"Our merch table setup" walk-throughs <span class="post-stat">High shares</span></li>
+          <li>Behind-the-scenes tour life reels <span class="post-stat">Viral potential</span></li>
+        </ul>
+        <div class="why-it-works"><strong>Why it works:</strong> Authenticity. These audiences see the stage setup, the merch table, the flags — and actually care. Prime target for a RAWKFLAGS collab or UGC campaign.</div>
+      </div>
+
+      <!-- Creator 6 -->
+      <div class="creator-card">
+        <div class="creator-header">
+          <div class="creator-avatar">🎬</div>
+          <div class="creator-info">
+            <h3>Rock Merch / @merchwizard</h3>
+            <div class="handle">Merch-focused creators</div>
+            <div class="platform-pills">
+              <span class="pill pill-tt">TikTok</span>
+              <span class="pill pill-ig">IG</span>
+            </div>
+          </div>
+        </div>
+        <p class="creator-bio">A growing category of TikTok/IG creators reviewing band merch, ranking stage setups, and documenting the DIY merch economy for indie bands. Emerging but highly targeted.</p>
+        <div class="followers"><span>20K–500K</span> reach</div>
+        <div class="best-posts-label">Best Performing Post Types</div>
+        <ul class="best-posts">
+          <li>Rating band merch tables at local shows <span class="post-stat">Viral clips</span></li>
+          <li>"I spent $200 on a band's full merch setup" <span class="post-stat">High saves</span></li>
+          <li>Stage flag/banner reveal before a gig <span class="post-stat">High engagement</span></li>
+        </ul>
+        <div class="why-it-works"><strong>Why it works:</strong> This is the closest content match to RAWKFLAGS. Stage presence + product reveal is a natural fit. Gifting a flag to one of these creators is high-ROI UGC.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== SECTION 2: CONTENT IDEAS ===================== -->
+  <section>
+    <h2 class="section-title">💡 5 Content Ideas for RAWKFLAGS</h2>
+    <p class="section-intro">Built on what we know works in this niche — social proof, transformation, identity, community, and entertainment. Each idea uses a hook-first structure designed to stop the scroll.</p>
+
+    <div class="ideas-list">
+
+      <!-- Idea 1 -->
+      <div class="idea-card">
+        <div class="idea-number">1</div>
+        <div class="idea-body">
+          <h3>The Stage Transformation</h3>
+          <div class="idea-hook">"We turned this band's bare stage into something that actually looks FAMOUS — in 10 minutes."</div>
+          <p class="idea-desc">Before/after reel. Empty, flat stage → same stage with RAWKFLAGS flying. The transformation is the hook. No voiceover needed — let the visual do the work. Caption: "Your stage should look as big as your sound."<br><br>
+          Film real bands (local shows work great). Offer free or discounted flags in exchange for filming rights. The band shares it — you get their entire fanbase seeing the product in action.</p>
+          <div class="idea-meta">
+            <span class="meta-tag format">Reel / TikTok</span>
+            <span class="meta-tag platform">Instagram · TikTok</span>
+            <span class="meta-tag hook-type">Transformation Hook</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Idea 2 -->
+      <div class="idea-card">
+        <div class="idea-number">2</div>
+        <div class="idea-body">
+          <h3>The "Which Band Gets It Right" Comparison</h3>
+          <div class="idea-hook">"Most bands lose fans before they play a single note. Here's why."</div>
+          <p class="idea-desc">Side-by-side comparison of two band stage setups — one bare, one with full flags and visual identity. No shaming — frame it as education. "Band A vs Band B: which one looks like they've been doing this for 10 years?"<br><br>
+          This works because every band owner looks at it and self-identifies. Saves are high. DMs follow.</p>
+          <div class="idea-meta">
+            <span class="meta-tag format">Carousel / Reel</span>
+            <span class="meta-tag platform">Instagram · Facebook</span>
+            <span class="meta-tag hook-type">Curiosity Hook</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Idea 3 -->
+      <div class="idea-card">
+        <div class="idea-number">3</div>
+        <div class="idea-body">
+          <h3>Fan POV: "This is Why I Stay at the Barrier"</h3>
+          <div class="idea-hook">"POV: you finally found a band that actually looks like they give a sh*t."</div>
+          <p class="idea-desc">Short reel shot from fan-level looking up at a stage decked out with RAWKFLAGS. Music building. Flags moving in the air. Pure atmosphere. No talking — just vibes and an end card.<br><br>
+          The emotional angle: flags aren't merch, they're part of the experience. This is sold to the band as "your fans remember stages like this." High share rate because fans tag bands they want to have this energy.</p>
+          <div class="idea-meta">
+            <span class="meta-tag format">Reel / TikTok</span>
+            <span class="meta-tag platform">TikTok · Instagram</span>
+            <span class="meta-tag hook-type">Emotion / POV Hook</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Idea 4 -->
+      <div class="idea-card">
+        <div class="idea-number">4</div>
+        <div class="idea-body">
+          <h3>The "Small Band, Big Stage" Story</h3>
+          <div class="idea-hook">"This band has 200 followers. Their stage looks like they're headlining Download Festival."</div>
+          <p class="idea-hook" style="color: var(--muted); font-size: 0.8rem; font-style: normal; margin-top: -0.4rem;">(secondary angle: "You don't need to be famous to look famous.")</div>
+          <p class="idea-desc">Document a real local/indie band's setup journey. Show their humble beginnings, add RAWKFLAGS, show the crowd reaction. Authentic, shareable, and positions RAWKFLAGS as the equalizer — the thing that levels the playing field between indie acts and signed bands.<br><br>
+          Tag the band. They share it. Their fans discover RAWKFLAGS. Repeat with new bands monthly — this is a content engine.</p>
+          <div class="idea-meta">
+            <span class="meta-tag format">Mini-documentary</span>
+            <span class="meta-tag platform">YouTube Shorts · IG · TikTok</span>
+            <span class="meta-tag hook-type">Underdog Hook</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Idea 5 -->
+      <div class="idea-card">
+        <div class="idea-number">5</div>
+        <div class="idea-body">
+          <h3>The "Design Your Flag" Interactive Series</h3>
+          <div class="idea-hook">"We design a custom flag live for [band name] — they don't know it yet."</div>
+          <p class="idea-desc">Pick a real band (local or mid-level), design a custom RAWKFLAGS concept for them on screen, then DM or tag them. Whether they respond or not — the process is the content. Show the design software, the thinking, the brand identity work.<br><br>
+          This drives DMs from other bands saying "do mine next." It shows craftsmanship. It humanises the brand. Run this as a weekly series — "Flag Friday." Each episode is 60–90 seconds of the design process + reveal. CTA: "Want us to design yours? DM BAND."</p>
+          <div class="idea-meta">
+            <span class="meta-tag format">Series / Weekly</span>
+            <span class="meta-tag platform">TikTok · Instagram · YouTube Shorts</span>
+            <span class="meta-tag hook-type">Curiosity + Engagement Hook</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  RAWKFLAGS Content Research · Generated March 2026 · For internal use
+</footer>
+
+</body>
+</html>
