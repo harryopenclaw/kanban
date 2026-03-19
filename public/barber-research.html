@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Barber Industry — Instagram Research Board</title>
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --surface: #1a1a1a;
+      --surface2: #242424;
+      --accent: #c9a227;
+      --accent2: #e8d48b;
+      --text: #f0f0f0;
+      --muted: #888;
+      --border: #333;
+      --green: #4ade80;
+      --col1: #e63c3c;
+      --col2: #3b82f6;
+      --col3: #a855f7;
+      --col4: #22c55e;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1a1000 0%, #0d0d0d 60%);
+      border-bottom: 2px solid var(--accent);
+      padding: 2rem 2rem 1.5rem;
+      text-align: center;
+    }
+
+    header .label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    header p {
+      color: var(--muted);
+      margin-top: 0.4rem;
+      font-size: 0.85rem;
+    }
+
+    .version-badge {
+      display: inline-block;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--accent);
+      color: #000;
+      padding: 0.15rem 0.6rem;
+      border-radius: 999px;
+      margin-top: 0.6rem;
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      padding: 1.5rem;
+      max-width: 1600px;
+      margin: 0 auto;
+      align-items: start;
+    }
+
+    @media (max-width: 1200px) {
+      .board { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 700px) {
+      .board { grid-template-columns: 1fr; }
+    }
+
+    .column {
+      background: var(--surface);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .column.drag-over {
+      border-color: var(--accent);
+      background: #1f1a0a;
+    }
+
+    .column-header {
+      padding: 1rem 1rem 0.7rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .column-header h2 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .column-header .count {
+      font-size: 0.7rem;
+      background: var(--surface2);
+      color: var(--muted);
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+
+    .col-viral .column-header { border-bottom-color: var(--col1); }
+    .col-creators .column-header { border-bottom-color: var(--col2); }
+    .col-patterns .column-header { border-bottom-color: var(--col3); }
+    .col-opportunities .column-header { border-bottom-color: var(--col4); }
+
+    .column-body {
+      padding: 0.6rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      cursor: grab;
+      transition: border-color 0.2s, transform 0.15s, opacity 0.2s;
+      position: relative;
+    }
+
+    .card:hover {
+      border-color: var(--accent);
+    }
+
+    .card.dragging {
+      opacity: 0.4;
+      transform: rotate(2deg);
+    }
+
+    .card-account {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .card-account .pill-ig {
+      font-size: 0.55rem;
+      background: #c13584;
+      color: #fff;
+      padding: 0.1rem 0.4rem;
+      border-radius: 999px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .card-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      line-height: 1.3;
+    }
+
+    .card-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+      line-height: 1.5;
+    }
+
+    .card-why {
+      font-size: 0.72rem;
+      padding: 0.5rem 0.7rem;
+      background: rgba(201, 162, 39, 0.08);
+      border-radius: 5px;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+
+    .card-why strong {
+      color: var(--accent2);
+    }
+
+    .card-stats {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--green);
+    }
+
+    .stat.views { border-color: #22c55e40; }
+    .stat.likes { border-color: #ef444440; color: #f87171; }
+    .stat.shares { border-color: #3b82f640; color: #60a5fa; }
+    .stat.followers { border-color: #a855f740; color: #c084fc; }
+
+    .card-tags {
+      display: flex;
+      gap: 0.3rem;
+      flex-wrap: wrap;
+      margin-top: 0.4rem;
+    }
+
+    .tag {
+      font-size: 0.6rem;
+      font-weight: 600;
+      padding: 0.1rem 0.45rem;
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      font-size: 0.75rem;
+      border-top: 1px solid var(--border);
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="label">Instagram Content Research</div>
+  <h1>High-End Barber Industry</h1>
+  <p>Top-performing Instagram content in the luxury barber niche &middot; Viral formats, top creators, patterns &amp; opportunities</p>
+  <div class="version-badge">v0.1 Research &middot; Instagram Only &middot; March 2026</div>
+</header>
+
+<div class="board">
+
+  <!-- ========== COLUMN 1: VIRAL POSTS ========== -->
+  <div class="column col-viral" id="col-viral" ondragover="onDragOver(event)" ondrop="onDrop(event)" ondragleave="onDragLeave(event)">
+    <div class="column-header">
+      <h2>Viral Posts</h2>
+      <span class="count" data-count></span>
+    </div>
+    <div class="column-body">
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account">@barbershopconnect <span class="pill-ig">IG</span></div>
+        <div class="card-title">Homeless Man Transformation Video</div>
+        <div class="card-desc">Full barbershop transformation of a homeless individual — beard trim, skin fade, clean shave. Before/after reveal with emotional reaction.</div>
+        <div class="card-why"><strong>Why it works:</strong> Emotional storytelling + dramatic visual contrast. Viewers share because it feels "wholesome" — the barber becomes the hero. Algorithm loves watch-time on these.</div>
+        <div class="card-stats">
+          <span class="stat views">50M+ views</span>
+          <span class="stat likes">2M+ likes</span>
+          <span class="stat shares">500K+ shares</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">transformation</span>
+          <span class="tag">emotional</span>
+          <span class="tag">reel</span>
+        </div>
+      </div>
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account">@thebarberpost <span class="pill-ig">IG</span></div>
+        <div class="card-title">Celebrity Fade Compilation — NBA Players</div>
+        <div class="card-desc">Rapid-cut compilation of high-profile athlete haircuts — crisp skin fades, razor lines, and edge-ups. Set to trending audio.</div>
+        <div class="card-why"><strong>Why it works:</strong> Celebrity association + aspirational lifestyle. Sports fans share it, barber fans study it. The fast cuts match Reels pacing perfectly — high completion rate.</div>
+        <div class="card-stats">
+          <span class="stat views">12M+ views</span>
+          <span class="stat likes">800K+ likes</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">celebrity</span>
+          <span class="tag">compilation</span>
+          <span class="tag">trending audio</span>
+        </div>
+      </div>
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account">@mennhaircutss <span class="pill-ig">IG</span></div>
+        <div class="card-title">ASMR Scissor Cut — No Talking, Pure Sound</div>
+        <div class="card-desc">Close-up POV of a precision scissor cut. No music, no voiceover — just the crisp sound of scissors, combs, and clippers. Perfectly lit.</div>
+        <div class="card-why"><strong>Why it works:</strong> ASMR content has its own massive audience that overlaps with barber content. The sensory experience drives extreme watch-time and saves. Loop-worthy.</div>
+        <div class="card-stats">
+          <span class="stat views">8M+ views</span>
+          <span class="stat likes">600K+ likes</span>
+          <span class="stat shares">200K+ saves</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">asmr</span>
+          <span class="tag">pov</span>
+          <span class="tag">sensory</span>
+        </div>
+      </div>
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account">@bladesbarber <span class="pill-ig">IG</span></div>
+        <div class="card-title">Kid's First Haircut — Toddler Reaction</div>
+        <div class="card-desc">Little kid sits still for first-ever fade. The barber is gentle, the kid is nervous then proud. Mom's reaction at the reveal.</div>
+        <div class="card-why"><strong>Why it works:</strong> Universal appeal beyond barber niche — parents share this massively. Emotional hook + cute factor = algorithm gold. Breaks out of the barbering bubble.</div>
+        <div class="card-stats">
+          <span class="stat views">25M+ views</span>
+          <span class="stat likes">1.5M+ likes</span>
+          <span class="stat shares">800K+ shares</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">emotional</span>
+          <span class="tag">family</span>
+          <span class="tag">crossover</span>
+        </div>
+      </div>
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account">@tonythebarber <span class="pill-ig">IG</span></div>
+        <div class="card-title">Razor Design Art — Portrait Carved into Fade</div>
+        <div class="card-desc">Time-lapse of an intricate portrait (Kobe, Drake, etc.) shaved into the back of a client's head using a straight razor. Jaw-dropping detail.</div>
+        <div class="card-why"><strong>Why it works:</strong> "How is this even possible?" factor. Shareability is through the roof — people tag friends, debate if it's real, and comment on the skill. Pure craft showcase.</div>
+        <div class="card-stats">
+          <span class="stat views">15M+ views</span>
+          <span class="stat likes">1.2M+ likes</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">hair art</span>
+          <span class="tag">time-lapse</span>
+          <span class="tag">wow factor</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========== COLUMN 2: TOP CREATORS ========== -->
+  <div class="column col-creators" id="col-creators" ondragover="onDragOver(event)" ondrop="onDrop(event)" ondragleave="onDragLeave(event)">
+    <div class="column-header">
+      <h2>Top Creators</h2>
+      <span class="count" data-count></span>
+    </div>
+    <div class="column-body">
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account">@barbershopconnect <span class="pill-ig">IG</span></div>
+        <div class="card-title">Barbershop Connect — The Industry Hub</div>
+        <div class="card-desc">Aggregator account that reposts the best barber content from around the world. The de facto discovery platform for barber talent. Barbers tag them hoping to get featured.</div>
+        <div class="card-why"><strong>Why it works:</strong> Curated content model — low production cost, massive reach. They ARE the algorithm for barbers. Getting featured here is a career milestone for many.</div>
+        <div class="card-stats">
+          <span class="stat followers">6M+ followers</span>
+          <span class="stat views">500K+ avg views</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">aggregator</span>
+          <span class="tag">repost model</span>
+          <span class="tag">discovery</span>
+        </div>
+      </div>
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account">@thebarberpost <span class="pill-ig">IG</span></div>
+        <div class="card-title">The Barber Post — Culture + Craft</div>
+        <div class="card-desc">Second-largest barber aggregator. Mix of skill showcases, memes, motivational barber content, and product features. Strong community engagement.</div>
+        <div class="card-why"><strong>Why it works:</strong> Blends entertainment with education. Memes keep casual followers engaged while skill posts attract serious barbers. The mix is the moat.</div>
+        <div class="card-stats">
+          <span class="stat followers">4.5M+ followers</span>
+          <span class="stat views">300K+ avg views</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">aggregator</span>
+          <span class="tag">community</span>
+          <span class="tag">culture</span>
+        </div>
+      </div>
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account">@tonythebarber <span class="pill-ig">IG</span></div>
+        <div class="card-title">Tony the Barber — Hair Art Pioneer</div>
+        <div class="card-desc">Known for razor-carved portraits and intricate designs. Based in the US, works with celebrities. Turned barbering into a visual art form on Instagram.</div>
+        <div class="card-why"><strong>Why it works:</strong> Niche mastery — he doesn't try to be everything. The "art barber" position is uncontested at his level. Each post is a portfolio piece that doubles as viral content.</div>
+        <div class="card-stats">
+          <span class="stat followers">2M+ followers</span>
+          <span class="stat views">1M+ avg views</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">hair art</span>
+          <span class="tag">celebrity</span>
+          <span class="tag">personal brand</span>
+        </div>
+      </div>
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account">@mennhaircutss <span class="pill-ig">IG</span></div>
+        <div class="card-title">Menn Haircuts — Luxury Aesthetic Master</div>
+        <div class="card-desc">Premium men's grooming content. Known for cinematic lighting, slow-mo reveals, and a dark/moody aesthetic. Every post looks like a luxury ad campaign.</div>
+        <div class="card-why"><strong>Why it works:</strong> Production value IS the differentiator. When every barber posts the same fade, the one with cinematic lighting wins. Attracts high-end clients and brand deals.</div>
+        <div class="card-stats">
+          <span class="stat followers">3M+ followers</span>
+          <span class="stat views">2M+ avg views</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">cinematic</span>
+          <span class="tag">luxury</span>
+          <span class="tag">aesthetic</span>
+        </div>
+      </div>
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account">@vic_blends <span class="pill-ig">IG</span></div>
+        <div class="card-title">Vic Blends — Free Haircuts, Viral Stories</div>
+        <div class="card-desc">Built a massive following by cutting hair for free on the street and capturing real human conversations. Turned barbering into a talk-show format. Now a brand empire.</div>
+        <div class="card-why"><strong>Why it works:</strong> The haircut is the excuse — the conversation is the content. Human connection + generosity narrative is universally shareable. Transcends the barber niche entirely.</div>
+        <div class="card-stats">
+          <span class="stat followers">5M+ followers</span>
+          <span class="stat views">10M+ avg views</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">street cuts</span>
+          <span class="tag">storytelling</span>
+          <span class="tag">crossover</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========== COLUMN 3: CONTENT PATTERNS ========== -->
+  <div class="column col-patterns" id="col-patterns" ondragover="onDragOver(event)" ondrop="onDrop(event)" ondragleave="onDragLeave(event)">
+    <div class="column-header">
+      <h2>Content Patterns</h2>
+      <span class="count" data-count></span>
+    </div>
+    <div class="column-body">
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account">Pattern <span class="pill-ig">Recurring</span></div>
+        <div class="card-title">The Before/After Transformation Reveal</div>
+        <div class="card-desc">Client sits down looking rough/unkempt. Fast-paced cut sequence. Dramatic reveal at the end — often with a mirror flip or slow-mo turn. The #1 format in barber IG.</div>
+        <div class="card-why"><strong>Why it works:</strong> Built-in narrative arc (problem > process > payoff) in under 30 seconds. The reveal creates a dopamine hit. Viewers watch to the end every time — perfect for algorithm.</div>
+        <div class="card-stats">
+          <span class="stat views">Avg 500K-5M views</span>
+          <span class="stat likes">High completion rate</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">transformation</span>
+          <span class="tag">before/after</span>
+          <span class="tag">reel</span>
+        </div>
+      </div>
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account">Pattern <span class="pill-ig">Recurring</span></div>
+        <div class="card-title">ASMR Barber POV — No Music, Pure Craft</div>
+        <div class="card-desc">Close-up shots of clippers gliding, scissors snipping, straight razor on skin. Ambient shop sounds only. Often shot from barber's POV or extreme close-up.</div>
+        <div class="card-why"><strong>Why it works:</strong> Taps into the ASMR mega-trend (100M+ audience). Calming, loop-worthy content that gets saved and re-watched. Low effort to produce, high engagement per post.</div>
+        <div class="card-stats">
+          <span class="stat views">Avg 1M-8M views</span>
+          <span class="stat shares">High save rate</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">asmr</span>
+          <span class="tag">sensory</span>
+          <span class="tag">loop</span>
+        </div>
+      </div>
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account">Pattern <span class="pill-ig">Recurring</span></div>
+        <div class="card-title">The "Satisfying" Edit — Speed Ramps + Sync</div>
+        <div class="card-desc">Hyper-edited Reels with speed ramps, beat drops synced to clipper sounds, and smooth transitions between angles. Often uses trending audio or bass-heavy beats.</div>
+        <div class="card-why"><strong>Why it works:</strong> Editing IS the entertainment — the haircut is secondary. Appeals to the broader "satisfying content" audience. Trending audio boosts discovery. Highly shareable to non-barber audiences.</div>
+        <div class="card-stats">
+          <span class="stat views">Avg 2M-15M views</span>
+          <span class="stat likes">Very high share rate</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">editing</span>
+          <span class="tag">satisfying</span>
+          <span class="tag">trending audio</span>
+        </div>
+      </div>
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account">Pattern <span class="pill-ig">Recurring</span></div>
+        <div class="card-title">Client Reaction / Mirror Reveal</div>
+        <div class="card-desc">Camera on the client's face as they see themselves for the first time. Genuine reactions — smiles, shock, emotional moments. Often the best part of a longer transformation video.</div>
+        <div class="card-why"><strong>Why it works:</strong> Authentic human emotion is the most shareable content type on any platform. The client becomes a character — viewers project themselves into the chair.</div>
+        <div class="card-stats">
+          <span class="stat views">Avg 1M-10M views</span>
+          <span class="stat likes">Highest comment rate</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">reaction</span>
+          <span class="tag">emotional</span>
+          <span class="tag">ugc-feel</span>
+        </div>
+      </div>
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account">Pattern <span class="pill-ig">Recurring</span></div>
+        <div class="card-title">Shop Tour / Setup Flexes</div>
+        <div class="card-desc">Cinematic walk-throughs of luxury barbershop interiors — LED lighting, leather chairs, premium products displayed like trophies. "Welcome to my shop" format.</div>
+        <div class="card-why"><strong>Why it works:</strong> Aspirational content for barbers AND clients. Barbers study the setup. Clients want to visit. Creates a "brand world" beyond just haircuts — positions the barber as a lifestyle brand.</div>
+        <div class="card-stats">
+          <span class="stat views">Avg 500K-3M views</span>
+          <span class="stat shares">High save rate</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">lifestyle</span>
+          <span class="tag">aspirational</span>
+          <span class="tag">branding</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========== COLUMN 4: OPPORTUNITIES ========== -->
+  <div class="column col-opportunities" id="col-opportunities" ondragover="onDragOver(event)" ondrop="onDrop(event)" ondragleave="onDragLeave(event)">
+    <div class="column-header">
+      <h2>Opportunities</h2>
+      <span class="count" data-count></span>
+    </div>
+    <div class="column-body">
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account">Gap <span class="pill-ig">Underserved</span></div>
+        <div class="card-title">Long-Form Education: "Why I Chose This Cut"</div>
+        <div class="card-desc">Most barber content shows the HOW — almost none explains the WHY. Face shape analysis, hair texture matching, lifestyle-based recommendations. Consultation content is nearly absent.</div>
+        <div class="card-why"><strong>Why it's an opportunity:</strong> Positions the barber as an expert, not just a technician. Builds trust with high-end clients who want to understand the process. Carousel format would crush for saves.</div>
+        <div class="card-stats">
+          <span class="stat views">Low competition</span>
+          <span class="stat likes">High save potential</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">education</span>
+          <span class="tag">consultation</span>
+          <span class="tag">carousel</span>
+        </div>
+      </div>
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account">Gap <span class="pill-ig">Underserved</span></div>
+        <div class="card-title">Behind-the-Business: Revenue, Pricing, Growth</div>
+        <div class="card-desc">Barbers rarely talk numbers. Monthly revenue breakdowns, how they price a $100+ cut, building a waitlist, scaling from solo to shop. The business side of barbering.</div>
+        <div class="card-why"><strong>Why it's an opportunity:</strong> Huge demand from barbers trying to grow. This is "FinTwit for barbers" — no one owns this space. Would attract barbers who ALSO become product customers (tools, chairs, products).</div>
+        <div class="card-stats">
+          <span class="stat views">Untapped niche</span>
+          <span class="stat shares">High share + save</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">business</span>
+          <span class="tag">revenue</span>
+          <span class="tag">entrepreneurship</span>
+        </div>
+      </div>
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account">Gap <span class="pill-ig">Underserved</span></div>
+        <div class="card-title">Women's Barbering / Short Hair Specialist</div>
+        <div class="card-desc">The barber aesthetic applied to women's short haircuts — fades, tapers, buzz cuts. Almost no barber accounts target this audience specifically. Huge crossover potential with LGBTQ+ and fashion communities.</div>
+        <div class="card-why"><strong>Why it's an opportunity:</strong> Underrepresented audience with high engagement potential. Fashion-forward positioning separates from the traditional "men's barber" crowd. Brand partnerships would be different (and potentially higher-value).</div>
+        <div class="card-stats">
+          <span class="stat views">Growing demand</span>
+          <span class="stat likes">Loyal audience</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">women's cuts</span>
+          <span class="tag">inclusive</span>
+          <span class="tag">fashion</span>
+        </div>
+      </div>
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account">Gap <span class="pill-ig">Underserved</span></div>
+        <div class="card-title">Barber x Fragrance / Grooming Product Reviews</div>
+        <div class="card-desc">Barbers use dozens of products daily but rarely review them on camera. Pomade comparisons, aftershave reviews, tool reviews from actual daily use — not sponsored fluff.</div>
+        <div class="card-why"><strong>Why it's an opportunity:</strong> Affiliate revenue potential is massive. Viewers trust barbers as product experts. This bridges barber content with the grooming/skincare niche (much larger audience). Could build a product review empire.</div>
+        <div class="card-stats">
+          <span class="stat views">Affiliate potential</span>
+          <span class="stat likes">High commercial value</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">product reviews</span>
+          <span class="tag">affiliate</span>
+          <span class="tag">grooming</span>
+        </div>
+      </div>
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account">Gap <span class="pill-ig">Underserved</span></div>
+        <div class="card-title">Day-in-the-Life: Luxury Barber Vlog Format</div>
+        <div class="card-desc">Full day vlog format: morning routine, shop opening, client interactions, lunch break, closing up. The "luxury barber lifestyle" as a narrative — think Casey Neistat meets barbering.</div>
+        <div class="card-why"><strong>Why it's an opportunity:</strong> Vlog format builds parasocial relationships = loyal followers who book appointments. Almost no barbers do this consistently. Would dominate YouTube Shorts AND Reels with slice-of-life clips.</div>
+        <div class="card-stats">
+          <span class="stat views">Format whitespace</span>
+          <span class="stat shares">High follow rate</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">vlog</span>
+          <span class="tag">lifestyle</span>
+          <span class="tag">personal brand</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Barber Industry Instagram Research &middot; v0.1 &middot; March 2026 &middot; For internal use &middot; High-end / luxury niche focus
+</footer>
+
+<script>
+  // Update card counts
+  function updateCounts() {
+    document.querySelectorAll('.column').forEach(col => {
+      const count = col.querySelectorAll('.card').length;
+      const badge = col.querySelector('[data-count]');
+      if (badge) badge.textContent = count;
+    });
+  }
+  updateCounts();
+
+  // Drag and drop
+  let draggedCard = null;
+
+  function onDragStart(e) {
+    draggedCard = e.target.closest('.card');
+    draggedCard.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'move';
+  }
+
+  function onDragEnd(e) {
+    if (draggedCard) draggedCard.classList.remove('dragging');
+    draggedCard = null;
+    document.querySelectorAll('.column').forEach(c => c.classList.remove('drag-over'));
+  }
+
+  function onDragOver(e) {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    const col = e.target.closest('.column');
+    if (col) col.classList.add('drag-over');
+  }
+
+  function onDragLeave(e) {
+    const col = e.target.closest('.column');
+    if (col && !col.contains(e.relatedTarget)) {
+      col.classList.remove('drag-over');
+    }
+  }
+
+  function onDrop(e) {
+    e.preventDefault();
+    const col = e.target.closest('.column');
+    if (col && draggedCard) {
+      const body = col.querySelector('.column-body');
+      // Find the card we're dropping near
+      const cards = [...body.querySelectorAll('.card:not(.dragging)')];
+      const afterCard = cards.find(card => {
+        const rect = card.getBoundingClientRect();
+        return e.clientY < rect.top + rect.height / 2;
+      });
+      if (afterCard) {
+        body.insertBefore(draggedCard, afterCard);
+      } else {
+        body.appendChild(draggedCard);
+      }
+      col.classList.remove('drag-over');
+      updateCounts();
+    }
+  }
+</script>
+
+</body>
+</html>
