@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GTM Workflow</title>
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #13131f;
+      --surface2: #1e1e2e;
+      --border: #2a2a3e;
+      --accent: #6366f1;
+      --accent2: #a78bfa;
+      --accent3: #38bdf8;
+      --green: #4ade80;
+      --orange: #fb923c;
+      --pink: #f472b6;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --arrow: #3a3a5c;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      padding: 2rem 1rem 4rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    header .label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    header p {
+      color: var(--muted);
+      margin-top: 0.4rem;
+      font-size: 0.85rem;
+    }
+
+    /* ── MAIN FLOW ─────────────────────────────────────── */
+    .flow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* Row of nodes */
+    .flow-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      width: 100%;
+    }
+
+    /* Individual node */
+    .node {
+      position: relative;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 1.1rem 1.4rem;
+      min-width: 140px;
+      text-align: center;
+      transition: border-color 0.2s, transform 0.2s;
+      cursor: default;
+    }
+
+    .node:hover {
+      transform: translateY(-2px);
+    }
+
+    .node .node-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .node .node-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.15rem;
+    }
+
+    .node .node-title {
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .node .node-sub {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 0.3rem;
+      line-height: 1.4;
+    }
+
+    /* Node colour variants */
+    .node.blue   { border-color: var(--accent);  }
+    .node.blue:hover { border-color: var(--accent2); }
+    .node.blue .node-title { color: var(--accent2); }
+
+    .node.teal   { border-color: var(--accent3); }
+    .node.teal:hover { border-color: #7dd3fc; }
+    .node.teal .node-title { color: var(--accent3); }
+
+    .node.green  { border-color: var(--green); }
+    .node.green:hover { border-color: #86efac; }
+    .node.green .node-title { color: var(--green); }
+
+    .node.orange { border-color: var(--orange); }
+    .node.orange:hover { border-color: #fdba74; }
+    .node.orange .node-title { color: var(--orange); }
+
+    .node.pink   { border-color: var(--pink); }
+    .node.pink:hover { border-color: #f9a8d4; }
+    .node.pink .node-title { color: var(--pink); }
+
+    .node.purple { border-color: var(--accent2); }
+    .node.purple:hover { border-color: #c4b5fd; }
+    .node.purple .node-title { color: var(--accent2); }
+
+    /* Arrows between nodes */
+    .arrow-h {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      padding: 0 0.3rem;
+    }
+
+    .arrow-h svg { display: block; }
+
+    .arrow-v {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0.2rem 0;
+    }
+
+    .arrow-v svg { display: block; }
+
+    /* ── CONTENT BRANCH ─────────────────────────────────── */
+    .branch-section {
+      width: 100%;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .branch-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .branch-split {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      width: 100%;
+      padding-top: 0;
+    }
+
+    .branch-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    .branch-group {
+      background: var(--surface2);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 1rem 1.2rem;
+      min-width: 130px;
+      text-align: center;
+    }
+
+    .branch-group .bg-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .branch-group .bg-items {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .branch-group .bg-item {
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0.3rem 0.7rem;
+      border-radius: 6px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+
+    .branch-group .bg-item.placeholder {
+      color: var(--muted);
+      border-style: dashed;
+      font-style: italic;
+    }
+
+    /* Horizontal branch connector line */
+    .branch-line {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      position: relative;
+      height: 24px;
+    }
+
+    .branch-line::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60%;
+      height: 2px;
+      background: var(--arrow);
+    }
+
+    /* Step number badge */
+    .step-badge {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--surface2);
+      border: 1.5px solid var(--border);
+      font-size: 0.65rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+    }
+
+    /* ── LEGEND ─────────────────────────────────────────── */
+    .legend {
+      max-width: 860px;
+      margin: 3rem auto 0;
+      padding: 1.2rem 1.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .legend h3 {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.7rem;
+    }
+
+    .legend-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem 1.5rem;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      font-size: 0.75rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="label">Go-To-Market</div>
+  <h1>GTM Workflow</h1>
+  <p>High-level process model · v0.1 · Work in progress</p>
+</header>
+
+<!-- ══════════════════════════════════════════════
+     MAIN FLOW
+═══════════════════════════════════════════════ -->
+<div class="flow">
+
+  <!-- ROW 1: Research → ICP -->
+  <div class="flow-row">
+
+    <div class="node teal">
+      <div class="step-badge">1</div>
+      <div class="node-icon">🔍</div>
+      <div class="node-label">Discover</div>
+      <div class="node-title">Research &amp; Scrape</div>
+      <div class="node-sub">YouTube · Twitter / X<br>Instagram · Forums</div>
+    </div>
+
+    <div class="arrow-h">
+      <svg width="48" height="20" viewBox="0 0 48 20">
+        <line x1="0" y1="10" x2="38" y2="10" stroke="#3a3a5c" stroke-width="2"/>
+        <polygon points="38,5 48,10 38,15" fill="#3a3a5c"/>
+      </svg>
+    </div>
+
+    <div class="node blue">
+      <div class="step-badge">2</div>
+      <div class="node-icon">🎯</div>
+      <div class="node-label">Define</div>
+      <div class="node-title">ICP</div>
+      <div class="node-sub">Ideal Customer Profile<br>Pains · Goals · Channels</div>
+    </div>
+
+    <div class="arrow-h">
+      <svg width="48" height="20" viewBox="0 0 48 20">
+        <line x1="0" y1="10" x2="38" y2="10" stroke="#3a3a5c" stroke-width="2"/>
+        <polygon points="38,5 48,10 38,15" fill="#3a3a5c"/>
+      </svg>
+    </div>
+
+    <div class="node green">
+      <div class="step-badge">3</div>
+      <div class="node-icon">🧪</div>
+      <div class="node-label">Validate</div>
+      <div class="node-title">Test PMF</div>
+      <div class="node-sub">Product–Market Fit<br>Signals &amp; Feedback</div>
+    </div>
+
+  </div>
+
+  <!-- Arrow down -->
+  <div class="arrow-v">
+    <svg width="20" height="48" viewBox="0 0 20 48">
+      <line x1="10" y1="0" x2="10" y2="38" stroke="#3a3a5c" stroke-width="2"/>
+      <polygon points="5,38 10,48 15,38" fill="#3a3a5c"/>
+    </svg>
+  </div>
+
+  <!-- ROW 2: Idea → Campaign → Content -->
+  <div class="flow-row">
+
+    <div class="node purple">
+      <div class="step-badge">4</div>
+      <div class="node-icon">💡</div>
+      <div class="node-label">Ideate</div>
+      <div class="node-title">Idea</div>
+      <div class="node-sub">Angle · Hook<br>Positioning</div>
+    </div>
+
+    <div class="arrow-h">
+      <svg width="48" height="20" viewBox="0 0 48 20">
+        <line x1="0" y1="10" x2="38" y2="10" stroke="#3a3a5c" stroke-width="2"/>
+        <polygon points="38,5 48,10 38,15" fill="#3a3a5c"/>
+      </svg>
+    </div>
+
+    <div class="node orange">
+      <div class="step-badge">5</div>
+      <div class="node-icon">📣</div>
+      <div class="node-label">Plan</div>
+      <div class="node-title">Campaign</div>
+      <div class="node-sub">Offer · Message<br>Channel Mix</div>
+    </div>
+
+    <div class="arrow-h">
+      <svg width="48" height="20" viewBox="0 0 48 20">
+        <line x1="0" y1="10" x2="38" y2="10" stroke="#3a3a5c" stroke-width="2"/>
+        <polygon points="38,5 48,10 38,15" fill="#3a3a5c"/>
+      </svg>
+    </div>
+
+    <div class="node pink">
+      <div class="step-badge">6</div>
+      <div class="node-icon">✍️</div>
+      <div class="node-label">Create</div>
+      <div class="node-title">Content</div>
+      <div class="node-sub">Formats &amp; assets<br>↓ see below</div>
+    </div>
+
+  </div>
+
+  <!-- Arrow down into content branch -->
+  <div class="arrow-v">
+    <svg width="20" height="48" viewBox="0 0 20 48">
+      <line x1="10" y1="0" x2="10" y2="38" stroke="#3a3a5c" stroke-width="2"/>
+      <polygon points="5,38 10,48 15,38" fill="#3a3a5c"/>
+    </svg>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════
+     CONTENT BRANCH
+═══════════════════════════════════════════════ -->
+<div class="branch-section">
+
+  <!-- Branch line + groups -->
+  <div style="display:flex; justify-content:center; gap:1.5rem; align-items:flex-start; flex-wrap:wrap;">
+
+    <div class="branch-group">
+      <div class="bg-label">Written</div>
+      <div class="bg-items">
+        <div class="bg-item" style="color:var(--accent2)">✏️ Text / Copy</div>
+        <div class="bg-item" style="color:var(--accent3)">📝 Blog / Article</div>
+        <div class="bg-item" style="color:var(--orange)">📢 Ad</div>
+      </div>
+    </div>
+
+    <div class="branch-group">
+      <div class="bg-label">Visual / Video</div>
+      <div class="bg-items">
+        <div class="bg-item" style="color:var(--pink)">🎬 Video</div>
+        <div class="bg-item" style="color:var(--green)">🖼️ Post / Graphic</div>
+        <div class="bg-item placeholder">❓ TBD</div>
+      </div>
+    </div>
+
+    <div class="branch-group">
+      <div class="bg-label">Distribution</div>
+      <div class="bg-items">
+        <div class="bg-item placeholder">❓ Channel 1</div>
+        <div class="bg-item placeholder">❓ Channel 2</div>
+        <div class="bg-item placeholder">❓ Channel 3</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════════
+     LEGEND / NOTES
+═══════════════════════════════════════════════ -->
+<div class="legend">
+  <h3>Stage Key</h3>
+  <div class="legend-items">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--accent3)"></div> Discover</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div> Define</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div> Validate</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--accent2)"></div> Ideate</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--orange)"></div> Plan</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--pink)"></div> Create</div>
+    <div class="legend-item" style="margin-left:auto; color:var(--muted); font-size:0.75rem;">❓ = placeholder · to be defined</div>
+  </div>
+</div>
+
+<footer>GTM Workflow · v0.1 · For internal use · Products &amp; markets TBD</footer>
+
+</body>
+</html>
