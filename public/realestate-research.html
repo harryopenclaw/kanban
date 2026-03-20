@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Real Estate — Content Research Board</title>
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --surface: #1a1a1a;
+      --surface2: #242424;
+      --accent: #c9a227;
+      --accent2: #e8d48b;
+      --text: #f0f0f0;
+      --muted: #888;
+      --border: #333;
+      --green: #4ade80;
+      --col1: #e63c3c;
+      --col2: #3b82f6;
+      --col3: #a855f7;
+      --col4: #22c55e;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1a1000 0%, #0d0d0d 60%);
+      border-bottom: 2px solid var(--accent);
+      padding: 2rem 2rem 1.5rem;
+      text-align: center;
+    }
+
+    header .label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    header p {
+      color: var(--muted);
+      margin-top: 0.4rem;
+      font-size: 0.85rem;
+    }
+
+    .version-badge {
+      display: inline-block;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--accent);
+      color: #000;
+      padding: 0.15rem 0.6rem;
+      border-radius: 999px;
+      margin-top: 0.6rem;
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      padding: 1.5rem;
+      max-width: 1600px;
+      margin: 0 auto;
+      align-items: start;
+    }
+
+    @media (max-width: 1200px) {
+      .board { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 700px) {
+      .board { grid-template-columns: 1fr; }
+    }
+
+    .column {
+      background: var(--surface);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .column.drag-over {
+      border-color: var(--accent);
+      background: #1f1a0a;
+    }
+
+    .column-header {
+      padding: 1rem 1rem 0.7rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .column-header h2 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .column-header .count {
+      font-size: 0.7rem;
+      background: var(--surface2);
+      color: var(--muted);
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+
+    .col-viral .column-header { border-bottom-color: var(--col1); }
+    .col-creators .column-header { border-bottom-color: var(--col2); }
+    .col-patterns .column-header { border-bottom-color: var(--col3); }
+    .col-opportunities .column-header { border-bottom-color: var(--col4); }
+
+    .column-body {
+      padding: 0.6rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      cursor: grab;
+      transition: border-color 0.2s, transform 0.15s, opacity 0.2s;
+      position: relative;
+    }
+
+    .card:hover {
+      border-color: var(--accent);
+    }
+
+    .card.dragging {
+      opacity: 0.4;
+      transform: rotate(2deg);
+    }
+
+    .card-account {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .card-account a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px dashed rgba(192, 132, 252, 0.4);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .card-account a:hover {
+      color: #c084fc;
+      border-bottom-color: #c084fc;
+    }
+    .pill-ig {
+      font-size: 0.55rem;
+      background: #c13584;
+      color: #fff;
+      padding: 0.1rem 0.4rem;
+      border-radius: 999px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+    .pill-yt {
+      font-size: 0.55rem;
+      background: #ff0000;
+      color: #fff;
+      padding: 0.1rem 0.4rem;
+      border-radius: 999px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+    .pill-tt {
+      font-size: 0.55rem;
+      background: #000;
+      color: #69c9d0;
+      padding: 0.1rem 0.4rem;
+      border-radius: 999px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      border: 1px solid #69c9d0;
+    }
+
+    .card-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      line-height: 1.3;
+    }
+
+    .card-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+      line-height: 1.5;
+    }
+
+    .card-why {
+      font-size: 0.72rem;
+      padding: 0.5rem 0.7rem;
+      background: rgba(201, 162, 39, 0.08);
+      border-radius: 5px;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+
+    .card-why strong {
+      color: var(--accent2);
+    }
+
+    .card-stats {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--green);
+    }
+
+    .stat.views { border-color: #22c55e40; }
+    .stat.likes { border-color: #ef444440; color: #f87171; }
+    .stat.shares { border-color: #3b82f640; color: #60a5fa; }
+    .stat.followers { border-color: #a855f740; color: #c084fc; }
+
+    .card-tags {
+      display: flex;
+      gap: 0.3rem;
+      flex-wrap: wrap;
+      margin-top: 0.4rem;
+    }
+
+    .tag {
+      font-size: 0.6rem;
+      font-weight: 600;
+      padding: 0.1rem 0.45rem;
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      font-size: 0.75rem;
+      border-top: 1px solid var(--border);
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="label">Content Research Board</div>
+  <h1>Real Estate Industry</h1>
+  <p>Top-performing content across Instagram, YouTube &amp; TikTok &middot; Viral formats, top creators, patterns &amp; opportunities</p>
+  <div class="version-badge">v0.1 &middot; Real Estate &middot; Instagram / YouTube / TikTok &middot; March 2026</div>
+</header>
+
+<div class="board">
+
+  <!-- ========== COLUMN 1: VIRAL CONTENT ========== -->
+  <div class="column col-viral" id="col-viral" ondragover="onDragOver(event)" ondrop="onDrop(event)" ondragleave="onDragLeave(event)">
+    <div class="column-header">
+      <h2>Viral Content</h2>
+      <span class="count" data-count></span>
+    </div>
+    <div class="column-body">
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account">Format <span class="pill-ig">IG</span> <span class="pill-tt">TT</span> <span class="pill-yt">YT</span></div>
+        <div class="card-title">Luxury Home Tour — "Wait Until You See the Kitchen"</div>
+        <div class="card-desc">Walk-through of a multi-million dollar property with dramatic reveals of each room. Cinematic transitions, drone exteriors, and a hook that teases the best room. The dominant format across all platforms.</div>
+        <div class="card-why"><strong>Why it works:</strong> Aspirational voyeurism — people love seeing homes they'll never buy. Each room is a mini-reveal that keeps watch time high. Sharable because everyone has an opinion on interior design.</div>
+        <div class="card-stats">
+          <span class="stat views">10M-100M+ views common</span>
+          <span class="stat shares">Extremely high share rate</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">home tour</span>
+          <span class="tag">luxury</span>
+          <span class="tag">aspirational</span>
+        </div>
+      </div>
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account">Format <span class="pill-tt">TT</span> <span class="pill-ig">IG</span></div>
+        <div class="card-title">"Guess the Price" — Home Price Guessing Game</div>
+        <div class="card-desc">Show a property from outside, walk through key features, then ask the audience to guess the price before the reveal. Drives massive comment engagement.</div>
+        <div class="card-why"><strong>Why it works:</strong> Interactive format — comments explode because everyone wants to guess. The reveal creates a dopamine loop. Regional price differences spark debates. Algorithm loves the engagement signals.</div>
+        <div class="card-stats">
+          <span class="stat views">5M-50M views</span>
+          <span class="stat likes">Highest comment rate format</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">interactive</span>
+          <span class="tag">price reveal</span>
+          <span class="tag">engagement bait</span>
+        </div>
+      </div>
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account">Format <span class="pill-yt">YT</span> <span class="pill-tt">TT</span></div>
+        <div class="card-title">"I Bought X Houses by Age Y" — Personal Finance Flex</div>
+        <div class="card-desc">Creator shares their real estate portfolio journey — how they bought their first property, scaled to multiple, and what each cash-flows. Numbers-heavy, story-driven.</div>
+        <div class="card-why"><strong>Why it works:</strong> Combines personal story with actionable financial education. Viewers either aspire to replicate it or debate the math. Creates strong parasocial connection + high save rate.</div>
+        <div class="card-stats">
+          <span class="stat views">2M-20M views</span>
+          <span class="stat likes">High save rate</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">personal finance</span>
+          <span class="tag">portfolio</span>
+          <span class="tag">story</span>
+        </div>
+      </div>
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account">Format <span class="pill-tt">TT</span> <span class="pill-ig">IG</span></div>
+        <div class="card-title">Renovation Before/After — Flip Reveals</div>
+        <div class="card-desc">Side-by-side or transition-cut showing a distressed property transformed into a beautiful home. The bigger the contrast, the better the performance. Often set to trending audio.</div>
+        <div class="card-why"><strong>Why it works:</strong> Same psychology as barber transformations — dramatic visual contrast is inherently satisfying. The "before" creates tension, the "after" delivers the payoff. Loop-worthy.</div>
+        <div class="card-stats">
+          <span class="stat views">5M-30M views</span>
+          <span class="stat shares">Very high share rate</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">renovation</span>
+          <span class="tag">before/after</span>
+          <span class="tag">satisfying</span>
+        </div>
+      </div>
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account">Format <span class="pill-yt">YT</span></div>
+        <div class="card-title">"Why You Should NOT Buy a House Right Now"</div>
+        <div class="card-desc">Contrarian take on the housing market. Data-driven breakdown of why current conditions make buying risky. Often includes charts, rate analysis, and market predictions.</div>
+        <div class="card-why"><strong>Why it works:</strong> Contrarian content outperforms consensus content because it sparks debate. Viewers share to either agree or argue. Positions the creator as an independent thinker, not a shill.</div>
+        <div class="card-stats">
+          <span class="stat views">3M-15M views</span>
+          <span class="stat likes">High comment engagement</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">contrarian</span>
+          <span class="tag">market analysis</span>
+          <span class="tag">debate</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========== COLUMN 2: TOP CREATORS ========== -->
+  <div class="column col-creators" id="col-creators" ondragover="onDragOver(event)" ondrop="onDrop(event)" ondragleave="onDragLeave(event)">
+    <div class="column-header">
+      <h2>Top Creators</h2>
+      <span class="count" data-count></span>
+    </div>
+    <div class="column-body">
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account"><a href="https://www.instagram.com/ryanserhant/" target="_blank" rel="noopener">@ryanserhant</a> <span class="pill-ig">IG</span> <span class="pill-yt">YT</span> <span class="pill-tt">TT</span></div>
+        <div class="card-title">Ryan Serhant — Luxury Real Estate + Personal Brand</div>
+        <div class="card-desc">NYC luxury broker, founder of SERHANT., star of Million Dollar Listing. Master of blending luxury property tours with personal branding, motivational content, and behind-the-scenes of running a brokerage.</div>
+        <div class="card-why"><strong>Why it works:</strong> He IS the brand — every piece of content reinforces "Ryan Serhant = luxury real estate." Multi-platform presence with tailored content for each. Mixes entertainment with genuine market insight. The aspirational lifestyle sells itself.</div>
+        <div class="card-stats">
+          <span class="stat followers">IG: 2M+ — verify on platform</span>
+          <span class="stat followers">YT: 2M+ subs — verify on platform</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">luxury</span>
+          <span class="tag">personal brand</span>
+          <span class="tag">multi-platform</span>
+        </div>
+      </div>
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account"><a href="https://www.youtube.com/@GrahamStephan" target="_blank" rel="noopener">@GrahamStephan</a> <span class="pill-yt">YT</span></div>
+        <div class="card-title">Graham Stephan — Real Estate Meets Personal Finance</div>
+        <div class="card-desc">Started as a luxury real estate agent in LA, pivoted to one of YouTube's biggest personal finance creators. Breaks down real estate investing, housing market trends, and wealth building with data and humor.</div>
+        <div class="card-why"><strong>Why it works:</strong> Relatable personality + genuine expertise. He shows his actual deals and numbers. The crossover between real estate and personal finance gives him a massive addressable audience. Consistent upload schedule builds loyalty.</div>
+        <div class="card-stats">
+          <span class="stat followers">YT: 4M+ subs — verify on platform</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">personal finance</span>
+          <span class="tag">investing</span>
+          <span class="tag">youtube</span>
+        </div>
+      </div>
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account"><a href="https://www.youtube.com/@MeetKevin" target="_blank" rel="noopener">@MeetKevin</a> <span class="pill-yt">YT</span></div>
+        <div class="card-title">Meet Kevin — Real Estate Investing + Market News</div>
+        <div class="card-desc">Real estate investor and former agent who covers housing market data, Fed policy, economic news, and real estate investing strategies. High-frequency uploader with breaking news coverage.</div>
+        <div class="card-why"><strong>Why it works:</strong> Speed + volume — he covers market news faster than most outlets. Real estate background gives credibility. His portfolio transparency (sharing his own holdings) builds trust. Appeals to both RE investors and general finance audience.</div>
+        <div class="card-stats">
+          <span class="stat followers">YT: 1.5M+ subs — verify on platform</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">market news</span>
+          <span class="tag">investing</span>
+          <span class="tag">high frequency</span>
+        </div>
+      </div>
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account"><a href="https://www.youtube.com/@BiggerPockets" target="_blank" rel="noopener">@BiggerPockets</a> <span class="pill-yt">YT</span> <a href="https://www.instagram.com/biggerpockets/" target="_blank" rel="noopener">@biggerpockets</a> <span class="pill-ig">IG</span></div>
+        <div class="card-title">BiggerPockets — The Real Estate Investing Community</div>
+        <div class="card-desc">The largest online real estate investing community. Podcast-first media company that expanded to YouTube with investor interviews, deal breakdowns, market analysis, and beginner education content.</div>
+        <div class="card-why"><strong>Why it works:</strong> Community-driven brand — members feel like they belong. The podcast-to-YouTube pipeline brings loyal audio listeners to video. Guest-based format means infinite content variety. Trusted brand = high conversion for courses/tools.</div>
+        <div class="card-stats">
+          <span class="stat followers">YT: 1M+ subs — verify on platform</span>
+          <span class="stat followers">IG: verify on platform</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">community</span>
+          <span class="tag">investing</span>
+          <span class="tag">podcast</span>
+        </div>
+      </div>
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account"><a href="https://www.instagram.com/beardybrandon/" target="_blank" rel="noopener">@beardybrandon</a> <span class="pill-ig">IG</span></div>
+        <div class="card-title">Brandon Turner — Real Estate Investing Educator</div>
+        <div class="card-desc">Former BiggerPockets host turned independent creator. Focus on rental property investing, financial freedom, and building wealth through real estate. Strong Instagram presence with motivational + educational mix.</div>
+        <div class="card-why"><strong>Why it works:</strong> Built-in audience from BiggerPockets + authentic "regular guy who built wealth" story. Instagram content mixes lifestyle (Maui, family) with hard investing knowledge. The personal brand > company brand transition is a masterclass.</div>
+        <div class="card-stats">
+          <span class="stat followers">IG: verify on platform</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">investing</span>
+          <span class="tag">education</span>
+          <span class="tag">personal brand</span>
+        </div>
+      </div>
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account"><a href="https://www.instagram.com/therealdeal/" target="_blank" rel="noopener">@therealdeal</a> <span class="pill-ig">IG</span></div>
+        <div class="card-title">The Real Deal — Industry News & Media</div>
+        <div class="card-desc">Leading real estate news outlet covering deals, market data, and industry drama. Their Instagram breaks news about major sales, celebrity real estate, and market trends in digestible visual formats.</div>
+        <div class="card-why"><strong>Why it works:</strong> Authoritative news source + celebrity real estate angle drives engagement. People love seeing what billionaires pay for homes. Quick-hit news format is perfect for Instagram Stories and Reels.</div>
+        <div class="card-stats">
+          <span class="stat followers">IG: verify on platform</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">industry news</span>
+          <span class="tag">celebrity RE</span>
+          <span class="tag">market data</span>
+        </div>
+      </div>
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account"><a href="https://www.instagram.com/inaborsky" target="_blank" rel="noopener">@inman</a> <span class="pill-ig">IG</span></div>
+        <div class="card-title">Inman News — Real Estate Trade Media</div>
+        <div class="card-desc">Trade publication covering residential real estate technology, agents, and brokerage news. Social content focuses on agent tips, market shifts, and industry analysis.</div>
+        <div class="card-why"><strong>Why it works:</strong> Trusted industry voice — agents follow for professional development and to stay current. Their events (Inman Connect) create content flywheels. The B2B angle attracts a high-value, engaged audience.</div>
+        <div class="card-stats">
+          <span class="stat followers">IG: verify on platform</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">trade media</span>
+          <span class="tag">agent tips</span>
+          <span class="tag">industry</span>
+        </div>
+      </div>
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account"><a href="https://www.tiktok.com/@tatianadavid" target="_blank" rel="noopener">@tatianadavid</a> <span class="pill-tt">TT</span></div>
+        <div class="card-title">Tatiana David — TikTok Real Estate Native</div>
+        <div class="card-desc">Miami-based luxury realtor who built a massive following on TikTok with property tours, day-in-the-life content, and the aspirational luxury lifestyle format. One of the first agents to go viral on TikTok.</div>
+        <div class="card-why"><strong>Why it works:</strong> TikTok-native content — short, punchy, personality-driven. Mixes luxury property reveals with relatable "agent life" moments. The contrast between glamorous listings and real work creates an authentic feel.</div>
+        <div class="card-stats">
+          <span class="stat followers">TT: verify on platform</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">tiktok native</span>
+          <span class="tag">luxury</span>
+          <span class="tag">lifestyle</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========== COLUMN 3: CONTENT PATTERNS ========== -->
+  <div class="column col-patterns" id="col-patterns" ondragover="onDragOver(event)" ondrop="onDrop(event)" ondragleave="onDragLeave(event)">
+    <div class="column-header">
+      <h2>Content Patterns</h2>
+      <span class="count" data-count></span>
+    </div>
+    <div class="column-body">
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account">Pattern <span class="pill-ig">IG</span> <span class="pill-tt">TT</span> <span class="pill-yt">YT</span></div>
+        <div class="card-title">The Cinematic Home Tour Walkthrough</div>
+        <div class="card-desc">Smooth gimbal walk-through of a property, often starting at the front door. Drone exterior shots, slow-motion feature reveals, and dramatic music. The foundational format of real estate content.</div>
+        <div class="card-why"><strong>Why it works:</strong> Viewers feel like they're physically walking through the home. Each room is a micro-reveal that keeps retention high. Works for $200K homes and $20M mansions — aspirational at every price point.</div>
+        <div class="card-stats">
+          <span class="stat views">Most common format</span>
+          <span class="stat likes">High completion rate</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">home tour</span>
+          <span class="tag">cinematic</span>
+          <span class="tag">evergreen</span>
+        </div>
+      </div>
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account">Pattern <span class="pill-yt">YT</span></div>
+        <div class="card-title">Market Analysis Deep Dive — Charts + Commentary</div>
+        <div class="card-desc">Screen share or whiteboard breakdown of housing market data — inventory levels, mortgage rates, price trends by city. Usually 10-20 min on YouTube, condensed to 60-sec clips for Shorts/Reels.</div>
+        <div class="card-why"><strong>Why it works:</strong> High intent audience — people watching this are actively making purchase decisions. Data = credibility. The "should I buy or wait?" question is always relevant. Clips perform well as teasers to drive long-form views.</div>
+        <div class="card-stats">
+          <span class="stat views">Consistent performer</span>
+          <span class="stat likes">High save + share rate</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">data</span>
+          <span class="tag">market analysis</span>
+          <span class="tag">long-form</span>
+        </div>
+      </div>
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account">Pattern <span class="pill-tt">TT</span> <span class="pill-ig">IG</span></div>
+        <div class="card-title">"What $X Gets You In [City]" — Price Comparison</div>
+        <div class="card-desc">Show what a specific budget ($500K, $1M, etc.) buys in different cities or neighborhoods. Side-by-side comparisons. Regional pride and shock value drive engagement.</div>
+        <div class="card-why"><strong>Why it works:</strong> Geographic comparison taps into regional identity — people tag friends, debate in comments. The price anchor makes it tangible and personal. Infinite variations = infinite content.</div>
+        <div class="card-stats">
+          <span class="stat views">3M-20M views</span>
+          <span class="stat shares">Very high share rate</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">comparison</span>
+          <span class="tag">price anchor</span>
+          <span class="tag">regional</span>
+        </div>
+      </div>
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account">Pattern <span class="pill-ig">IG</span> <span class="pill-tt">TT</span></div>
+        <div class="card-title">Day-in-the-Life: Real Estate Agent</div>
+        <div class="card-desc">Behind-the-scenes of an agent's day — morning routine, showings, client calls, offer negotiations, and closing celebrations. The "real" side of real estate that isn't glamorous.</div>
+        <div class="card-why"><strong>Why it works:</strong> Builds parasocial relationship. Aspiring agents watch to learn. Clients watch to understand the process. The mix of mundane + exciting moments creates authenticity that polished tours can't.</div>
+        <div class="card-stats">
+          <span class="stat views">Strong on TT/IG Reels</span>
+          <span class="stat likes">High follow conversion</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">day in the life</span>
+          <span class="tag">behind the scenes</span>
+          <span class="tag">authentic</span>
+        </div>
+      </div>
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account">Pattern <span class="pill-yt">YT</span> <span class="pill-ig">IG</span></div>
+        <div class="card-title">Deal Breakdown — "How I Made $X on This Flip"</div>
+        <div class="card-desc">Step-by-step financial breakdown of a real estate deal — purchase price, renovation costs, holding costs, sale price, profit. Often includes video of the property and receipts/spreadsheets.</div>
+        <div class="card-why"><strong>Why it works:</strong> Transparency with real numbers builds massive trust. Viewers learn by seeing actual deals, not theory. The "profit reveal" at the end is addictive. High save rate because people reference these when evaluating their own deals.</div>
+        <div class="card-stats">
+          <span class="stat views">Avg 500K-5M views</span>
+          <span class="stat likes">Highest save rate format</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">deal breakdown</span>
+          <span class="tag">numbers</span>
+          <span class="tag">education</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========== COLUMN 4: OPPORTUNITIES ========== -->
+  <div class="column col-opportunities" id="col-opportunities" ondragover="onDragOver(event)" ondrop="onDrop(event)" ondragleave="onDragLeave(event)">
+    <div class="column-header">
+      <h2>Opportunities</h2>
+      <span class="count" data-count></span>
+    </div>
+    <div class="column-body">
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account">Gap <span class="pill-ig">IG</span> <span class="pill-tt">TT</span></div>
+        <div class="card-title">First-Time Buyer Education — Demystifying the Process</div>
+        <div class="card-desc">Most RE content targets investors or showcases luxury. Very few creators make content specifically for first-time homebuyers who don't know what a closing cost is, how inspections work, or what earnest money means.</div>
+        <div class="card-why"><strong>Why it's an opportunity:</strong> Massive underserved audience — first-time buyers are the largest buyer segment. Educational content builds trust that converts to client relationships. Carousel/short-form explainers would crush for saves.</div>
+        <div class="card-stats">
+          <span class="stat views">Low competition</span>
+          <span class="stat likes">Very high save potential</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">first-time buyers</span>
+          <span class="tag">education</span>
+          <span class="tag">underserved</span>
+        </div>
+      </div>
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account">Gap <span class="pill-yt">YT</span> <span class="pill-tt">TT</span></div>
+        <div class="card-title">Small Market / Affordable Housing Content</div>
+        <div class="card-desc">Almost all viral RE content features luxury homes in major metros. There's a huge gap for content showing affordable homes, small-town markets, and realistic budgets. "What $150K buys in the Midwest" is underrepresented.</div>
+        <div class="card-why"><strong>Why it's an opportunity:</strong> Relatable to 90%+ of actual homebuyers. The contrast with luxury content makes it novel. Regional audiences are loyal and underserved. Brands targeting middle-market buyers (lenders, home improvement) would sponsor this.</div>
+        <div class="card-stats">
+          <span class="stat views">Untapped audience</span>
+          <span class="stat shares">High relatability</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">affordable</span>
+          <span class="tag">small market</span>
+          <span class="tag">relatable</span>
+        </div>
+      </div>
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account">Gap <span class="pill-ig">IG</span> <span class="pill-tt">TT</span></div>
+        <div class="card-title">Agent Business Building — Revenue, Lead Gen, Systems</div>
+        <div class="card-desc">Most agent content is about properties, not the business. Very few creators share their actual business metrics — GCI, lead costs, conversion rates, tech stack, team structure. The "business of being an agent" is wide open.</div>
+        <div class="card-why"><strong>Why it's an opportunity:</strong> 1.5M+ licensed agents in the US alone — massive captive audience. Agents are hungry for business content from peers, not coaches. This niche could monetize through courses, coaching, and SaaS partnerships.</div>
+        <div class="card-stats">
+          <span class="stat views">B2B niche — high value</span>
+          <span class="stat likes">Strong monetization</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">agent business</span>
+          <span class="tag">revenue</span>
+          <span class="tag">B2B</span>
+        </div>
+      </div>
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account">Gap <span class="pill-tt">TT</span> <span class="pill-yt">YT</span></div>
+        <div class="card-title">PropTech & AI in Real Estate — Emerging Trend</div>
+        <div class="card-desc">AI-powered valuations, virtual staging, automated marketing, smart home tech — the intersection of technology and real estate is exploding but almost no creators cover it in an accessible way.</div>
+        <div class="card-why"><strong>Why it's an opportunity:</strong> Tech-forward RE content appeals to both tech and RE audiences — double the reach. Early mover advantage is massive. AI/proptech companies would pay premium CPMs for this audience. Position as "the tech agent."</div>
+        <div class="card-stats">
+          <span class="stat views">Growing fast</span>
+          <span class="stat shares">High sponsor value</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">proptech</span>
+          <span class="tag">AI</span>
+          <span class="tag">innovation</span>
+        </div>
+      </div>
+
+      <div class="card" draggable="true" ondragstart="onDragStart(event)" ondragend="onDragEnd(event)">
+        <div class="card-account">Gap <span class="pill-ig">IG</span> <span class="pill-yt">YT</span></div>
+        <div class="card-title">International / Expat Real Estate Content</div>
+        <div class="card-desc">Americans buying abroad, digital nomad-friendly markets, international RE investing. Content like "I bought a villa in Portugal for $300K" or "How to buy property in Mexico as an American" is severely underrepresented.</div>
+        <div class="card-why"><strong>Why it's an opportunity:</strong> Remote work has made international RE relevant to a much larger audience. Exotic locations drive views. The "escape the US housing market" narrative resonates. Affiliate and referral opportunities with international brokers.</div>
+        <div class="card-stats">
+          <span class="stat views">Growing demand</span>
+          <span class="stat likes">High engagement</span>
+        </div>
+        <div class="card-tags">
+          <span class="tag">international</span>
+          <span class="tag">expat</span>
+          <span class="tag">digital nomad</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Real Estate Content Research &middot; v0.1 &middot; March 2026 &middot; For internal use &middot; Instagram / YouTube / TikTok
+</footer>
+
+<script>
+  // Update card counts
+  function updateCounts() {
+    document.querySelectorAll('.column').forEach(col => {
+      const count = col.querySelectorAll('.card').length;
+      const badge = col.querySelector('[data-count]');
+      if (badge) badge.textContent = count;
+    });
+  }
+  updateCounts();
+
+  // Drag and drop
+  let draggedCard = null;
+
+  function onDragStart(e) {
+    draggedCard = e.target.closest('.card');
+    draggedCard.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'move';
+  }
+
+  function onDragEnd(e) {
+    if (draggedCard) draggedCard.classList.remove('dragging');
+    draggedCard = null;
+    document.querySelectorAll('.column').forEach(c => c.classList.remove('drag-over'));
+  }
+
+  function onDragOver(e) {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    const col = e.target.closest('.column');
+    if (col) col.classList.add('drag-over');
+  }
+
+  function onDragLeave(e) {
+    const col = e.target.closest('.column');
+    if (col && !col.contains(e.relatedTarget)) {
+      col.classList.remove('drag-over');
+    }
+  }
+
+  function onDrop(e) {
+    e.preventDefault();
+    const col = e.target.closest('.column');
+    if (col && draggedCard) {
+      const body = col.querySelector('.column-body');
+      const cards = [...body.querySelectorAll('.card:not(.dragging)')];
+      const afterCard = cards.find(card => {
+        const rect = card.getBoundingClientRect();
+        return e.clientY < rect.top + rect.height / 2;
+      });
+      if (afterCard) {
+        body.insertBefore(draggedCard, afterCard);
+      } else {
+        body.appendChild(draggedCard);
+      }
+      col.classList.remove('drag-over');
+      updateCounts();
+    }
+  }
+</script>
+
+</body>
+</html>
