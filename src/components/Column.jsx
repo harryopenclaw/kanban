@@ -44,6 +44,26 @@ export default function Column({
 
   const isEmpty = column.cardIds.length === 0;
 
+  // Compute column stats
+  const columnCards = column.cardIds.map((id) => cards[id]).filter(Boolean);
+  const totalAppts = columnCards.reduce((sum, c) => sum + (c.appointmentCount || 0), 0);
+  const withAppts = columnCards.filter((c) => (c.appointmentCount || 0) > 0);
+  const avgAppts = withAppts.length > 0 ? (totalAppts / withAppts.length).toFixed(1) : null;
+  const topUser = withAppts.length > 0
+    ? withAppts.reduce((a, b) => (a.appointmentCount > b.appointmentCount ? a : b))
+    : null;
+
+  function buildStats() {
+    if (columnCards.length === 0) return null;
+    const parts = [];
+    if (totalAppts > 0) parts.push(`${totalAppts} total appts`);
+    if (avgAppts) parts.push(`avg ${avgAppts}/member`);
+    if (topUser) parts.push(`top: ${topUser.title.split(" ")[0]} (${topUser.appointmentCount})`);
+    return parts.join(" · ");
+  }
+
+  const statsLine = buildStats();
+
   return (
     <div className="flex flex-col bg-gray-800 rounded-xl w-72 min-w-72 max-h-full shadow-lg">
       {/* Header */}
@@ -93,6 +113,13 @@ export default function Column({
           )}
         </div>
       </div>
+
+      {/* Stats bar */}
+      {statsLine && (
+        <div className="px-3 py-1.5 bg-gray-750 border-b border-gray-700">
+          <p className="text-xs text-gray-400 leading-snug">{statsLine}</p>
+        </div>
+      )}
 
       {/* Cards */}
       <div ref={setNodeRef} className="flex-1 overflow-y-auto p-2 space-y-2 min-h-16">
