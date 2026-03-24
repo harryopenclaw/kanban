@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 
-const STORAGE_KEY = "properbarber-kanban";
+const STORAGE_KEY = "properbarber-kanban-v2";
 
 const defaultCards = {
   "pb-249": {
