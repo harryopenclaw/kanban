@@ -129,6 +129,15 @@ const defaultCards = {
     "appointmentCount": 0,
     "bookingNote": null
   },
+  "pb-215": {
+    "id": "pb-215",
+    "title": "John Leahy",
+    "subtitle": null,
+    "email": "jleahy@immediac.com",
+    "signupDate": "Jan 14, 2026",
+    "appointmentCount": 9,
+    "bookingNote": "9 appts \u00b7 first: Jan 15 \u00b7 1d after signup"
+  },
   "pb-214": {
     "id": "pb-214",
     "title": "Mark Gascoigne",
@@ -734,6 +743,7 @@ const defaultColumns = [
     "id": "col-b2-4",
     "title": "Member for a Month",
     "cardIds": [
+      "pb-215",
       "pb-214",
       "pb-210",
       "pb-239",
