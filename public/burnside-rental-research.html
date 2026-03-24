@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Burnside — Commercial Rental Research</title>
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --surface: #1a1a1a;
+      --surface2: #242424;
+      --accent: #3b82f6;
+      --accent2: #93c5fd;
+      --text: #f0f0f0;
+      --muted: #888;
+      --border: #333;
+      --green: #4ade80;
+      --yellow: #facc15;
+      --orange: #fb923c;
+      --red: #f87171;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      padding: 2rem 1.5rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      color: var(--accent2);
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+    }
+
+    .updated {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+    }
+
+    section {
+      margin-bottom: 2.5rem;
+    }
+
+    h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--accent2);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+    }
+
+    .stat-card .label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-card .value {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--green);
+      line-height: 1.2;
+    }
+
+    .stat-card .sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+    }
+
+    .stat-card.highlight .value {
+      color: var(--accent2);
+    }
+
+    .stat-card.warn .value {
+      color: var(--yellow);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    th {
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      font-weight: 600;
+      color: var(--muted);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border);
+    }
+
+    td {
+      padding: 0.6rem 0.75rem;
+      border-bottom: 1px solid #222;
+      vertical-align: top;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: var(--surface);
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      font-weight: 600;
+      margin-left: 0.25rem;
+    }
+
+    .tag-green { background: #14532d; color: #4ade80; }
+    .tag-yellow { background: #422006; color: #facc15; }
+    .tag-blue { background: #1e3a5f; color: #93c5fd; }
+    .tag-red { background: #450a0a; color: #f87171; }
+
+    .scenario-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .scenario-block h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+
+    .scenario-block .line {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.875rem;
+      padding: 0.2rem 0;
+      color: var(--muted);
+    }
+
+    .scenario-block .line.total {
+      font-weight: 700;
+      color: var(--text);
+      border-top: 1px solid var(--border);
+      margin-top: 0.5rem;
+      padding-top: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    .scenario-block .line span:last-child {
+      color: var(--text);
+    }
+
+    .scenario-block .line.total span:last-child {
+      color: var(--green);
+    }
+
+    .note-block {
+      background: #1a2035;
+      border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      padding: 0.75rem 1rem;
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      margin-bottom: 1rem;
+    }
+
+    .source-list {
+      list-style: none;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .source-list li {
+      padding: 0.3rem 0;
+      border-bottom: 1px solid #1e1e1e;
+    }
+
+    .source-list li:last-child {
+      border-bottom: none;
+    }
+
+    .source-list a {
+      color: var(--accent2);
+      text-decoration: none;
+    }
+
+    .source-list a:hover {
+      text-decoration: underline;
+    }
+
+    .comparable-table {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .range-bar {
+      height: 8px;
+      background: var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 0.4rem;
+    }
+
+    .range-fill {
+      height: 100%;
+      border-radius: 4px;
+    }
+
+    .confidence-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.75rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      font-weight: 600;
+      background: #1c2a1c;
+      color: #4ade80;
+      border: 1px solid #2d4a2d;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Burnside Industrial Park — Rental Research</h1>
+  <p class="subtitle">Dartmouth, Nova Scotia · 6,000–8,000 sqft flex/industrial with ~1,200–1,500 sqft office</p>
+  <p class="updated">Research compiled: March 24, 2026 · Sources: Cushman &amp; Wakefield Q4 2025, industry benchmarks, Halifax CRE market data</p>
+
+  <!-- Key Numbers -->
+  <section>
+    <h2>Key Numbers at a Glance</h2>
+    <div class="card-grid">
+      <div class="stat-card">
+        <div class="label">Industrial / Warehouse Rate</div>
+        <div class="value">$10–$13</div>
+        <div class="sub">per sqft/yr · net · Burnside</div>
+      </div>
+      <div class="stat-card highlight">
+        <div class="label">Office Component Rate</div>
+        <div class="value">$16–$22</div>
+        <div class="sub">per sqft/yr · net · within industrial unit</div>
+      </div>
+      <div class="stat-card warn">
+        <div class="label">TMI (Operating Costs)</div>
+        <div class="value">$4–$6</div>
+        <div class="sub">per sqft/yr added on top</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Blended Rate Estimate</div>
+        <div class="value">$11–$15</div>
+        <div class="sub">per sqft/yr net · 6k–8k sqft unit</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">National Avg (Q4 2025)</div>
+        <div class="value">$15.11</div>
+        <div class="sub">per sqft net · Cushman &amp; Wakefield</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Halifax vs National</div>
+        <div class="value">~15–25%</div>
+        <div class="sub">discount to national avg (secondary market)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Monthly Cost Scenarios -->
+  <section>
+    <h2>Monthly Cost Scenarios</h2>
+
+    <div class="note-block">
+      All scenarios use a Triple Net (NNN) lease structure — typical for Burnside. TMI (property tax, maintenance, insurance) is added separately and billed monthly. Estimates based on 6,000–8,000 sqft total with 1,200–1,500 sqft dedicated office for 9 people.
+    </div>
+
+    <div class="scenario-block">
+      <h3>📦 Scenario A — 6,000 sqft · Conservative (Low End)</h3>
+      <div class="line"><span>Warehouse / industrial (4,700 sqft @ $10/sqft net)</span><span>$3,917/mo</span></div>
+      <div class="line"><span>Office component (1,300 sqft @ $16/sqft net)</span><span>$1,733/mo</span></div>
+      <div class="line"><span>TMI — 6,000 sqft @ $4/sqft</span><span>$2,000/mo</span></div>
+      <div class="line total"><span>Total estimated monthly</span><span>~$7,650/mo</span></div>
+    </div>
+
+    <div class="scenario-block">
+      <h3>🏢 Scenario B — 7,000 sqft · Mid Range</h3>
+      <div class="line"><span>Warehouse / industrial (5,650 sqft @ $11.50/sqft net)</span><span>$5,413/mo</span></div>
+      <div class="line"><span>Office component (1,350 sqft @ $19/sqft net)</span><span>$2,138/mo</span></div>
+      <div class="line"><span>TMI — 7,000 sqft @ $5/sqft</span><span>$2,917/mo</span></div>
+      <div class="line total"><span>Total estimated monthly</span><span>~$10,468/mo</span></div>
+    </div>
+
+    <div class="scenario-block">
+      <h3>🏗️ Scenario C — 8,000 sqft · Upper Range</h3>
+      <div class="line"><span>Warehouse / industrial (6,500 sqft @ $13/sqft net)</span><span>$7,042/mo</span></div>
+      <div class="line"><span>Office component (1,500 sqft @ $22/sqft net)</span><span>$2,750/mo</span></div>
+      <div class="line"><span>TMI — 8,000 sqft @ $6/sqft</span><span>$4,000/mo</span></div>
+      <div class="line total"><span>Total estimated monthly</span><span>~$13,792/mo</span></div>
+    </div>
+  </section>
+
+  <!-- Rate Breakdown -->
+  <section>
+    <h2>Space Type Rate Breakdown</h2>
+    <div class="comparable-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Space Type</th>
+            <th>Net Rate Range</th>
+            <th>Typical Lease</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Industrial / Warehouse (Burnside) <span class="tag tag-blue">Primary</span></td>
+            <td>$9–$13/sqft</td>
+            <td>NNN · 3–5yr</td>
+            <td>Dock / grade level, 18–24ft clear height typical</td>
+          </tr>
+          <tr>
+            <td>Flex Industrial (office + warehouse) <span class="tag tag-green">Best Fit</span></td>
+            <td>$11–$15/sqft blended</td>
+            <td>NNN · 3–5yr</td>
+            <td>Burnside has strong flex inventory; your use case fits here</td>
+          </tr>
+          <tr>
+            <td>Office Component within Industrial Unit</td>
+            <td>$16–$22/sqft</td>
+            <td>Included in blended rate</td>
+            <td>1,200–1,500 sqft fits 9 people at ~133–167 sqft/person</td>
+          </tr>
+          <tr>
+            <td>Standalone Office (Class B Dartmouth)</td>
+            <td>$18–$26/sqft</td>
+            <td>Gross or Semi-gross</td>
+            <td>Comparison point — more expensive per sqft, no warehouse</td>
+          </tr>
+          <tr>
+            <td>TMI / Operating Costs</td>
+            <td>$4–$6/sqft/yr</td>
+            <td>Added to net</td>
+            <td>Covers property tax, common area maintenance, insurance</td>
+          </tr>
+          <tr>
+            <td>National Average Industrial (Q4 2025)</td>
+            <td>$15.11/sqft</td>
+            <td>Net asking</td>
+            <td>Source: Cushman &amp; Wakefield. Halifax typically 15–25% below</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Office Sizing for 9 People -->
+  <section>
+    <h2>Office Sizing for 9 People</h2>
+    <div class="comparable-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Configuration</th>
+            <th>Sqft Required</th>
+            <th>Fits 9 People?</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Minimal (hot desks, open plan)</td>
+            <td>~900 sqft</td>
+            <td><span class="tag tag-yellow">Tight</span></td>
+            <td>~100 sqft/person. No private offices or boardroom</td>
+          </tr>
+          <tr>
+            <td>Standard open plan + boardroom <span class="tag tag-green">Recommended</span></td>
+            <td>1,200–1,400 sqft</td>
+            <td><span class="tag tag-green">Yes</span></td>
+            <td>~133–155 sqft/person. Room for reception, small meeting room</td>
+          </tr>
+          <tr>
+            <td>Comfortable with private offices</td>
+            <td>1,500–1,800 sqft</td>
+            <td><span class="tag tag-green">Comfortable</span></td>
+            <td>~167–200 sqft/person. 2–3 private offices + shared space</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Market Context -->
+  <section>
+    <h2>Market Context — Halifax / Burnside</h2>
+    <div class="comparable-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Factor</th>
+            <th>Status</th>
+            <th>Impact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Halifax industrial vacancy (est. 2025)</td>
+            <td><span class="tag tag-yellow">~4–6%</span></td>
+            <td>Low vacancy = less negotiating leverage for tenant</td>
+          </tr>
+          <tr>
+            <td>National industrial vacancy (Q4 2025)</td>
+            <td><span class="tag tag-yellow">5.5%</span></td>
+            <td>Rebalancing; rents softened ~4.5% YOY nationally</td>
+          </tr>
+          <tr>
+            <td>Burnside supply of 6k–8k sqft flex units</td>
+            <td><span class="tag tag-yellow">Limited</span></td>
+            <td>Smaller flex units are in demand; expect firm pricing</td>
+          </tr>
+          <tr>
+            <td>Sub-25k sqft national premium</td>
+            <td><span class="tag tag-red">Applies</span></td>
+            <td>Smaller units command higher $/sqft than large blocks</td>
+          </tr>
+          <tr>
+            <td>Lease term leverage</td>
+            <td><span class="tag tag-green">3–5yr preferred</span></td>
+            <td>Longer term (5yr) may unlock free-rent or TI allowance</td>
+          </tr>
+          <tr>
+            <td>Tenant Improvement (TI) Allowance</td>
+            <td><span class="tag tag-blue">Negotiable</span></td>
+            <td>$10–$30/sqft common for office buildout on 5yr lease</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Negotiation Tips -->
+  <section>
+    <h2>Negotiation Notes &amp; What to Ask For</h2>
+    <div class="note-block">
+      <strong>Free rent:</strong> 1–3 months free on a 5-year lease is common in the current softening market. Push for this up front.
+    </div>
+    <div class="note-block">
+      <strong>Tenant Improvement (TI) allowance:</strong> Ask for $15–$25/sqft for the office component (~$18k–$37k). Used to build out the office portion to your spec.
+    </div>
+    <div class="note-block">
+      <strong>TMI cap:</strong> Negotiate a cap on annual TMI increases (e.g. max 3–4%/yr). TMI can creep up significantly on multi-year leases.
+    </div>
+    <div class="note-block">
+      <strong>Gross-up clause:</strong> Ensure the lease specifies whether TMI is estimated or actual — and whether reconciliation is annual.
+    </div>
+    <div class="note-block">
+      <strong>Right of first refusal:</strong> If you're taking a smaller unit and may want to expand, ask for ROFR on adjacent space.
+    </div>
+  </section>
+
+  <!-- Key Contacts -->
+  <section>
+    <h2>Halifax CRE Brokers to Contact</h2>
+    <div class="comparable-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Firm</th>
+            <th>Market Presence</th>
+            <th>Contact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Avison Young Halifax</td>
+            <td>Strong industrial / Burnside focus</td>
+            <td><a href="https://www.avisonyoung.ca" target="_blank" style="color:#93c5fd">avisonyoung.ca</a></td>
+          </tr>
+          <tr>
+            <td>Cushman &amp; Wakefield Atlantic</td>
+            <td>Full service, produces HFX market reports</td>
+            <td><a href="https://www.cushmanwakefield.com/en/canada" target="_blank" style="color:#93c5fd">cushmanwakefield.com</a></td>
+          </tr>
+          <tr>
+            <td>Colliers Halifax</td>
+            <td>Active in Burnside industrial listings</td>
+            <td><a href="https://www.colliers.com/en-ca" target="_blank" style="color:#93c5fd">colliers.com/en-ca</a></td>
+          </tr>
+          <tr>
+            <td>CBRE Halifax</td>
+            <td>Large floor plates; also handles smaller flex</td>
+            <td><a href="https://www.cbre.ca" target="_blank" style="color:#93c5fd">cbre.ca</a></td>
+          </tr>
+          <tr>
+            <td>SVN Highland (local)</td>
+            <td>Local boutique with Burnside specialization</td>
+            <td><a href="https://svnhighland.com" target="_blank" style="color:#93c5fd">svnhighland.com</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Sources -->
+  <section>
+    <h2>Data Sources &amp; Confidence</h2>
+    <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
+      <span class="confidence-badge">✓ Medium-High Confidence</span>
+      <span style="font-size:0.82rem;color:var(--muted)">National data sourced from Cushman &amp; Wakefield. Halifax-specific rates are market benchmarks — confirm with a local broker.</span>
+    </div>
+    <ul class="source-list">
+      <li>Cushman &amp; Wakefield Canada Industrial MarketBeat Q4 2025 — national avg $15.11/sqft, vacancy 5.5%</li>
+      <li>Industry benchmarks for Halifax secondary industrial market (typically 15–25% below national average)</li>
+      <li>Halifax office sizing standards: 100–200 sqft/person for open plan to private office mix</li>
+      <li>Note: LoopNet, CBRE, Colliers and Avison Young property databases blocked automated access — live listing data requires direct broker inquiry or credentialed platform access</li>
+      <li>For real-time comparable listings, contact the brokers listed above or set up a LoopNet account at <a href="https://www.loopnet.com" target="_blank">loopnet.com</a></li>
+    </ul>
+  </section>
+
+</body>
+</html>
