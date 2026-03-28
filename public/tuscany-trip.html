@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tuscany Trip — May 18, 2026</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background: #0f0f1a; color: #e0e0e0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    .item-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 10px;
+      background: #1e1e2e;
+      border: 1px solid #2a2a3c;
+      transition: border-color 0.2s, opacity 0.2s;
+      cursor: pointer;
+      user-select: none;
+    }
+    .item-row:hover { border-color: #3a3a5c; }
+    .item-row.done { opacity: 0.45; }
+    .item-row.done .item-text { text-decoration: line-through; color: #6b7280; }
+    .checkbox {
+      width: 22px; height: 22px; min-width: 22px;
+      border-radius: 6px;
+      border: 2px solid #3a3a5c;
+      background: transparent;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.15s;
+    }
+    .item-row.done .checkbox {
+      background: #4ade80;
+      border-color: #4ade80;
+    }
+    .checkmark { display: none; color: #0f0f1a; font-size: 13px; font-weight: 900; }
+    .item-row.done .checkmark { display: block; }
+    .add-row {
+      display: flex; gap: 10px; align-items: center;
+    }
+    .add-input {
+      flex: 1;
+      background: #1e1e2e;
+      border: 1px solid #2a2a3c;
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: #e0e0e0;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .add-input:focus { border-color: #6366f1; }
+    .add-btn {
+      background: #6366f1;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .add-btn:hover { background: #4f52d8; }
+    .delete-btn {
+      margin-left: auto;
+      background: none;
+      border: none;
+      color: #4b5563;
+      font-size: 16px;
+      cursor: pointer;
+      padding: 2px 6px;
+      border-radius: 4px;
+      transition: color 0.15s;
+      line-height: 1;
+    }
+    .delete-btn:hover { color: #ef4444; }
+    .countdown {
+      background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(244,114,182,0.1));
+      border: 1px solid rgba(99,102,241,0.3);
+      border-radius: 12px;
+      padding: 16px 24px;
+      text-align: center;
+    }
+    .section-card {
+      background: #13131f;
+      border: 1px solid #2a2a3c;
+      border-radius: 16px;
+      padding: 24px;
+    }
+    .progress-bar {
+      height: 6px;
+      background: #1e1e2e;
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+    .progress-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.3s;
+    }
+  </style>
+</head>
+<body class="min-h-screen p-6 md:p-10">
+
+  <div class="max-w-2xl mx-auto">
+
+    <!-- Header -->
+    <div class="mb-8">
+      <div class="flex items-center gap-3 mb-1">
+        <span class="text-3xl">🇮🇹</span>
+        <h1 class="text-3xl font-bold text-white">Tuscany Trip</h1>
+      </div>
+      <p class="text-gray-500 text-sm ml-1">Prep list — bike & beyond</p>
+    </div>
+
+    <!-- Countdown -->
+    <div class="countdown mb-8">
+      <div id="countdown-text" class="text-2xl font-bold text-white"></div>
+      <div class="text-gray-400 text-sm mt-1">until May 18, 2026</div>
+    </div>
+
+    <!-- Shopping List -->
+    <div class="section-card mb-6">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h2 class="text-lg font-bold text-white">🛒 Shopping List</h2>
+          <div class="progress-bar w-48 mt-1">
+            <div id="shop-progress" class="progress-fill bg-emerald-400" style="width:0%"></div>
+          </div>
+        </div>
+        <span id="shop-counter" class="text-xs text-gray-500"></span>
+      </div>
+      <div id="shop-list" class="flex flex-col gap-2 mb-4"></div>
+      <div class="add-row">
+        <input class="add-input" id="shop-input" type="text" placeholder="Add item…" autocomplete="off">
+        <button class="add-btn" onclick="addItem('shop')">Add</button>
+      </div>
+    </div>
+
+    <!-- To-Do List -->
+    <div class="section-card mb-8">
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h2 class="text-lg font-bold text-white">✅ To-Do</h2>
+          <div class="progress-bar w-48 mt-1">
+            <div id="todo-progress" class="progress-fill bg-indigo-400" style="width:0%"></div>
+          </div>
+        </div>
+        <span id="todo-counter" class="text-xs text-gray-500"></span>
+      </div>
+      <div id="todo-list" class="flex flex-col gap-2 mb-4"></div>
+      <div class="add-row">
+        <input class="add-input" id="todo-input" type="text" placeholder="Add task…" autocomplete="off">
+        <button class="add-btn" onclick="addItem('todo')">Add</button>
+      </div>
+    </div>
+
+    <div class="text-center text-gray-600 text-xs">
+      <a href="/kanban/hub.html" class="hover:text-gray-400 transition-colors">← Back to Hub</a>
+    </div>
+
+  </div>
+
+<script>
+const TRIP_DATE = new Date('2026-05-18T00:00:00');
+
+const DEFAULT_DATA = {
+  shop: [
+    { id: 1, text: 'Compression bags', done: false },
+    { id: 2, text: 'White grease', done: false },
+  ],
+  todo: [
+    { id: 1, text: 'Trial pack the bike in the shipping case', done: false },
+  ]
+};
+
+let data = JSON.parse(localStorage.getItem('tuscany-trip') || 'null') || DEFAULT_DATA;
+let nextId = { shop: 100, todo: 100 };
+
+function save() {
+  localStorage.setItem('tuscany-trip', JSON.stringify(data));
+}
+
+function renderList(key) {
+  const listEl = document.getElementById(`${key}-list`);
+  const counterEl = document.getElementById(`${key}-counter`);
+  const progressEl = document.getElementById(`${key}-progress`);
+  const items = data[key];
+  const done = items.filter(i => i.done).length;
+  const pct = items.length ? Math.round((done / items.length) * 100) : 0;
+
+  counterEl.textContent = `${done}/${items.length} done`;
+  progressEl.style.width = pct + '%';
+
+  listEl.innerHTML = '';
+  items.forEach(item => {
+    const row = document.createElement('div');
+    row.className = 'item-row' + (item.done ? ' done' : '');
+    row.innerHTML = `
+      <div class="checkbox"><span class="checkmark">✓</span></div>
+      <span class="item-text text-sm">${escHtml(item.text)}</span>
+      <button class="delete-btn" title="Remove" onclick="event.stopPropagation(); removeItem('${key}', ${item.id})">×</button>
+    `;
+    row.addEventListener('click', () => toggleItem(key, item.id));
+    listEl.appendChild(row);
+  });
+}
+
+function toggleItem(key, id) {
+  const item = data[key].find(i => i.id === id);
+  if (item) { item.done = !item.done; save(); renderList(key); }
+}
+
+function removeItem(key, id) {
+  data[key] = data[key].filter(i => i.id !== id);
+  save(); renderList(key);
+}
+
+function addItem(key) {
+  const input = document.getElementById(`${key}-input`);
+  const text = input.value.trim();
+  if (!text) return;
+  data[key].push({ id: nextId[key]++, text, done: false });
+  input.value = '';
+  save(); renderList(key);
+  input.focus();
+}
+
+document.getElementById('shop-input').addEventListener('keydown', e => { if (e.key === 'Enter') addItem('shop'); });
+document.getElementById('todo-input').addEventListener('keydown', e => { if (e.key === 'Enter') addItem('todo'); });
+
+function escHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function updateCountdown() {
+  const now = new Date();
+  const diff = TRIP_DATE - now;
+  if (diff <= 0) {
+    document.getElementById('countdown-text').textContent = '🇮🇹 Buon viaggio!';
+    return;
+  }
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  document.getElementById('countdown-text').textContent = `${days} days, ${hours} hours`;
+}
+
+renderList('shop');
+renderList('todo');
+updateCountdown();
+setInterval(updateCountdown, 60000);
+</script>
+</body>
+</html>
