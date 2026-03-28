@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background: #0f0f1a; color: #e0e0e0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    .card {
+      background: #1e1e2e;
+      border: 1px solid #2a2a3c;
+      border-radius: 12px;
+      padding: 20px 24px;
+      transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .card:hover {
+      border-color: #6366f1;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(99, 102, 241, 0.15);
+    }
+    .tag {
+      display: inline-block;
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 99px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .tag-kanban   { background: rgba(99,102,241,0.18); color: #a5b4fc; }
+    .tag-research { background: rgba(52,211,153,0.15); color: #6ee7b7; }
+    .tag-dashboard{ background: rgba(251,191,36,0.15); color: #fbbf24; }
+    .tag-travel   { background: rgba(244,114,182,0.15); color: #f9a8d4; }
+    .tag-workflow { background: rgba(167,139,250,0.18); color: #c4b5fd; }
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #4b5563;
+      margin-bottom: 8px;
+      margin-top: 32px;
+    }
+  </style>
+</head>
+<body class="min-h-screen p-6 md:p-12">
+
+  <header class="max-w-4xl mx-auto mb-10">
+    <div class="flex items-center gap-3 mb-2">
+      <span class="text-3xl">🗂️</span>
+      <h1 class="text-3xl md:text-4xl font-bold text-white">Project Hub</h1>
+    </div>
+    <p class="text-gray-500 text-sm">All your working tools, in one place.</p>
+  </header>
+
+  <main class="max-w-4xl mx-auto">
+
+    <!-- Kanban boards -->
+    <div class="section-label">📋 Kanban Boards</div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+      <a href="/kanban/" class="card" target="_blank" rel="noopener">
+        <div class="flex items-center justify-between">
+          <span class="text-white font-semibold text-base">ProperBarber GTM</span>
+          <span class="tag tag-kanban">Kanban</span>
+        </div>
+        <p class="text-gray-400 text-sm">Go-to-market planning board for ProperBarber launch.</p>
+      </a>
+
+      <a href="/kanban/immediac/" class="card" target="_blank" rel="noopener">
+        <div class="flex items-center justify-between">
+          <span class="text-white font-semibold text-base">Immediac CEO</span>
+          <span class="tag tag-kanban">Kanban</span>
+        </div>
+        <p class="text-gray-400 text-sm">Executive-level task and priority board for Immediac.</p>
+      </a>
+
+    </div>
+
+    <!-- Research boards -->
+    <div class="section-label">🔬 Research Boards</div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+      <a href="/kanban/barber-research.html" class="card" target="_blank" rel="noopener">
+        <div class="flex items-center justify-between">
+          <span class="text-white font-semibold text-base">Barber Industry</span>
+          <span class="tag tag-research">Research</span>
+        </div>
+        <p class="text-gray-400 text-sm">Instagram &amp; market research for the high-end barber space.</p>
+      </a>
+
+      <a href="/kanban/rawkflags-research.html" class="card" target="_blank" rel="noopener">
+        <div class="flex items-center justify-between">
+          <span class="text-white font-semibold text-base">RAWKFLAGS 🤘</span>
+          <span class="tag tag-research">Research</span>
+        </div>
+        <p class="text-gray-400 text-sm">Content research and strategy for RAWKFLAGS.</p>
+      </a>
+
+      <a href="/kanban/realestate-research.html" class="card" target="_blank" rel="noopener">
+        <div class="flex items-center justify-between">
+          <span class="text-white font-semibold text-base">Real Estate</span>
+          <span class="tag tag-research">Research</span>
+        </div>
+        <p class="text-gray-400 text-sm">Content research board for the real estate industry.</p>
+      </a>
+
+      <a href="/kanban/burnside-rental-research.html" class="card" target="_blank" rel="noopener">
+        <div class="flex items-center justify-between">
+          <span class="text-white font-semibold text-base">Burnside Industrial Park</span>
+          <span class="tag tag-research">Research</span>
+        </div>
+        <p class="text-gray-400 text-sm">Commercial rental market research for Burnside.</p>
+      </a>
+
+    </div>
+
+    <!-- Dashboards -->
+    <div class="section-label">📊 Dashboards</div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+      <a href="https://harryopenclaw.github.io/ceo-dashboard/" class="card" target="_blank" rel="noopener">
+        <div class="flex items-center justify-between">
+          <span class="text-white font-semibold text-base">CEO Dashboard</span>
+          <span class="tag tag-dashboard">Dashboard</span>
+        </div>
+        <p class="text-gray-400 text-sm">Immediac executive metrics and KPI overview.</p>
+      </a>
+
+      <a href="https://harryopenclaw.github.io/flight-prices/" class="card" target="_blank" rel="noopener">
+        <div class="flex items-center justify-between">
+          <span class="text-white font-semibold text-base">✈️ Flight Price Board</span>
+          <span class="tag tag-travel">Travel</span>
+        </div>
+        <p class="text-gray-400 text-sm">Live fare heatmap — Florida, Toronto, Boston routes from Halifax. Apr 13 – May 3.</p>
+      </a>
+
+    </div>
+
+    <!-- Workflows -->
+    <div class="section-label">⚙️ Workflows</div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+      <a href="/kanban/gtm-workflow.html" class="card" target="_blank" rel="noopener">
+        <div class="flex items-center justify-between">
+          <span class="text-white font-semibold text-base">GTM Workflow</span>
+          <span class="tag tag-workflow">Workflow</span>
+        </div>
+        <p class="text-gray-400 text-sm">Step-by-step go-to-market process map.</p>
+      </a>
+
+    </div>
+
+  </main>
+
+  <footer class="max-w-4xl mx-auto mt-16 pb-8 text-center text-gray-600 text-xs">
+    Project Hub &mdash; Updated Mar 28, 2026
+  </footer>
+
+</body>
+</html>
