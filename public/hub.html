@@ -6,10 +6,10 @@
   <title>Project Hub</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body { background: #0f0f1a; color: #e0e0e0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    body { background: #f5f6fa; color: #1a1d2e; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
     .card {
-      background: #1e1e2e;
-      border: 1px solid #2a2a3c;
+      background: #ffffff;
+      border: 1px solid #e2e6f0;
       border-radius: 12px;
       padding: 20px 24px;
       transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
@@ -17,11 +17,12 @@
       display: flex;
       flex-direction: column;
       gap: 6px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
     }
     .card:hover {
       border-color: #6366f1;
       transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(99, 102, 241, 0.15);
+      box-shadow: 0 8px 24px rgba(99, 102, 241, 0.12);
     }
     .tag {
       display: inline-block;
@@ -32,17 +33,17 @@
       letter-spacing: 0.04em;
       text-transform: uppercase;
     }
-    .tag-kanban   { background: rgba(99,102,241,0.18); color: #a5b4fc; }
-    .tag-research { background: rgba(52,211,153,0.15); color: #6ee7b7; }
-    .tag-dashboard{ background: rgba(251,191,36,0.15); color: #fbbf24; }
-    .tag-travel   { background: rgba(244,114,182,0.15); color: #f9a8d4; }
-    .tag-workflow { background: rgba(167,139,250,0.18); color: #c4b5fd; }
+    .tag-kanban   { background: #ede9fe; color: #6d28d9; }
+    .tag-research { background: #d1fae5; color: #065f46; }
+    .tag-dashboard{ background: #fef3c7; color: #92400e; }
+    .tag-travel   { background: #fce7f3; color: #9d174d; }
+    .tag-workflow { background: #e0e7ff; color: #3730a3; }
     .section-label {
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: #4b5563;
+      color: #9ca3af;
       margin-bottom: 8px;
       margin-top: 32px;
     }
@@ -53,9 +54,9 @@
   <header class="max-w-4xl mx-auto mb-10">
     <div class="flex items-center gap-3 mb-2">
       <span class="text-3xl">🗂️</span>
-      <h1 class="text-3xl md:text-4xl font-bold text-white">Project Hub</h1>
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900">Project Hub</h1>
     </div>
-    <p class="text-gray-500 text-sm">All your working tools, in one place.</p>
+    <p class="text-gray-400 text-sm">All your working tools, in one place.</p>
   </header>
 
   <main class="max-w-4xl mx-auto">
@@ -66,7 +67,7 @@
 
       <a href="/kanban/" class="card" target="_blank" rel="noopener">
         <div class="flex items-center justify-between">
-          <span class="text-white font-semibold text-base">ProperBarber GTM</span>
+          <span class="text-gray-900 font-semibold text-base">ProperBarber GTM</span>
           <span class="tag tag-kanban">Kanban</span>
         </div>
         <p class="text-gray-400 text-sm">Go-to-market planning board for ProperBarber launch.</p>
@@ -74,7 +75,7 @@
 
       <a href="/kanban/immediac/" class="card" target="_blank" rel="noopener">
         <div class="flex items-center justify-between">
-          <span class="text-white font-semibold text-base">Immediac CEO</span>
+          <span class="text-gray-900 font-semibold text-base">Immediac CEO</span>
           <span class="tag tag-kanban">Kanban</span>
         </div>
         <p class="text-gray-400 text-sm">Executive-level task and priority board for Immediac.</p>
@@ -88,7 +89,7 @@
 
       <a href="/kanban/barber-research.html" class="card" target="_blank" rel="noopener">
         <div class="flex items-center justify-between">
-          <span class="text-white font-semibold text-base">Barber Industry</span>
+          <span class="text-gray-900 font-semibold text-base">Barber Industry</span>
           <span class="tag tag-research">Research</span>
         </div>
         <p class="text-gray-400 text-sm">Instagram &amp; market research for the high-end barber space.</p>
@@ -96,7 +97,7 @@
 
       <a href="/kanban/rawkflags-research.html" class="card" target="_blank" rel="noopener">
         <div class="flex items-center justify-between">
-          <span class="text-white font-semibold text-base">RAWKFLAGS 🤘</span>
+          <span class="text-gray-900 font-semibold text-base">RAWKFLAGS 🤘</span>
           <span class="tag tag-research">Research</span>
         </div>
         <p class="text-gray-400 text-sm">Content research and strategy for RAWKFLAGS.</p>
@@ -104,7 +105,7 @@
 
       <a href="/kanban/realestate-research.html" class="card" target="_blank" rel="noopener">
         <div class="flex items-center justify-between">
-          <span class="text-white font-semibold text-base">Real Estate</span>
+          <span class="text-gray-900 font-semibold text-base">Real Estate</span>
           <span class="tag tag-research">Research</span>
         </div>
         <p class="text-gray-400 text-sm">Content research board for the real estate industry.</p>
@@ -112,7 +113,7 @@
 
       <a href="/kanban/burnside-rental-research.html" class="card" target="_blank" rel="noopener">
         <div class="flex items-center justify-between">
-          <span class="text-white font-semibold text-base">Burnside Industrial Park</span>
+          <span class="text-gray-900 font-semibold text-base">Burnside Industrial Park</span>
           <span class="tag tag-research">Research</span>
         </div>
         <p class="text-gray-400 text-sm">Commercial rental market research for Burnside.</p>
@@ -126,7 +127,7 @@
 
       <a href="https://harryopenclaw.github.io/ceo-dashboard/" class="card" target="_blank" rel="noopener">
         <div class="flex items-center justify-between">
-          <span class="text-white font-semibold text-base">CEO Dashboard</span>
+          <span class="text-gray-900 font-semibold text-base">CEO Dashboard</span>
           <span class="tag tag-dashboard">Dashboard</span>
         </div>
         <p class="text-gray-400 text-sm">Immediac executive metrics and KPI overview.</p>
@@ -140,7 +141,7 @@
 
       <a href="/kanban/tuscany-trip.html" class="card" target="_blank" rel="noopener">
         <div class="flex items-center justify-between">
-          <span class="text-white font-semibold text-base">🇮🇹 Tuscany Trip Prep</span>
+          <span class="text-gray-900 font-semibold text-base">🇮🇹 Tuscany Trip Prep</span>
           <span class="tag tag-travel">Travel</span>
         </div>
         <p class="text-gray-400 text-sm">Shopping list & to-dos for the Tuscany bike trip. May 18, 2026.</p>
@@ -154,7 +155,7 @@
 
       <a href="https://harryopenclaw.github.io/TopClad/" class="card" target="_blank" rel="noopener">
         <div class="flex items-center justify-between">
-          <span class="text-white font-semibold text-base">Action Planning Hub</span>
+          <span class="text-gray-900 font-semibold text-base">Action Planning Hub</span>
           <span class="tag tag-dashboard">Dashboard</span>
         </div>
         <p class="text-gray-400 text-sm">TopClad operations and action planning overview.</p>
@@ -162,7 +163,7 @@
 
       <a href="https://harryopenclaw.github.io/TopClad/job-ad.html" class="card" target="_blank" rel="noopener">
         <div class="flex items-center justify-between">
-          <span class="text-white font-semibold text-base">Job Ad — Roofing Crew Leader</span>
+          <span class="text-gray-900 font-semibold text-base">Job Ad — Roofing Crew Leader</span>
           <span class="tag tag-workflow">Hiring</span>
         </div>
         <p class="text-gray-400 text-sm">Draft job posting for Indeed / TopClad crew leader role.</p>
@@ -170,7 +171,7 @@
 
       <a href="https://harryopenclaw.github.io/TopClad/recruiting-strategy.html" class="card" target="_blank" rel="noopener">
         <div class="flex items-center justify-between">
-          <span class="text-white font-semibold text-base">Recruiting Strategy</span>
+          <span class="text-gray-900 font-semibold text-base">Recruiting Strategy</span>
           <span class="tag tag-workflow">Hiring</span>
         </div>
         <p class="text-gray-400 text-sm">Hiring strategy and sourcing plan for TopClad.</p>
@@ -184,7 +185,7 @@
 
       <a href="https://harryopenclaw.github.io/saleday/project-summary.html" class="card" target="_blank" rel="noopener">
         <div class="flex items-center justify-between">
-          <span class="text-white font-semibold text-base">Project Summary</span>
+          <span class="text-gray-900 font-semibold text-base">Project Summary</span>
           <span class="tag tag-dashboard">Architecture</span>
         </div>
         <p class="text-gray-400 text-sm">SaleDay Up — multi-tenant SaaS dealership traffic director. ASP.NET Core 8 · EF Core · Razor Pages · Twilio SMS. Architecture locked Mar 29, 2026. ⚠️ Based on immediac-Iddentity-Base-Master-DoNot-Modify — do not edit the base repo. New features go in a fresh fork.</p>
@@ -192,7 +193,7 @@
 
       <a href="https://harryopenclaw.github.io/saleday/showroom-traffic-director.html" class="card" target="_blank" rel="noopener">
         <div class="flex items-center justify-between">
-          <span class="text-white font-semibold text-base">Prototype — v7</span>
+          <span class="text-gray-900 font-semibold text-base">Prototype — v7</span>
           <span class="tag tag-workflow">Mockup</span>
         </div>
         <p class="text-gray-400 text-sm">Interactive HTML/JS prototype. Full greeter flow, staff management, visit types, SMS dispatch, and CSV/Excel export.</p>
@@ -206,7 +207,7 @@
 
       <a href="/kanban/ai-stack.html" class="card" target="_blank" rel="noopener">
         <div class="flex items-center justify-between">
-          <span class="text-white font-semibold text-base">Harold's AI Stack</span>
+          <span class="text-gray-900 font-semibold text-base">Harold's AI Stack</span>
           <span class="tag tag-workflow">Config</span>
         </div>
         <p class="text-gray-400 text-sm">MCP servers (Firecrawl, Context7, Playwright) + agent skills (research-agent, dotnet-coder). All green as of Mar 28, 2026.</p>
@@ -220,7 +221,7 @@
 
       <a href="/kanban/accomplishments.html" class="card" target="_blank" rel="noopener">
         <div class="flex items-center justify-between">
-          <span class="text-white font-semibold text-base">What Harold Has Done</span>
+          <span class="text-gray-900 font-semibold text-base">What Harold Has Done</span>
           <span class="tag tag-dashboard">Log</span>
         </div>
         <p class="text-gray-400 text-sm">A running log of research, builds, and wins. Flights booked. Stack wired. Things shipped.</p>
@@ -234,7 +235,7 @@
 
       <a href="/kanban/gtm-workflow.html" class="card" target="_blank" rel="noopener">
         <div class="flex items-center justify-between">
-          <span class="text-white font-semibold text-base">GTM Workflow</span>
+          <span class="text-gray-900 font-semibold text-base">GTM Workflow</span>
           <span class="tag tag-workflow">Workflow</span>
         </div>
         <p class="text-gray-400 text-sm">Step-by-step go-to-market process map.</p>
@@ -244,8 +245,8 @@
 
   </main>
 
-  <footer class="max-w-4xl mx-auto mt-16 pb-8 text-center text-gray-600 text-xs">
-    Project Hub &mdash; Updated Mar 30, 2026 · Flights booked ✓
+  <footer class="max-w-4xl mx-auto mt-16 pb-8 text-center text-gray-400 text-xs">
+    Project Hub &mdash; Updated Mar 31, 2026 · Flights booked ✓
   </footer>
 
 </body>
