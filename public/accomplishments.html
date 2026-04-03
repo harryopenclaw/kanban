@@ -92,6 +92,48 @@
 
     </div>
 
+    <div class="section-label">🔒 Security Reviews — Apr 3, 2026</div>
+    <div class="card">
+
+      <div class="win-row">
+        <div class="win-icon">🔒</div>
+        <div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="win-title">ExecMap — 8 Security Fixes</span>
+            <span class="tag tag-done">Fixed · Pushed</span>
+          </div>
+          <div class="win-detail">
+            <span class="check">✓</span> Cross-tenant card movement — tenant isolation enforced on MoveCard endpoint<br>
+            <span class="check">✓</span> CSRF on all JSON endpoints (AddCard, MoveCard, UpdateKpi) — antiforgery token in fetch headers<br>
+            <span class="check">✓</span> Stored XSS via card titles — replaced innerHTML template literals with textContent<br>
+            <span class="check">✓</span> LogoUrl validation — https:// prefix enforced, [Url] annotation added<br>
+            <span class="check">✓</span> EF Core global query filters were broken (TenantId > 0) — fixed to real tenant isolation<br>
+            <span class="check">✓</span> Admin self-deletion prevented<br>
+            <span class="check">✓</span> Arbitrary role injection blocked — allowlist enforced (TenantAdmin / TenantMember only)<br>
+            <span class="check">✓</span> Unsafe slug generation — replaced naive string replace with regex + empty-slug fallback
+          </div>
+          <div class="win-date">Apr 3, 2026</div>
+        </div>
+      </div>
+
+      <div class="win-row">
+        <div class="win-icon">🔒</div>
+        <div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="win-title">SalesDayUp — 3 Security &amp; CI Fixes</span>
+            <span class="tag tag-done">Fixed · Pushed</span>
+          </div>
+          <div class="win-detail">
+            <span class="check">✓</span> CI pipeline now triggers on PRs — no unreviewed code merges<br>
+            <span class="check">✓</span> dotnet test added to pipeline — tests run on every push and PR<br>
+            <span class="check">✓</span> [MaxLength(1000)] on Notes in CreateVisitViewModel — XSS bypass via POST path closed
+          </div>
+          <div class="win-date">Apr 3, 2026</div>
+        </div>
+      </div>
+
+    </div>
+
     <div class="section-label">🗂️ Builds & Tools — Apr 2026</div>
     <div class="card">
 
