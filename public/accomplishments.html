@@ -69,6 +69,53 @@
 
   <main class="max-w-3xl mx-auto">
 
+    <div class="section-label">🗂️ Builds & Tools — Apr 2026</div>
+    <div class="card">
+
+      <div class="win-row">
+        <div class="win-icon">🗂️</div>
+        <div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="win-title">MAP — Massive Action Plan Board</span>
+            <span class="tag tag-build">Built · Live</span>
+          </div>
+          <div class="win-detail">
+            Built and shipped a full React + Vite Kanban board from scratch. Warm colourful theme (bold magenta/pink/coral/teal column headers, white cards with colour-accent left borders, Poppins font, cream background). KPI dashboard bar — Network Thermometer, Contacts Today, New Content Created, Total Deals Closed, Funnel Temperature — all inline-editable with colour-coded temperature badges. Drag-and-drop cards between 6 default columns (Prospecting → Delegated). Deployed to GitHub Pages at harryopenclaw.github.io/map/.
+          </div>
+          <div class="win-date">Apr 3, 2026</div>
+        </div>
+      </div>
+
+      <div class="win-row">
+        <div class="win-icon">🔧</div>
+        <div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="win-title">Fixed Blank White Page — harry.immediac.com</span>
+            <span class="tag tag-done">Fixed</span>
+          </div>
+          <div class="win-detail">
+            Diagnosed and fixed a GH Pages asset path bug. Root cause: custom domain serves from /, but Vite was built with base: /kanban/ — assets 404'd. Also introduced standing rule: always browser-screenshot-verify after every deploy.
+          </div>
+          <div class="win-date">Apr 3, 2026</div>
+        </div>
+      </div>
+
+      <div class="win-row">
+        <div class="win-icon">💬</div>
+        <div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="win-title">Multi-User iMessage Session Research</span>
+            <span class="tag tag-config">Config</span>
+          </div>
+          <div class="win-detail">
+            Confirmed OpenClaw supports per-user isolated iMessage sessions (session.dmScope: per-channel-peer). Each person added to the allowlist gets their own session, history, and context. Allowlist change process documented — requires password from ~/.openclaw/secrets/allowlist-password.txt.
+          </div>
+          <div class="win-date">Apr 3, 2026</div>
+        </div>
+      </div>
+
+    </div>
+
     <div class="section-label">✈️ Research & Planning</div>
     <div class="card">
 
@@ -91,7 +138,7 @@
   </main>
 
   <footer class="max-w-3xl mx-auto mt-16 pb-8 text-center text-gray-600 text-xs">
-    Harold's Accomplishments &mdash; Updated Mar 29, 2026
+    Harold's Accomplishments &mdash; Updated Apr 3, 2026
   </footer>
 
 </body>
