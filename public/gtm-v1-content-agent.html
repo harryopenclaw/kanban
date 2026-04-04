@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GTM Version 1 — Content Development Agent</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0f0f1a; color: #e0e0e0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; min-height: 100vh; padding: 32px 16px; }
+    .page { max-width: 900px; margin: 0 auto; }
+    header { margin-bottom: 40px; }
+    header a { color: #6366f1; font-size: 12px; text-decoration: none; display: inline-block; margin-bottom: 16px; }
+    header a:hover { color: #818cf8; }
+    .badge { display: inline-block; background: rgba(99,102,241,0.2); color: #a5b4fc; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 10px; border-radius: 99px; margin-bottom: 12px; }
+    h1 { font-size: 28px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+    .subtitle { color: #6b7280; font-size: 14px; line-height: 1.6; }
+    .meta { font-size: 11px; color: #4b5563; margin-top: 8px; }
+
+    /* Objective card */
+    .objective { background: #1e1e2e; border: 1px solid #2a2a3c; border-radius: 12px; padding: 20px 24px; margin-bottom: 32px; }
+    .objective h2 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: #6366f1; margin-bottom: 12px; }
+    .objective p { font-size: 14px; color: #d1d5db; line-height: 1.6; }
+    .platforms { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+    .platform { background: rgba(99,102,241,0.15); color: #a5b4fc; font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 99px; }
+
+    /* Flow */
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #4b5563; margin-bottom: 16px; margin-top: 40px; }
+    .flow { display: flex; flex-direction: column; gap: 0; }
+    .flow-step { display: flex; gap: 0; align-items: stretch; }
+    .flow-connector { display: flex; flex-direction: column; align-items: center; width: 48px; flex-shrink: 0; }
+    .flow-dot { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex-shrink: 0; margin-top: 18px; }
+    .flow-line { width: 2px; flex: 1; min-height: 24px; margin-top: 0; }
+    .flow-card { flex: 1; background: #1e1e2e; border: 1px solid #2a2a3c; border-radius: 12px; padding: 18px 20px; margin-bottom: 12px; }
+    .flow-card h3 { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 6px; }
+    .flow-card p { font-size: 13px; color: #9ca3af; line-height: 1.5; }
+    .flow-card ul { margin-top: 8px; padding-left: 16px; }
+    .flow-card ul li { font-size: 12px; color: #6b7280; margin-bottom: 3px; line-height: 1.4; }
+    .flow-card .tag { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 99px; margin-top: 8px; text-transform: uppercase; letter-spacing: 0.04em; }
+
+    .step-1 .flow-dot { background: rgba(99,102,241,0.25); color: #818cf8; }
+    .step-1 .flow-line { background: linear-gradient(to bottom, #6366f1, #8b5cf6); }
+    .step-1 .flow-card { border-color: rgba(99,102,241,0.3); }
+    .step-1 .tag { background: rgba(99,102,241,0.15); color: #a5b4fc; }
+
+    .step-2 .flow-dot { background: rgba(139,92,246,0.25); color: #a78bfa; }
+    .step-2 .flow-line { background: linear-gradient(to bottom, #8b5cf6, #ec4899); }
+    .step-2 .flow-card { border-color: rgba(139,92,246,0.3); }
+    .step-2 .tag { background: rgba(139,92,246,0.15); color: #c4b5fd; }
+
+    .step-3 .flow-dot { background: rgba(236,72,153,0.25); color: #f472b6; }
+    .step-3 .flow-line { background: linear-gradient(to bottom, #ec4899, #f59e0b); }
+    .step-3 .flow-card { border-color: rgba(236,72,153,0.3); }
+    .step-3 .tag { background: rgba(236,72,153,0.15); color: #f9a8d4; }
+
+    .step-4 .flow-dot { background: rgba(245,158,11,0.25); color: #fbbf24; }
+    .step-4 .flow-line { background: linear-gradient(to bottom, #f59e0b, #10b981); }
+    .step-4 .flow-card { border-color: rgba(245,158,11,0.3); }
+    .step-4 .tag { background: rgba(245,158,11,0.15); color: #fde68a; }
+
+    .step-5 .flow-dot { background: rgba(16,185,129,0.25); color: #34d399; }
+    .step-5 .flow-line { background: transparent; }
+    .step-5 .flow-card { border-color: rgba(16,185,129,0.3); }
+    .step-5 .tag { background: rgba(16,185,129,0.15); color: #6ee7b7; }
+
+    /* Integration */
+    .integrations { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 8px; }
+    .integration-card { background: #1e1e2e; border: 1px solid #2a2a3c; border-radius: 10px; padding: 16px; }
+    .integration-card .icon { font-size: 22px; margin-bottom: 8px; }
+    .integration-card h4 { font-size: 13px; font-weight: 600; color: #e0e0e0; margin-bottom: 4px; }
+    .integration-card p { font-size: 11px; color: #6b7280; line-height: 1.4; }
+
+    /* Next steps */
+    .todo-list { background: #1e1e2e; border: 1px solid #2a2a3c; border-radius: 12px; padding: 20px 24px; }
+    .todo-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #2a2a3c; align-items: flex-start; }
+    .todo-item:last-child { border-bottom: none; }
+    .todo-num { width: 22px; height: 22px; border-radius: 50%; background: rgba(99,102,241,0.2); color: #818cf8; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .todo-text { font-size: 13px; color: #d1d5db; line-height: 1.5; }
+    .todo-text span { color: #6b7280; font-size: 12px; display: block; margin-top: 2px; }
+
+    footer { text-align: center; color: #374151; font-size: 11px; margin-top: 48px; padding-bottom: 24px; }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <header>
+      <a href="/kanban/hub.html">← Back to Hub</a>
+      <div class="badge">GTM Version 1</div>
+      <h1>Content Development Agent</h1>
+      <p class="subtitle">AI-powered research → ideation → script writing pipeline for Immediac's AI for Business content strategy.</p>
+      <p class="meta">Scoped: Apr 4, 2026 · Status: In Design</p>
+    </header>
+
+    <!-- Objective -->
+    <div class="objective">
+      <h2>Objective</h2>
+      <p>Build an integrated content development agent that monitors trends, generates content ideas, and writes platform-specific scripts — fed by real data from 25 monitored Instagram accounts. Content focus: AI for Business, promoting Immediac's offerings.</p>
+      <div class="platforms">
+        <span class="platform">📸 Instagram</span>
+        <span class="platform">🎵 TikTok</span>
+        <span class="platform">▶️ YouTube</span>
+        <span class="platform">💼 LinkedIn</span>
+      </div>
+    </div>
+
+    <!-- Workflow -->
+    <div class="section-label">Workflow — 5 Stages</div>
+    <div class="flow">
+
+      <div class="flow-step step-1">
+        <div class="flow-connector">
+          <div class="flow-dot">1</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-card">
+          <h3>Research</h3>
+          <p>Pull trend data from monitored accounts and external sources. Identify what's performing, what topics are emerging, and where the gaps are.</p>
+          <ul>
+            <li>Daily scrape of 25 Instagram accounts (ExecMap integration)</li>
+            <li>Hashtag + topic trend analysis</li>
+            <li>Competitor content performance signals</li>
+            <li>Industry news + AI business news feeds</li>
+          </ul>
+          <span class="tag">Research Layer</span>
+        </div>
+      </div>
+
+      <div class="flow-step step-2">
+        <div class="flow-connector">
+          <div class="flow-dot">2</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-card">
+          <h3>Content Ideation</h3>
+          <p>Generate a ranked list of content ideas based on research signals, aligned with Alex Hormozi + Daniel Isles frameworks — hooks first, value-dense, repurpose-ready.</p>
+          <ul>
+            <li>10–20 ideas per cycle, ranked by predicted performance</li>
+            <li>Angle variations per platform (Instagram Reel vs LinkedIn post)</li>
+            <li>Hook + core message + CTA for each idea</li>
+            <li>Tie-back to Immediac offerings / AI for business positioning</li>
+          </ul>
+          <span class="tag">Ideation Layer</span>
+        </div>
+      </div>
+
+      <div class="flow-step step-3">
+        <div class="flow-connector">
+          <div class="flow-dot">3</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-card">
+          <h3>Script Writing</h3>
+          <p>Turn approved ideas into full scripts. Platform-specific format, optimized for retention and conversion.</p>
+          <ul>
+            <li>Short-form scripts (30–90 sec) for TikTok / Instagram Reels / YouTube Shorts</li>
+            <li>Long-form scripts (5–15 min) for YouTube</li>
+            <li>LinkedIn text posts + carousel outlines</li>
+            <li>Hook, body, CTA structure throughout</li>
+          </ul>
+          <span class="tag">Script Layer</span>
+        </div>
+      </div>
+
+      <div class="flow-step step-4">
+        <div class="flow-connector">
+          <div class="flow-dot">4</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-card">
+          <h3>Review &amp; Approval</h3>
+          <p>Scripts delivered to John for review. Feedback loop to refine tone, messaging, or platform fit.</p>
+          <ul>
+            <li>Delivered via iMessage / Discord summary</li>
+            <li>Inline comments / edit requests fed back to agent</li>
+            <li>Version tracking per script</li>
+          </ul>
+          <span class="tag">Review Layer</span>
+        </div>
+      </div>
+
+      <div class="flow-step step-5">
+        <div class="flow-connector">
+          <div class="flow-dot">5</div>
+          <div class="flow-line"></div>
+        </div>
+        <div class="flow-card">
+          <h3>Output &amp; Storage</h3>
+          <p>Approved scripts stored in a content library. Ready for recording, scheduling, or repurposing.</p>
+          <ul>
+            <li>Content library (structured by platform, topic, date)</li>
+            <li>Repurposing queue — one script → multiple formats</li>
+            <li>Performance tracking post-publish (future phase)</li>
+          </ul>
+          <span class="tag">Output Layer</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Integrations -->
+    <div class="section-label">Integrations</div>
+    <div class="integrations">
+      <div class="integration-card">
+        <div class="icon">📊</div>
+        <h4>ExecMap — Instagram Monitor</h4>
+        <p>Daily scrape of 25 accounts feeds directly into the research layer. Trend signals inform content ideas.</p>
+      </div>
+      <div class="integration-card">
+        <div class="icon">🤖</div>
+        <h4>Harold (OpenClaw)</h4>
+        <p>Orchestrates research runs, delivers idea summaries, and manages script requests via iMessage + Discord.</p>
+      </div>
+      <div class="integration-card">
+        <div class="icon">📚</div>
+        <h4>Content Frameworks</h4>
+        <p>Alex Hormozi (value + offers), Daniel Isles (short-form hooks + stop-the-scroll tactics).</p>
+      </div>
+      <div class="integration-card">
+        <div class="icon">🏢</div>
+        <h4>Immediac Positioning</h4>
+        <p>All content tied to AI for business narrative. Promotes Immediac offerings, builds authority in the space.</p>
+      </div>
+    </div>
+
+    <!-- Next Steps -->
+    <div class="section-label">Next Steps — Feature Build Order</div>
+    <div class="todo-list">
+      <div class="todo-item">
+        <div class="todo-num">1</div>
+        <div class="todo-text">Build Instagram account monitoring in ExecMap (25 accounts, daily scrape via Playwright)
+          <span>Data models: MonitoredAccount, AccountSnapshot, Post — multi-tenant scoped</span>
+        </div>
+      </div>
+      <div class="todo-item">
+        <div class="todo-num">2</div>
+        <div class="todo-text">Build research aggregator — pull signals from monitored accounts + external feeds
+          <span>Output: ranked topic list with trend score</span>
+        </div>
+      </div>
+      <div class="todo-item">
+        <div class="todo-num">3</div>
+        <div class="todo-text">Build content ideation agent — generate 10–20 ideas per cycle from research output
+          <span>Hook + angle + platform per idea. Hormozi/Isles frameworks baked in.</span>
+        </div>
+      </div>
+      <div class="todo-item">
+        <div class="todo-num">4</div>
+        <div class="todo-text">Build script writing agent — platform-specific scripts from approved ideas
+          <span>Short-form (TikTok/Reels/Shorts) + long-form (YouTube) + LinkedIn posts</span>
+        </div>
+      </div>
+      <div class="todo-item">
+        <div class="todo-num">5</div>
+        <div class="todo-text">Wire delivery — daily summary to John via iMessage / Discord
+          <span>Top 3 ideas + 1 draft script per cycle</span>
+        </div>
+      </div>
+      <div class="todo-item">
+        <div class="todo-num">6</div>
+        <div class="todo-text">Content library — store approved scripts, track versions, repurposing queue
+          <span>Future: post-publish performance tracking</span>
+        </div>
+      </div>
+    </div>
+
+    <footer>GTM Version 1 — Content Development Agent &mdash; Scoped Apr 4, 2026</footer>
+
+  </div>
+</body>
+</html>
