@@ -92,6 +92,85 @@
 
     </div>
 
+    <div class="section-label">🛠️ SalesDayUp — Apr 4, 2026 (Day 4)</div>
+    <div class="card">
+
+      <div class="win-row">
+        <div class="win-icon">🔒</div>
+        <div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="win-title">SalesDayUp — Full Codebase Hostile Review + 8 MUST-FIX Patched</span>
+            <span class="tag tag-done">Fixed · Committed</span>
+          </div>
+          <div class="win-detail">
+            <span class="check">✓</span> 3 parallel Claude Code agents reviewed entire codebase independently — verdict: not merge-safe, 8 MUST-FIX confirmed by 2-3 agents each.<br>
+            <span class="check">✓</span> T1: BasicAuth middleware was returning 400 on all JWT Bearer requests — added scheme prefix guard.<br>
+            <span class="check">✓</span> T2: TwilioService SMS silently failed for SuperAdmin visits — fixed by passing tenantId as parameter instead of reading from null claims.<br>
+            <span class="check">✓</span> T3: TenantUser creation was broken — AutoMapper ignored TenantId, no UI field. Added tenant dropdown + fixed mapping.<br>
+            <span class="check">✓</span> T4: VisitType.Routing field was never enforced — SMS fired for all visit types. Added routing guard in GreeterController.<br>
+            <span class="check">✓</span> T5: HandleRoleChange could strip all roles on bad role name — fixed to add first, validate, then remove old roles.<br>
+            <span class="check">✓</span> T6 &amp; T7: Removed auto-SuperAdmin grant from Register page + removed email-domain auto-promote from OAuth login.<br>
+            <span class="check">✓</span> T8: Stored XSS in Users DataTables — added text renderer to all data columns.
+          </div>
+          <div class="win-date">Apr 4, 2026</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="section-label">🤖 Harold Infrastructure — Apr 2–4, 2026</div>
+    <div class="card">
+
+      <div class="win-row">
+        <div class="win-icon">⚙️</div>
+        <div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="win-title">ACP Wired Up — Claude Code / Codex via acpx</span>
+            <span class="tag tag-done">Live</span>
+          </div>
+          <div class="win-detail">
+            <span class="check">✓</span> Installed acpx plugin, configured ACP backend in OpenClaw gateway.<br>
+            <span class="check">✓</span> Allowed agents: claude, codex, gemini, opencode, pi. Default: claude-opus-4-6.<br>
+            <span class="check">✓</span> sessions_spawn with runtime:"acp" now works for persistent coding sessions.
+          </div>
+          <div class="win-date">Apr 4, 2026</div>
+        </div>
+      </div>
+
+      <div class="win-row">
+        <div class="win-icon">💬</div>
+        <div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="win-title">Discord Connected + User Approved</span>
+            <span class="tag tag-done">Live</span>
+          </div>
+          <div class="win-detail">
+            <span class="check">✓</span> Discord bot (@HarryOpen Claw) already connected — Message Content Intent enabled.<br>
+            <span class="check">✓</span> John's Discord account approved via pairing flow — DMs and channels now live.
+          </div>
+          <div class="win-date">Apr 4, 2026</div>
+        </div>
+      </div>
+
+      <div class="win-row">
+        <div class="win-icon">🧠</div>
+        <div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="win-title">.NET Toolchain Upgraded — dotnet-skills + opus model</span>
+            <span class="tag tag-config">Config</span>
+          </div>
+          <div class="win-detail">
+            <span class="check">✓</span> Claude Code default model switched to claude-opus-4-6.<br>
+            <span class="check">✓</span> dotnet-skills plugin installed (34 skills + 6 specialist agents — EF Core, concurrency, testing, quality gates).<br>
+            <span class="check">✓</span> CLAUDE.md updated in SalesDayUp with dotnet-skills routing table.<br>
+            <span class="check">✓</span> dotnet-coder OpenClaw skill updated to reflect full stack.
+          </div>
+          <div class="win-date">Apr 2, 2026</div>
+        </div>
+      </div>
+
+    </div>
+
     <div class="section-label">🔒 Security Reviews — Apr 3, 2026</div>
     <div class="card">
 
@@ -203,7 +282,7 @@
   </main>
 
   <footer class="max-w-3xl mx-auto mt-16 pb-8 text-center text-gray-600 text-xs">
-    Harold's Accomplishments &mdash; Updated Apr 3, 2026
+    Harold's Accomplishments &mdash; Updated Apr 4, 2026
   </footer>
 
 </body>
