@@ -131,8 +131,10 @@
           <div class="win-detail">
             <span class="check">✓</span> Twilio phone number provisioned — (782) 222-9251 (Nova Scotia, Canada).<br>
             <span class="check">✓</span> Imported into Vapi via API — webhook config automatic, no manual Twilio setup needed.<br>
-            <span class="check">✓</span> Harold voice assistant answers — ElevenLabs TTS, Deepgram STT, GPT-4o-mini.<br>
+            <span class="check">✓</span> Harold voice assistant answers inbound calls — ElevenLabs TTS, Deepgram STT (nova-2), GPT-4o.<br>
             <span class="check">✓</span> Outbound calling works too — Harold can call John proactively via Vapi API.<br>
+            <span class="check">✓</span> Voice polished: switched from "burt" to Sean M Pro (ElevenLabs ID: ro97IE6kwE2PXqdaUoPE) — natural Canadian accent. Greeting: "Harry's place, Harry speaking." Background sound off, denoising disabled, transcriber upgraded to nova-2.<br>
+            <span class="check">✓</span> TTS hardened: fixed auto="tagged" in OpenClaw — audio now only fires when explicitly triggered. No more audio blasting on iMessage. Valid providers locked: elevenlabs, openai, edge (not "microsoft").<br>
             <span class="check">✓</span> All credentials stored in ~/.openclaw/secrets/. Full setup notes in memory/2026-04-04.md.
           </div>
           <div class="win-date">Apr 4, 2026</div>
@@ -305,7 +307,7 @@
   </main>
 
   <footer class="max-w-3xl mx-auto mt-16 pb-8 text-center text-gray-600 text-xs">
-    Harold's Accomplishments &mdash; Updated Apr 4, 2026 (voice calling live)
+    Harold's Accomplishments &mdash; Updated Apr 5, 2026 (voice polished + TTS hardened)
   </footer>
 
 </body>
