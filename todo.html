@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background: #f5f6fa; color: #1a1d2e; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    .todo-item {
+      background: #ffffff;
+      border: 1px solid #e2e6f0;
+      border-radius: 12px;
+      padding: 14px 18px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .todo-item:hover {
+      border-color: #6366f1;
+      box-shadow: 0 4px 16px rgba(99, 102, 241, 0.1);
+    }
+    .todo-item.done { opacity: 0.5; }
+    .todo-item.done .todo-text { text-decoration: line-through; color: #9ca3af; }
+    .priority-tag {
+      display: inline-block; font-size: 10px; padding: 2px 8px;
+      border-radius: 99px; font-weight: 600; letter-spacing: 0.04em;
+      text-transform: uppercase; flex-shrink: 0;
+    }
+    .priority-high   { background: #fee2e2; color: #991b1b; }
+    .priority-medium { background: #fef3c7; color: #92400e; }
+    .priority-low    { background: #d1fae5; color: #065f46; }
+    .check-btn {
+      width: 24px; height: 24px; border-radius: 50%;
+      border: 2px solid #d1d5db; background: transparent;
+      cursor: pointer; flex-shrink: 0; display: flex;
+      align-items: center; justify-content: center; transition: all 0.15s;
+    }
+    .check-btn:hover { border-color: #6366f1; }
+    .check-btn.checked { background: #6366f1; border-color: #6366f1; }
+    .check-btn.checked::after { content: '✓'; color: white; font-size: 14px; font-weight: 700; }
+    .delete-btn {
+      opacity: 0; cursor: pointer; background: none; border: none;
+      color: #ef4444; font-size: 18px; padding: 4px 8px; flex-shrink: 0;
+      transition: opacity 0.15s;
+    }
+    .todo-item:hover .delete-btn { opacity: 1; }
+    .section-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: #9ca3af; margin-bottom: 8px; margin-top: 24px;
+    }
+    input[type="text"]:focus, select:focus {
+      outline: none; border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+    }
+    .sort-btn {
+      font-size: 12px; padding: 4px 12px; border-radius: 8px;
+      border: 1px solid #e2e6f0; background: #fff; cursor: pointer;
+      color: #6b7280; font-weight: 500; transition: all 0.15s;
+    }
+    .sort-btn:hover, .sort-btn.active { border-color: #6366f1; color: #6366f1; background: #eef2ff; }
+    .empty-state { text-align: center; padding: 48px 24px; color: #9ca3af; }
+  </style>
+</head>
+<body class="min-h-screen p-6 md:p-12">
+
+  <header class="max-w-2xl mx-auto mb-8">
+    <div class="flex items-center gap-3 mb-2">
+      <span class="text-3xl">✅</span>
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900">To-Do List</h1>
+    </div>
+    <p class="text-gray-400 text-sm">Track what needs doing. Check it off when it's done.</p>
+    <a href="/hub.html" class="text-indigo-500 text-sm hover:underline mt-1 inline-block">← Back to Hub</a>
+  </header>
+
+  <main class="max-w-2xl mx-auto">
+
+    <!-- Add form -->
+    <div class="flex gap-3 mb-6 flex-wrap sm:flex-nowrap">
+      <input type="text" id="todoInput" placeholder="What needs doing?"
+        class="flex-1 min-w-0 px-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-900 text-sm"
+        onkeydown="if(event.key==='Enter')addTodo()">
+      <select id="prioritySelect"
+        class="px-3 py-3 rounded-xl border border-gray-200 bg-white text-gray-700 text-sm cursor-pointer">
+        <option value="high">🔴 High</option>
+        <option value="medium" selected>🟡 Medium</option>
+        <option value="low">🟢 Low</option>
+      </select>
+      <button onclick="addTodo()"
+        class="px-5 py-3 rounded-xl bg-indigo-500 text-white text-sm font-semibold hover:bg-indigo-600 transition-colors flex-shrink-0">
+        + Add
+      </button>
+    </div>
+
+    <!-- Sort controls -->
+    <div class="flex items-center gap-2 mb-4">
+      <span class="text-xs text-gray-400 font-medium mr-1">Sort:</span>
+      <button class="sort-btn active" data-sort="priority" onclick="setSort('priority')">Priority</button>
+      <button class="sort-btn" data-sort="added" onclick="setSort('added')">Added</button>
+      <button class="sort-btn" data-sort="status" onclick="setSort('status')">Status</button>
+    </div>
+
+    <!-- Todo list -->
+    <div id="todoList" class="flex flex-col gap-3"></div>
+
+  </main>
+
+  <footer class="max-w-2xl mx-auto mt-16 pb-8 text-center text-gray-400 text-xs">
+    To-Do List &mdash; Data stored in your browser (localStorage)
+  </footer>
+
+  <script>
+    const STORAGE_KEY = 'hdl-todos';
+    let currentSort = 'priority';
+
+    function loadTodos() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+      catch { return []; }
+    }
+    function saveTodos(todos) { localStorage.setItem(STORAGE_KEY, JSON.stringify(todos)); }
+
+    function addTodo() {
+      const input = document.getElementById('todoInput');
+      const text = input.value.trim();
+      if (!text) return;
+      const priority = document.getElementById('prioritySelect').value;
+      const todos = loadTodos();
+      todos.push({ id: Date.now(), text, priority, done: false, created: Date.now() });
+      saveTodos(todos);
+      input.value = '';
+      render();
+    }
+
+    function toggleTodo(id) {
+      const todos = loadTodos();
+      const t = todos.find(x => x.id === id);
+      if (t) t.done = !t.done;
+      saveTodos(todos);
+      render();
+    }
+
+    function deleteTodo(id) {
+      saveTodos(loadTodos().filter(x => x.id !== id));
+      render();
+    }
+
+    function setSort(sort) {
+      currentSort = sort;
+      document.querySelectorAll('.sort-btn').forEach(b =>
+        b.classList.toggle('active', b.dataset.sort === sort));
+      render();
+    }
+
+    function sortTodos(todos) {
+      const pOrder = { high: 0, medium: 1, low: 2 };
+      const sorted = [...todos];
+      if (currentSort === 'priority') {
+        sorted.sort((a, b) => (a.done - b.done) || (pOrder[a.priority] - pOrder[b.priority]) || (b.created - a.created));
+      } else if (currentSort === 'added') {
+        sorted.sort((a, b) => (a.done - b.done) || (b.created - a.created));
+      } else if (currentSort === 'status') {
+        sorted.sort((a, b) => (a.done - b.done) || (pOrder[a.priority] - pOrder[b.priority]));
+      }
+      return sorted;
+    }
+
+    function render() {
+      const todos = sortTodos(loadTodos());
+      const list = document.getElementById('todoList');
+      if (todos.length === 0) {
+        list.innerHTML = '<div class="empty-state"><p class="text-lg mb-1">Nothing here yet</p><p class="text-sm">Add your first to-do above ☝️</p></div>';
+        return;
+      }
+      list.innerHTML = todos.map(t => `
+        <div class="todo-item ${t.done ? 'done' : ''}">
+          <button class="check-btn ${t.done ? 'checked' : ''}" onclick="toggleTodo(${t.id})" title="Toggle"></button>
+          <span class="todo-text flex-1 text-sm text-gray-900">${escHtml(t.text)}</span>
+          <span class="priority-tag priority-${t.priority}">${t.priority}</span>
+          <button class="delete-btn" onclick="deleteTodo(${t.id})" title="Delete">✕</button>
+        </div>
+      `).join('');
+    }
+
+    function escHtml(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+    render();
+  </script>
+
+</body>
+</html>
