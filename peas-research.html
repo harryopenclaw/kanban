@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PEAS — Company Research Brief</title>
+<style>
+  :root { --bg: #FAFAF8; --card: #FFFFFF; --accent: #2D6A4F; --accent2: #40916C; --text: #1a1a1a; --text2: #555; --text3: #888; --border: #E8E8E4; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .container { max-width: 900px; margin: 0 auto; padding: 40px 24px; }
+  .header { text-align: center; margin-bottom: 48px; }
+  .header h1 { font-size: 2.4rem; font-weight: 800; letter-spacing: -0.03em; color: var(--accent); }
+  .header .subtitle { font-size: 1rem; color: var(--text2); margin-top: 6px; }
+  .header .tagline { font-size: 1.15rem; font-weight: 600; color: var(--text); margin-top: 12px; }
+  .header .url { font-size: 0.85rem; color: var(--accent2); margin-top: 8px; }
+  .header .url a { color: var(--accent2); text-decoration: none; }
+  .stats { display: flex; justify-content: center; gap: 40px; margin: 32px 0 40px; flex-wrap: wrap; }
+  .stat { text-align: center; }
+  .stat .num { font-size: 2rem; font-weight: 800; color: var(--accent); }
+  .stat .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text3); font-weight: 600; }
+  .section { margin-bottom: 36px; }
+  .section-title { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent2); font-weight: 700; margin-bottom: 12px; padding-bottom: 6px; border-bottom: 2px solid var(--accent); display: inline-block; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 16px; }
+  .card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+  .card p, .card li { font-size: 0.9rem; color: var(--text2); }
+  .card ul { padding-left: 20px; margin-top: 8px; }
+  .card li { margin-bottom: 4px; }
+  .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
+  .team-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .team-card .name { font-weight: 700; font-size: 1rem; }
+  .team-card .role { font-size: 0.8rem; color: var(--accent2); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+  .team-card .bio { font-size: 0.85rem; color: var(--text2); }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+  .service-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-align: center; }
+  .service-card .icon { font-size: 1.8rem; margin-bottom: 8px; }
+  .service-card h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 6px; }
+  .service-card p { font-size: 0.8rem; color: var(--text2); }
+  .quote { background: var(--accent); color: white; border-radius: 12px; padding: 28px 32px; margin-bottom: 16px; }
+  .quote p { font-size: 0.9rem; line-height: 1.7; font-style: italic; }
+  .quote .author { font-size: 0.8rem; font-weight: 700; margin-top: 12px; font-style: normal; opacity: 0.9; }
+  .partners-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+  .partner { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+  .partner .pname { font-weight: 700; font-size: 0.9rem; margin-bottom: 4px; }
+  .partner .pdesc { font-size: 0.8rem; color: var(--text2); }
+  .links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+  .link-btn { display: inline-block; padding: 10px 20px; background: var(--accent); color: white; text-decoration: none; border-radius: 8px; font-size: 0.85rem; font-weight: 600; }
+  .link-btn:hover { background: var(--accent2); }
+  .link-btn.outline { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
+  .footer { text-align: center; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 0.75rem; color: var(--text3); }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>P.E.A.S.</h1>
+    <div class="subtitle">Professional Executive Associates</div>
+    <div class="tagline">Executive Support That Clears Your Path to Lead</div>
+    <div class="url"><a href="https://www.yourpeas.com" target="_blank">yourpeas.com</a> &middot; HubSpot-hosted &middot; Atlantic Canada</div>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="num">10+</div><div class="label">Hours saved / week</div></div>
+    <div class="stat"><div class="num">95%</div><div class="label">Project delivery rate</div></div>
+    <div class="stat"><div class="num">50+</div><div class="label">Executive partnerships</div></div>
+    <div class="stat"><div class="num">15+</div><div class="label">Years experience</div></div>
+  </div>
+  <div class="section">
+    <div class="section-title">What They Do</div>
+    <div class="card">
+      <h3>Executive-Level Virtual Assistance &amp; Operations</h3>
+      <p>PEAS partners with CEOs, owners, and senior executives to provide strategic support and operational excellence. Not task-based VAs &mdash; they operate proactively with ownership over priorities, follow-through, and coordination across the business.</p>
+      <p style="margin-top:12px; font-weight:600;">Key differentiator: They position themselves between leadership and the organization &mdash; translating decisions into aligned priorities and disciplined execution.</p>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">Core Services</div>
+    <div class="services-grid">
+      <div class="service-card"><div class="icon">📋</div><h4>Executive Assistance</h4><p>Strategic partner for daily operations, priorities, decisions, documentation.</p></div>
+      <div class="service-card"><div class="icon">📈</div><h4>Sales &amp; Business Dev</h4><p>Pipeline management, follow-up, sales enablement support.</p></div>
+      <div class="service-card"><div class="icon">🎯</div><h4>Fractional Chief of Staff</h4><p>Coordination, alignment, execution between leadership and teams.</p></div>
+      <div class="service-card"><div class="icon">🗂️</div><h4>Project Management</h4><p>Multi-stakeholder coordination, deliverable tracking, budget management.</p></div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">Proprietary Framework</div>
+    <div class="card">
+      <h3>Executive Leverage Framework</h3>
+      <p>Structured approach to clarify roles, improve communication, and unlock the full value of the CEO-EA relationship. Focuses on clarity, structure, and alignment so both leader and EA perform at the highest level.</p>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">The Team</div>
+    <div class="team-grid">
+      <div class="team-card"><div class="name">Shari Montgomery</div><div class="role">Associate EA</div><div class="bio">15+ years remote business support, marketing, premium VA. Previously corporate EA. Supported CEOs and entrepreneurs in Canada, US, abroad. Based in New Brunswick.</div></div>
+      <div class="team-card"><div class="name">Michelle Skerry</div><div class="role">Associate EA</div><div class="bio">15+ years supporting wellness, coaching, service businesses. Former mobile spa owner. Email/calendar, CRM, process organization specialist.</div></div>
+      <div class="team-card"><div class="name">Jamie Sealy</div><div class="role">Associate EA</div><div class="bio">CRM/ERP implementation, business development, workflow, bookkeeping. 4+ years fully remote, 16+ years admin &amp; project coordination. Based in Nova Scotia.</div></div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">Client Testimonials</div>
+    <div class="quote">
+      <p>"Before working with PEAS, I was managing nearly everything myself. The business was at a standstill. Over four years, PEAS worked as an extension of our team. In only two years, we realized a dramatic increase in profitability. Without PEAS' support, this growth would not have happened at such an accelerated pace."</p>
+      <div class="author">&mdash; Vision Coaching (CEO)</div>
+    </div>
+    <div class="quote" style="background: var(--accent2);">
+      <p>"Their expertise, professionalism, and collaborative approach were invaluable in keeping the project on track and within budget. They broke down a large, complex initiative into actionable steps and ensured steady progress. We highly recommend PEAS to any organization seeking experienced, reliable, and results-oriented project management support."</p>
+      <div class="author">&mdash; Chrystal Fuller, Brighter Community Planning &amp; Consulting</div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">Partner Network</div>
+    <div class="partners-grid">
+      <div class="partner"><div class="pname">Otters</div><div class="pdesc">Partner engagement platform for structured revenue</div></div>
+      <div class="partner"><div class="pname">uptree HR</div><div class="pdesc">HR partner for Atlantic Canadian businesses</div></div>
+      <div class="partner"><div class="pname">Procedure Flow</div><div class="pdesc">Visual knowledge management</div></div>
+      <div class="partner"><div class="pname">Growth Effekt</div><div class="pdesc">Tailored outreach strategies</div></div>
+      <div class="partner"><div class="pname">Epic Digital</div><div class="pdesc">HubSpot-integrated marketing agency</div></div>
+      <div class="partner"><div class="pname">BoardPAC</div><div class="pdesc">Board meeting automation</div></div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">Online Presence</div>
+    <div class="card">
+      <h3>Digital Footprint</h3>
+      <ul>
+        <li><strong>Website:</strong> yourpeas.com &mdash; clean, professional, HubSpot CMS with CTA for free 30-min consultation</li>
+        <li><strong>LinkedIn:</strong> Company page active (linked from site footer)</li>
+        <li><strong>Google Reviews:</strong> No Google Business listing found &mdash; virtual/remote company, no storefront</li>
+        <li><strong>Tech Stack:</strong> HubSpot CMS + CRM (forms, CTAs, tracking)</li>
+        <li><strong>Content:</strong> Blog/Insights section referenced but currently 404 &mdash; likely in development</li>
+      </ul>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">Key Observations</div>
+    <div class="card">
+      <h3>Business Profile Summary</h3>
+      <ul>
+        <li><strong>Target market:</strong> CEOs, founders, CXOs &mdash; executive-level strategic support, not small business admin</li>
+        <li><strong>Geography:</strong> Atlantic Canada base, serve clients across Canada and US</li>
+        <li><strong>Model:</strong> Associate-based &mdash; curated network of specialist EAs, not a staffing agency</li>
+        <li><strong>Positioning:</strong> Premium &mdash; "proactive, not reactive" differentiates from typical VA services</li>
+        <li><strong>Sales approach:</strong> Free 30-min consultation, no commitment</li>
+        <li><strong>Maturity:</strong> Established &mdash; 50+ partnerships, 15+ years collective experience</li>
+        <li><strong>Growth signals:</strong> Executive Leverage Framework = building IP / scalable methodology</li>
+        <li><strong>Gaps:</strong> No blog content live, no Google reviews, LinkedIn details behind auth wall</li>
+      </ul>
+    </div>
+  </div>
+  <div class="section" style="text-align:center;">
+    <div class="links" style="justify-content:center;">
+      <a href="https://www.yourpeas.com" target="_blank" class="link-btn">Website</a>
+      <a href="https://www.yourpeas.com/services" target="_blank" class="link-btn outline">Services</a>
+      <a href="https://www.yourpeas.com/executive-leverage-framework" target="_blank" class="link-btn outline">Framework</a>
+      <a href="https://www.yourpeas.com/about" target="_blank" class="link-btn outline">Team</a>
+    </div>
+  </div>
+  <div class="footer">Research compiled April 8, 2026 &middot; Sources: yourpeas.com, LinkedIn, Google</div>
+</div>
+</body>
+</html>
