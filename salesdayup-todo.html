@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SalesDayUp — Todo List</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background: #f5f6fa; color: #1a1d2e; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    .task-done label { text-decoration: line-through; color: #9ca3af; }
+    .section-card { background: #fff; border: 1px solid #e2e6f0; border-radius: 12px; padding: 20px 24px; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
+    .section-title { font-size: 14px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 12px; }
+    .tag { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 99px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+    .tag-done { background: #d1fae5; color: #065f46; }
+    .tag-todo { background: #fef3c7; color: #92400e; }
+    .tag-test { background: #ede9fe; color: #6d28d9; }
+    .tag-p1 { background: #fee2e2; color: #991b1b; }
+    .task-item { display: flex; align-items: flex-start; gap: 10px; padding: 6px 0; }
+    .task-item input[type="checkbox"] { margin-top: 4px; width: 18px; height: 18px; accent-color: #6366f1; cursor: pointer; flex-shrink: 0; }
+    .task-item label { cursor: pointer; font-size: 14px; line-height: 1.5; }
+    .progress-bar { background: #e5e7eb; border-radius: 99px; height: 8px; overflow: hidden; margin-bottom: 8px; }
+    .progress-fill { background: linear-gradient(90deg, #6366f1, #8b5cf6); height: 100%; border-radius: 99px; transition: width 0.3s; }
+    .counter { font-size: 12px; color: #9ca3af; margin-bottom: 16px; }
+    a.back { color: #6366f1; text-decoration: none; font-size: 13px; }
+    a.back:hover { text-decoration: underline; }
+  </style>
+</head>
+<body class="min-h-screen p-6 md:p-12">
+
+  <header class="max-w-3xl mx-auto mb-8">
+    <a href="hub.html" class="back">← Back to Hub</a>
+    <div class="flex items-center gap-3 mt-4 mb-2">
+      <span class="text-3xl">🚗</span>
+      <h1 class="text-3xl font-bold text-gray-900">SalesDayUp — Todo</h1>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="counter" id="counter"></div>
+  </header>
+
+  <main class="max-w-3xl mx-auto">
+
+    <!-- COMPLETED ITEMS -->
+    <div class="section-card">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="section-title text-green-700">✅ Completed</span>
+        <span class="tag tag-done">Shipped</span>
+      </div>
+      <div id="done-section">
+        <div class="task-item task-done"><input type="checkbox" checked disabled><label>All 8 security/P1-P3 fixes (self-reg, XSS, Twilio, BasicAuth)</label></div>
+        <div class="task-item task-done"><input type="checkbox" checked disabled><label>Hostile review — 18 items fixed</label></div>
+        <div class="task-item task-done"><input type="checkbox" checked disabled><label>Tenant → Dealership rename</label></div>
+        <div class="task-item task-done"><input type="checkbox" checked disabled><label>Customer phone capture</label></div>
+        <div class="task-item task-done"><input type="checkbox" checked disabled><label>QA batch — greeter form layout, visit types compact, staff sort, dashboard daily reset, FK delete errors</label></div>
+        <div class="task-item task-done"><input type="checkbox" checked disabled><label>High-priority batch — query filters, soft-delete visits, Twilio encryption, pagination</label></div>
+        <div class="task-item task-done"><input type="checkbox" checked disabled><label>Visit type max 8, grouped, compact layout</label></div>
+        <div class="task-item task-done"><input type="checkbox" checked disabled><label>Auto-select default closing message</label></div>
+        <div class="task-item task-done"><input type="checkbox" checked disabled><label>Staff sort order on greeter screen</label></div>
+        <div class="task-item task-done"><input type="checkbox" checked disabled><label>Dashboard stats reset daily at midnight</label></div>
+      </div>
+    </div>
+
+    <!-- DOUBLE-CHECK / TESTING (from Shannon's emails) -->
+    <div class="section-card">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="section-title text-purple-700">🧪 Double-Check All Testing &amp; Client Requests</span>
+        <span class="tag tag-test">Verify</span>
+      </div>
+      <div id="test-section">
+        <div class="task-item"><input type="checkbox" data-key="t1"><label>Customer name field — is it prominent/large enough as primary data point?</label></div>
+        <div class="task-item"><input type="checkbox" data-key="t2"><label>Customer phone entry box — verify it works, proper format validation</label></div>
+        <div class="task-item"><input type="checkbox" data-key="t3"><label>Notes field — confirm it's directly under customer name and phone</label></div>
+        <div class="task-item"><input type="checkbox" data-key="t4"><label>Visit types — additional types showing up? All grouped, max 8, compact screen</label></div>
+        <div class="task-item"><input type="checkbox" data-key="t5"><label>Salesperson dropdown on left — confirm it's REMOVED (right-side list only)</label></div>
+        <div class="task-item"><input type="checkbox" data-key="t6"><label>Salesperson sort order — daily order based on who comes in first, same as SMS closing sort</label></div>
+        <div class="task-item"><input type="checkbox" data-key="t7"><label>Next Up indicator — verify it's visible and rotating correctly</label></div>
+        <div class="task-item"><input type="checkbox" data-key="t8"><label>Default closing message — auto-selected, dropdown only for alternates (fewer clicks)</label></div>
+        <div class="task-item"><input type="checkbox" data-key="t9"><label>Delete users — no error on SuperAdmin login after deleting test users</label></div>
+        <div class="task-item"><input type="checkbox" data-key="t10"><label>Tenants → Dealerships — all labels renamed everywhere</label></div>
+        <div class="task-item"><input type="checkbox" data-key="t11"><label>Dashboard reset — starts fresh each day at midnight</label></div>
+        <div class="task-item"><input type="checkbox" data-key="t12"><label>"Greet Customer" → "Welcome Customer", subtext: "Select type of visit and contact salesperson"</label></div>
+      </div>
+    </div>
+
+    <!-- CODE CLEANUP -->
+    <div class="section-card">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="section-title text-amber-700">🔧 Code Cleanup</span>
+        <span class="tag tag-todo">Todo</span>
+      </div>
+      <div id="cleanup-section">
+        <div class="task-item"><input type="checkbox" data-key="c1"><label>DbMigrator cleanup (password from AppOptions, extra SaveChanges, seed vs register)</label></div>
+        <div class="task-item"><input type="checkbox" data-key="c2"><label>Claim constants — hardcoded in 3 places, extract to constants class</label></div>
+        <div class="task-item"><input type="checkbox" data-key="c3"><label>Merge GreetViewModel + CreateVisitViewModel into one</label></div>
+        <div class="task-item"><input type="checkbox" data-key="c4"><label>CSV export → CsvHelper or Sep library</label></div>
+        <div class="task-item"><input type="checkbox" data-key="c5"><label>PopulateModel vs ajax endpoint duplication — DRY up</label></div>
+        <div class="task-item"><input type="checkbox" data-key="c6"><label>Remove unused interfaces (ITenantContext, ITwilioService, DbContextFactory)</label></div>
+        <div class="task-item"><input type="checkbox" data-key="c7"><label>AutoMapper — most mappings still manual, clean up or remove</label></div>
+        <div class="task-item"><input type="checkbox" data-key="c8"><label>Timezone handling — no end-user conversion yet</label></div>
+        <div class="task-item"><input type="checkbox" data-key="c9"><label>Separate dev/prod GitHub workflows</label></div>
+      </div>
+    </div>
+
+    <!-- FEATURES / UI -->
+    <div class="section-card">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="section-title text-blue-700">🚀 Features &amp; UI</span>
+        <span class="tag tag-todo">Todo</span>
+      </div>
+      <div id="feature-section">
+        <div class="task-item"><input type="checkbox" data-key="f1"><label>Soft-delete / archive for Users, Staff, and Dealerships — hidden by default</label></div>
+        <div class="task-item"><input type="checkbox" data-key="f2"><label>Availability management for salespeople (time of day, days off)</label></div>
+        <div class="task-item"><input type="checkbox" data-key="f3"><label>Co-branding per dealer (logo, colors on tenant)</label></div>
+        <div class="task-item"><input type="checkbox" data-key="f4"><label>Email / SendGrid for password reset</label></div>
+        <div class="task-item"><input type="checkbox" data-key="f5"><label>Role assignment after signup (currently errors)</label></div>
+        <div class="task-item"><input type="checkbox" data-key="f6"><label>Visit log — default to past day</label></div>
+        <div class="task-item"><input type="checkbox" data-key="f7"><label>Login error box styling fix</label></div>
+        <div class="task-item"><input type="checkbox" data-key="f8"><label>Google sign-in tiny image</label></div>
+        <div class="task-item"><input type="checkbox" data-key="f9"><label>ForgotPassword styling</label></div>
+        <div class="task-item"><input type="checkbox" data-key="f10"><label>DataTable styling</label></div>
+        <div class="task-item"><input type="checkbox" data-key="f11"><label>VisitType styling (varying sizes)</label></div>
+        <div class="task-item"><input type="checkbox" data-key="f12"><label>Two salesperson inputs on create visit — remove dropdown</label></div>
+        <div class="task-item"><input type="checkbox" data-key="f13"><label>Date wrapping on visit log</label></div>
+        <div class="task-item"><input type="checkbox" data-key="f14"><label>Wrong timezone in visit log</label></div>
+        <div class="task-item"><input type="checkbox" data-key="f15"><label>"Greet Customer" → "Welcome Customer" + subtext update</label></div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="max-w-3xl mx-auto mt-12 pb-8 text-center text-gray-400 text-xs">
+    SalesDayUp Todo — Updated Apr 14, 2026 · Checkmarks saved in your browser
+  </footer>
+
+  <script>
+    const STORAGE_KEY = 'salesdayup-todo-state';
+
+    function loadState() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; }
+    }
+
+    function saveState(state) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function updateProgress() {
+      const all = document.querySelectorAll('input[data-key]');
+      const checked = document.querySelectorAll('input[data-key]:checked');
+      const done = document.querySelectorAll('#done-section input').length;
+      const total = all.length + done;
+      const completed = checked.length + done;
+      const pct = Math.round((completed / total) * 100);
+      document.getElementById('progressFill').style.width = pct + '%';
+      document.getElementById('counter').textContent = completed + ' / ' + total + ' done (' + pct + '%)';
+    }
+
+    function init() {
+      const state = loadState();
+      const boxes = document.querySelectorAll('input[data-key]');
+      boxes.forEach(box => {
+        const key = box.dataset.key;
+        if (state[key]) {
+          box.checked = true;
+          box.closest('.task-item').classList.add('task-done');
+        }
+        box.addEventListener('change', () => {
+          const s = loadState();
+          s[key] = box.checked;
+          saveState(s);
+          box.closest('.task-item').classList.toggle('task-done', box.checked);
+          updateProgress();
+        });
+      });
+      updateProgress();
+    }
+
+    init();
+  </script>
+</body>
+</html>
